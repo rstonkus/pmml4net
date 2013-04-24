@@ -2,22 +2,21 @@
  * Created by SharpDevelop.
  * User: Damien
  * Date: 24/04/2013
- * Time: 11:29
+ * Time: 11:37
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
-using System.Collections.Generic;
-using NUnit.Framework;
 
-namespace pmml4net.tests
+namespace pmml4net
 {
 	/// <summary>
-	/// Description of MyClass.
+	/// Description of Node.
 	/// </summary>
-	[TestFixture()]
-	public class MyClass
+	public class Node
 	{
-		
+		public Node()
+		{
+		}
 	}
 }

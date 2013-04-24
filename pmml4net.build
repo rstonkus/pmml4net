@@ -23,7 +23,7 @@
 				<include name="System.dll"/>
 			</references>
 			<sources basedir="src/pmml4net" >
-				<include name="src/**/*.cs" />
+				<include name="**/*.cs" />
 			</sources>
 
 		</csc>
@@ -57,100 +57,13 @@
 	<target name="package" depends="compile" >
 		<mkdir dir="${dist.dir}" />
 
-		<copy file="src/Blitz.FnciConcentrateur/fnci-prod.properties" todir="${build.dir}" />
-		<copy file="src/Blitz.FnciConcentrateur/fnci-backup.properties" todir="${build.dir}" />
-		<copy file="src/Blitz.FnciConcentrateur/conf.properties" tofile="${build.dir}/fnci-con.properties" />
-		<copy file="src/Blitz.FnciConcentrateur/log4net.conf.xml" tofile="${build.dir}/log4net.conf.xml" />
-		<copy file="src/Blitz.FnciConcentrateur/s_rsa_nopass_ca1.pfx" tofile="${build.dir}/s_rsa_nopass_ca1.pfx" />
-		<copy file="src/Blitz.Protocol.Bap/bap.cgt" todir="${build.dir}" />
-		<zip zipfile="${dist.dir}/Blitz.FnciConcentrateur.zip">
+		<zip zipfile="${dist.dir}/pmml4net.zip">
 			<fileset basedir="${build.dir}" >
-				<include name="log4net.dll" />
-				<include name="cert_racine_mediacert.cer" />
-				<include name="s_rsa_nopass_ca1.pfx" />
-				<include name="fnci-prod.properties" />
-				<include name="fnci-backup.properties" />
-				<include name="fnci-con.properties" />
-				<include name="log4net.conf.xml" />
-				<include name="Blitz.Protocol.Bap.dll" />
-				<include name="Blitz.FnciConcentrateur.exe" />
-				<include name="Blitz.ServeurTempsReel.Business.dll" />
-				<include name="Blitz.ServeurTempsReel.Dal.dll" />
-				<include name="Blitz.ServeurTempsReel.Domain.dll" />
-				<include name="Blitz.ServeurTempsReel.Service.dll"/>
-				<include name="CalithaLib.dll" />
-				<include name="GoldParserEngine.dll" />
-				<include name="bap.cgt" />
-				<include name="BouncyCastle.Crypto.dll" />
-			</fileset>
-		</zip>
-
-		<copy file="src/Blitz.ServeurTempsReel/fnci-prod.properties" todir="${build.dir}" />
-		<copy file="src/Blitz.ServeurTempsReel/fnci-backup.properties" todir="${build.dir}" />
-		<copy file="src/Blitz.ServeurTempsReel/conf.properties" tofile="${build.dir}/str.properties" />
-		<copy file="src/Blitz.ServeurTempsReel/log4net.conf.xml" todir="${build.dir}" />
-		<copy file="src/Blitz.Protocol.Bap/bap.cgt" todir="${build.dir}" />
-
-		<zip zipfile="${dist.dir}/Blitz.ServeurTempsReel.zip">
-			<fileset basedir="${build.dir}" >
-				<include name="log4net.dll" />
-				<include name="cert_racine_mediacert.cer" />
-				<include name="fnci-prod.properties" />
-				<include name="fnci-backup.properties" />
-				<include name="str.properties" />
-				<include name="log4net.conf.xml" />
-				<include name="Blitz.Protocol.Chpn.dll" />
-				<include name="Blitz.Protocol.Bap.dll" />
-				<include name="Blitz.Protocol.Btr.dll" />
-				<include name="Blitz.ServeurTempsReel.exe" />
-				<include name="Blitz.ServeurTempsReel.Business.dll" />
-				<include name="Blitz.ServeurTempsReel.Dal.dll" />
-				<include name="Blitz.ServeurTempsReel.Domain.dll" />
-				<include name="Blitz.ServeurTempsReel.Service.dll"/>
-				<include name="Blitz.ServeurTempsReel.Casino.dll" />
-				<include name="Blitz.ServeurTempsReel.Franprix.dll" />
-				<include name="CalithaLib.dll" />
-				<include name="GoldParserEngine.dll" />
-				<include name="bap.cgt" />
-				<include name="Blitz.ServeurTempsReel.BanqueAccord.dll"/>
-				<include name="BouncyCastle.Crypto.dll" />
+				<include name="pmml4net.dll" />
 				<include name="KopiLua.dll" />
 			</fileset>
 		</zip>
 
-	</target>
-
-	<property name="ws.deploy.dir" value="ws-deploy" />
-	<target name="package-ws" depends="compile-pmml4net-ws" >
-		<mkdir dir="${ws.deploy.dir}" />
-
-		<copy file="src/Blitz.ServeurTempsReel.WebServices/Web.config" todir="${ws.deploy.dir}" />
-		<copy todir="${ws.deploy.dir}">
-			<fileset basedir="src/Blitz.ServeurTempsReel.WebServices">
-				<include name="*.ashx"/>
-				<include name="*.asax"/>
-			</fileset>
-		</copy>
-
-		<copy todir="${ws.deploy.dir}/bin" >
-			<fileset basedir="${build.dir}" >
-				<include name="log4net.dll"/>
-				<include name="Newtonsoft.Json.dll"/>
-				<include name="Blitz.ServeurTempsReel.Dal.dll"/>
-				<include name="Blitz.ServeurTempsReel.Domain.dll" />
-				<include name="Blitz.ServeurTempsReel.Service.dll"/>
-				<include name="Blitz.ServeurTempsReel.Business.dll"/>
-				<include name="Blitz.ServeurTempsReel.WebServices.dll"/>
-			</fileset>
-		</copy>
-
-		<zip zipfile="${dist.dir}/Blitz.ServeurTempsReel.WebServices.zip">
-			<fileset basedir="${ws.deploy.dir}" >
-				<include name="**/*.*" />
-			</fileset>
-		</zip>
-
-		<delete dir="${ws.deploy.dir}" />
 	</target>
 
 	<target name="compile" depends="init compile-pmml4net" >

@@ -7,9 +7,29 @@ Target framework: Microsoft .NET Framework 2.0
 Target(s) specified: dist 
 
 
+clean:
+
+   [delete] Deleting directory 'C:\Developpement\Applications\pmml4net\build'.
+
+init:
+
+    [mkdir] Creating directory 'C:\Developpement\Applications\pmml4net\build'.
+
+compile-pmml4net:
+
+      [csc] Compiling 4 files to 'C:\Developpement\Applications\pmml4net\build\pmml4net.dll'.
+
+compile:
+
+
+package:
+
+    [mkdir] Creating directory 'C:\Developpement\Applications\pmml4net\dist'.
+
 BUILD FAILED
 
-Target 'compile-pmml4net-ws' does not exist in this project. It is used from target 'package-ws'.
+C:\Developpement\Applications\pmml4net\pmml4net.build(60,4):
+Could not find file 'C:\Developpement\Applications\pmml4net\src\Blitz.FnciConcentrateur\fnci-prod.properties' to copy.
 
-Total time: 0 seconds.
+Total time: 0.4 seconds.
 
