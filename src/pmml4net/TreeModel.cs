@@ -17,6 +17,9 @@ namespace pmml4net
 	{
 		private String modelName;
 		
+		/// <summary>
+		/// Identifies the model with a unique name in the context of the PMML file.
+		/// </summary>
 		public String ModelName { get { return modelName; } set { modelName = value; } }
 	}
 }
