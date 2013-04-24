@@ -2,30 +2,20 @@
  * Created by SharpDevelop.
  * User: Damien
  * Date: 24/04/2013
- * Time: 11:49
+ * Time: 15:14
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
-
 using NUnit.Framework;
-
-using pmml4net;
 
 namespace pmml4net.tests
 {
 	/// <summary>
-	/// Description of PmmlTest.
+	/// Description of TreeModelTest.
 	/// </summary>
-	[TestFixture()]
-	public class PmmlTest
+	public class TreeModelTest
 	{
-		[TestCase("test-golfing1.xml")]
-		public void LoadModelsTest(string pFilePath)
-		{
-			Assert.NotNull(Pmml.loadModels(pFilePath));
-		}
-		
 		[TestCase("test-golfing1.xml")]
 		public void TreeModelsTest(string pFilePath)
 		{
@@ -33,7 +23,7 @@ namespace pmml4net.tests
 			
 			Assert.NotNull(pmml);
 			
-			Assert.NotNull(pmml.getByName("golfing"));
+			Assert.AreEqual(pmml.TreeModels.Count, 1);
 		}
 	}
 }

@@ -18,20 +18,12 @@ init:
 compile-pmml4net:
 
       [csc] Compiling 4 files to 'C:\Developpement\Applications\pmml4net\build\pmml4net.dll'.
+      [csc] c:\Developpement\Applications\pmml4net\src\pmml4net\TreeModel.cs(20,17): error CS1591: Avertissement en tant qu'erreurÿ: Commentaire XML absent pour un type ou membre visible publiquement 'pmml4net.TreeModel.ModelName'
 
-compile-pmml4net-tests:
+BUILD FAILED
 
-     [copy] Copying 1 file to 'C:\Developpement\Applications\pmml4net\build\'.
-      [csc] Compiling 2 files to 'C:\Developpement\Applications\pmml4net\build\pmml4net.tests.dll'.
+C:\Developpement\Applications\pmml4net\pmml4net.build(18,4):
+External Program Failed: C:\Windows\Microsoft.NET\Framework64\v2.0.50727\csc.exe (return code was 1)
 
-compileTest:
-
-
-test:
-
-     [copy] Copying 1 file to 'C:\Developpement\Applications\pmml4net\build'.
-
-BUILD SUCCEEDED
-
-Total time: 1.7 seconds.
+Total time: 0.3 seconds.
 

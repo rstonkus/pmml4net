@@ -15,5 +15,8 @@ namespace pmml4net
 	/// </summary>
 	public class TreeModel
 	{
+		private String modelName;
+		
+		public String ModelName { get { return modelName; } set { modelName = value; } }
 	}
 }
