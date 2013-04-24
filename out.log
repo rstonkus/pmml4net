@@ -24,12 +24,12 @@ compile:
 
 package:
 
-    [mkdir] Creating directory 'C:\Developpement\Applications\pmml4net\dist'.
+      [zip] Zipping 2 files to 'C:\Developpement\Applications\pmml4net\dist\pmml4net.zip'.
 
-BUILD FAILED
+dist:
 
-C:\Developpement\Applications\pmml4net\pmml4net.build(60,4):
-Could not find file 'C:\Developpement\Applications\pmml4net\src\Blitz.FnciConcentrateur\fnci-prod.properties' to copy.
 
-Total time: 0.4 seconds.
+BUILD SUCCEEDED
+
+Total time: 0.5 seconds.
 

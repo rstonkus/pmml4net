@@ -15,8 +15,5 @@ namespace pmml4net
 	/// </summary>
 	public class Pmml
 	{
-		public Pmml()
-		{
-		}
 	}
 }

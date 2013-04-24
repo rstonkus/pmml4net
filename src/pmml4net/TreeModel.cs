@@ -15,8 +15,5 @@ namespace pmml4net
 	/// </summary>
 	public class TreeModel
 	{
-		public TreeModel()
-		{
-		}
 	}
 }
