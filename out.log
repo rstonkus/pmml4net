@@ -4,7 +4,7 @@ http://nant.sourceforge.net
 
 Buildfile: file:///C:/Developpement/Applications/pmml4net/pmml4net.build
 Target framework: Microsoft .NET Framework 2.0
-Target(s) specified: dist 
+Target(s) specified: test 
 
 
 clean:
@@ -17,19 +17,16 @@ init:
 
 compile-pmml4net:
 
-      [csc] Compiling 4 files to 'C:\Developpement\Applications\pmml4net\build\pmml4net.dll'.
+      [csc] Compiling 6 files to 'C:\Developpement\Applications\pmml4net\build\pmml4net.dll'.
 
-compile:
+compile-pmml4net-tests:
 
+     [copy] Copying 1 file to 'C:\Developpement\Applications\pmml4net\build\'.
+      [csc] Compiling 3 files to 'C:\Developpement\Applications\pmml4net\build\pmml4net.tests.dll'.
 
-package:
-
-      [zip] Zipping 2 files to 'C:\Developpement\Applications\pmml4net\dist\pmml4net.zip'.
-
-dist:
+compileTest:
 
 
-BUILD SUCCEEDED
+test:
 
-Total time: 0.5 seconds.
-
+     [copy] Copying 1 file to 'C:\Developpement\Applications\pmml4net\build'.

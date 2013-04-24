@@ -26,7 +26,7 @@ namespace pmml4net
 		/// </summary>
 		public IList<TreeModel> TreeModels 
 		{ 
-			get { return TreeModels; }
+			get { return treeModels; }
 		}
 		
 		/// <summary>
