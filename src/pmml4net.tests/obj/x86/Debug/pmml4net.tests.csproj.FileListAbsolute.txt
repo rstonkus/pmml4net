@@ -1,8 +1,0 @@
-C:\Developpement\Applications\pmml4net\src\pmml4net.tests\bin\Debug\test-golfing1.xml
-C:\Developpement\Applications\pmml4net\src\pmml4net.tests\bin\Debug\pmml4net.tests.dll
-C:\Developpement\Applications\pmml4net\src\pmml4net.tests\bin\Debug\pmml4net.tests.pdb
-C:\Developpement\Applications\pmml4net\src\pmml4net.tests\bin\Debug\nunit.framework.dll
-C:\Developpement\Applications\pmml4net\src\pmml4net.tests\bin\Debug\nunit.framework.xml
-C:\Developpement\Applications\pmml4net\src\pmml4net.tests\obj\x86\Debug\pmml4net.tests.csprojResolveAssemblyReference.cache
-C:\Developpement\Applications\pmml4net\src\pmml4net.tests\obj\x86\Debug\pmml4net.tests.dll
-C:\Developpement\Applications\pmml4net\src\pmml4net.tests\obj\x86\Debug\pmml4net.tests.pdb

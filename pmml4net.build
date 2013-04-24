@@ -30,28 +30,22 @@
 	</target>
 	
 	<target name="compile-pmml4net-tests" depends="compile-pmml4net" >
-		<copy file="src/Blitz.ServeurTempsReel.Tests/lib/nunit.framework.dll" todir="${build.dir}/" />
-	 <copy file="src/Blitz.ServeurTempsReel.Tests/lib/log4net.dll" todir="${build.dir}/" />
-		<vbc target="library" output="${build.dir}/Blitz.ServeurTempsReel.Tests.dll"
-				 nostdlib="true" optionstrict="true" optionexplicit="true" optionoptimize="true" warnaserror="true" >
-			<references basedir="${build.dir}" >
+		<copy file="src/pmml4net.tests/lib/nunit.framework.dll" todir="${build.dir}/" />
+		
+		<csc target="library" output="${build.dir}/pmml4net.tests.dll"
+				 nostdlib="true"
+				 warnaserror="true" verbose="${verbose}" debug="${debug}">
+			<references basedir="${build.dir}">
+				<include name="mscorlib.dll"/>
+				<include name="System.dll"/>
 				<include name="nunit.framework.dll"/>
-		<include name="log4net.dll"/>
-				<include name="Blitz.Protocol.Btr.dll"/>
-				<include name="Blitz.Protocol.Chpn.dll"/>
-				<include name="Blitz.ServeurTempsReel.exe"/>
-				<include name="Blitz.ServeurTempsReel.Business.dll"/>
-				<include name="Blitz.ServeurTempsReel.Dal.dll"/>
-				<include name="Blitz.ServeurTempsReel.Domain.dll"/>
-		<include name="Blitz.ServeurTempsReel.Service.dll"/>
-		<include name="Blitz.ServeurTempsReel.exe" />
+				<include name="pmml4net.dll"/>
 			</references>
-			<sources basedir="src/Blitz.ServeurTempsReel.Tests" >
-				<exclude name="CodeFile1.vb" />
-				<include name="AssemblyInfo.vb" />
-				<include name="**/*.vb" />
+			<sources basedir="src/pmml4net.tests" >
+				<include name="**/*.cs" />
 			</sources>
-		</vbc>
+
+		</csc>
 	</target>
 
 	<target name="package" depends="compile" >
@@ -77,65 +71,23 @@
 	</target>
 
 	<target name="test" depends="compileTest" >
-		<copy file="src/Blitz.ServeurTempsReel.Tests/chequeservice-test.properties" todir="${build.dir}" />
-		<copy file="src/Blitz.ServeurTempsReel.Tests/certegy-prod.properties" todir="${build.dir}" />
-		<copy file="src/Blitz.ServeurTempsReel.Tests/fnci-prod.properties" todir="${build.dir}" />
-		<copy file="src/Blitz.ServeurTempsReel.Tests/fnci-backup.properties" todir="${build.dir}" />
-		<copy file="src/Blitz.ServeurTempsReel.Tests/fnci-prod-test.properties" todir="${build.dir}" />
-		<copy file="src/Blitz.ServeurTempsReel.Tests/fnci-backup-test.properties" todir="${build.dir}" />
-		<copy file="src/Blitz.ServeurTempsReel.Tests/app.config" tofile="${build.dir}/Blitz.ServeurTempsReel.Tests.dll.config" />
-	<mkdir dir="${build.dir}/DataBMP" />
-	<mkdir dir="${build.dir}/ScriptBMP" />
-	<copy todir="${build.dir}/DataBMP">
-		<fileset basedir="src/Blitz.ServeurTempsReel.Tests/DataBMP">
-			<include name="*.csv"/>
-		</fileset>
-	</copy>
-		<copy todir="${build.dir}/ScriptBMP">
-		<fileset basedir="src/Blitz.ServeurTempsReel.Tests/ScriptBMP">
-			<include name="*.lua"/>
-		</fileset>
-	</copy>
+		<copy file="src/pmml4net.tests/test-golfing1.xml" todir="${build.dir}" />
+		
 		<mkdir dir="reports" />
-		<!--
+		
 		<nunit2>
 			<formatter type="Xml" usefile="true" extension=".xml" outputdir="reports" />
-			<test assemblyname="${build.dir}/Blitz.ServeurTempsReel.Tests.dll" appconfig="${build.dir}/Blitz.ServeurTempsReel.Tests.dll.config" />
+			<test assemblyname="${build.dir}/pmml4net.tests.dll" />
 		</nunit2>
-		-->
+		
 		<!-- Run Unit Tests under NUnit 2.5 -->
 		<!-- <exec program="C:\nunit\NUnit 2.5.10\bin\net-2.0\nunit-console.exe" failonerror="false" > -->
-	<exec program="C:\Program Files (x86)\NUnit-2.6.1\bin\net-2.0\nunit-console.exe" failonerror="false" >
-				<arg value="${build.dir}\Blitz.ServeurTempsReel.Tests.dll" />
-				<arg value="/xml:reports\testReport.xml" />
-		<arg value="/nothread" />
-		<arg value="/timeout=30000" />
-		</exec>
-	</target>
-
-	<target name="gen">
-
-		<echo level="Info" message="Generation des sources pour tous le projet Temps Reel"/>
-
-		<exec program="java" workingdir="gen" >
-			<arg value="-cp" />
-			<arg>
-				<path>
-					<pathelement file="gen/dal-1.0-SNAPSHOT.jar" />
-					<pathelement file="gen/jtds-1.2.jar" />
-					<pathelement file="gen/mysql-connector-java-5.1.1.jar" />
-					<pathelement file="gen/velocity-1.5.jar" />
-					<pathelement file="gen/commons-collections-3.1.jar"/>
-					<pathelement file="gen/commons-lang-2.1.jar"/>
-					<pathelement file="gen/log4j-1.2.15.jar"/>
-				</path>
-			</arg>
-
-			<arg value="com.blitz.dal.App" />
-
-			<!-- fichier de configuration a utiliser -->
-			<arg value="config.xml" />
-		</exec>
+		<!--<exec program="C:\Program Files (x86)\NUnit-2.6.1\bin\nunit-console-x86.exe" failonerror="false" >
+			<arg value="${build.dir}\pmml4net-tests" />
+			<arg value="/xml:reports\testReport.xml" />
+			<arg value="/nothread" />
+			<arg value="/timeout=30000" />
+		</exec>-->
 	</target>
 
 </project>

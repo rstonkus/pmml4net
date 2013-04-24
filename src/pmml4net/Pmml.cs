@@ -7,6 +7,7 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
+using System.IO;
 
 namespace pmml4net
 {
@@ -15,5 +16,15 @@ namespace pmml4net
 	/// </summary>
 	public class Pmml
 	{
+		/// <summary>
+		/// Load pmml xml file
+		/// </summary>
+		/// <param name="path"></param>
+		public static Pmml loadModels(string path)
+		{
+			FileInfo info = new FileInfo(path);
+			
+			return new Pmml();
+		}
 	}
 }

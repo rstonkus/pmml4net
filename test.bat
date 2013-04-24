@@ -1,0 +1,1 @@
+"C:\nant\nant-0.92\bin\NAnt.exe" test -t:net-2.0 > out.log
