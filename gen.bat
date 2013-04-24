@@ -1,0 +1,1 @@
+"C:\nant\nant-0.92\bin\NAnt.exe" gen > out.log

@@ -1,0 +1,228 @@
+<?xml version="1.0"?>
+<project name="pmml4net" default="compile" basedir="." xmlns="http://nant.sf.net/release/0.91-alpha2/nant.xsd" >
+
+	<property name="verbose" value="false" overwrite="false" />
+	<property name="debug" value="false" overwrite="false" />
+	<property name="build.dir" value="build" overwrite="false" />
+	<property name="dist.dir" value="dist" overwrite="false" />
+
+	<target name="clean">
+		<delete dir="${build.dir}" failonerror="false" />
+	</target>
+
+	<target name="init" depends="clean" >
+		<mkdir dir="${build.dir}" />
+	</target>
+
+	<target name="compile-pmml4net" >
+		<csc target="library" output="${build.dir}/pmml4net.dll"
+				 nostdlib="true"
+				 warnaserror="true" verbose="${verbose}" debug="${debug}">
+			<references basedir="${build.dir}">
+				<include name="mscorlib.dll"/>
+				<include name="System.dll"/>
+			</references>
+			<sources basedir="src/pmml4net" >
+				<include name="src/**/*.cs" />
+			</sources>
+
+		</csc>
+	</target>
+	
+	<target name="compile-pmml4net-tests" depends="compile-pmml4net" >
+		<copy file="src/Blitz.ServeurTempsReel.Tests/lib/nunit.framework.dll" todir="${build.dir}/" />
+	 <copy file="src/Blitz.ServeurTempsReel.Tests/lib/log4net.dll" todir="${build.dir}/" />
+		<vbc target="library" output="${build.dir}/Blitz.ServeurTempsReel.Tests.dll"
+				 nostdlib="true" optionstrict="true" optionexplicit="true" optionoptimize="true" warnaserror="true" >
+			<references basedir="${build.dir}" >
+				<include name="nunit.framework.dll"/>
+		<include name="log4net.dll"/>
+				<include name="Blitz.Protocol.Btr.dll"/>
+				<include name="Blitz.Protocol.Chpn.dll"/>
+				<include name="Blitz.ServeurTempsReel.exe"/>
+				<include name="Blitz.ServeurTempsReel.Business.dll"/>
+				<include name="Blitz.ServeurTempsReel.Dal.dll"/>
+				<include name="Blitz.ServeurTempsReel.Domain.dll"/>
+		<include name="Blitz.ServeurTempsReel.Service.dll"/>
+		<include name="Blitz.ServeurTempsReel.exe" />
+			</references>
+			<sources basedir="src/Blitz.ServeurTempsReel.Tests" >
+				<exclude name="CodeFile1.vb" />
+				<include name="AssemblyInfo.vb" />
+				<include name="**/*.vb" />
+			</sources>
+		</vbc>
+	</target>
+
+	<target name="package" depends="compile" >
+		<mkdir dir="${dist.dir}" />
+
+		<copy file="src/Blitz.FnciConcentrateur/fnci-prod.properties" todir="${build.dir}" />
+		<copy file="src/Blitz.FnciConcentrateur/fnci-backup.properties" todir="${build.dir}" />
+		<copy file="src/Blitz.FnciConcentrateur/conf.properties" tofile="${build.dir}/fnci-con.properties" />
+		<copy file="src/Blitz.FnciConcentrateur/log4net.conf.xml" tofile="${build.dir}/log4net.conf.xml" />
+		<copy file="src/Blitz.FnciConcentrateur/s_rsa_nopass_ca1.pfx" tofile="${build.dir}/s_rsa_nopass_ca1.pfx" />
+		<copy file="src/Blitz.Protocol.Bap/bap.cgt" todir="${build.dir}" />
+		<zip zipfile="${dist.dir}/Blitz.FnciConcentrateur.zip">
+			<fileset basedir="${build.dir}" >
+				<include name="log4net.dll" />
+				<include name="cert_racine_mediacert.cer" />
+				<include name="s_rsa_nopass_ca1.pfx" />
+				<include name="fnci-prod.properties" />
+				<include name="fnci-backup.properties" />
+				<include name="fnci-con.properties" />
+				<include name="log4net.conf.xml" />
+				<include name="Blitz.Protocol.Bap.dll" />
+				<include name="Blitz.FnciConcentrateur.exe" />
+				<include name="Blitz.ServeurTempsReel.Business.dll" />
+				<include name="Blitz.ServeurTempsReel.Dal.dll" />
+				<include name="Blitz.ServeurTempsReel.Domain.dll" />
+				<include name="Blitz.ServeurTempsReel.Service.dll"/>
+				<include name="CalithaLib.dll" />
+				<include name="GoldParserEngine.dll" />
+				<include name="bap.cgt" />
+				<include name="BouncyCastle.Crypto.dll" />
+			</fileset>
+		</zip>
+
+		<copy file="src/Blitz.ServeurTempsReel/fnci-prod.properties" todir="${build.dir}" />
+		<copy file="src/Blitz.ServeurTempsReel/fnci-backup.properties" todir="${build.dir}" />
+		<copy file="src/Blitz.ServeurTempsReel/conf.properties" tofile="${build.dir}/str.properties" />
+		<copy file="src/Blitz.ServeurTempsReel/log4net.conf.xml" todir="${build.dir}" />
+		<copy file="src/Blitz.Protocol.Bap/bap.cgt" todir="${build.dir}" />
+
+		<zip zipfile="${dist.dir}/Blitz.ServeurTempsReel.zip">
+			<fileset basedir="${build.dir}" >
+				<include name="log4net.dll" />
+				<include name="cert_racine_mediacert.cer" />
+				<include name="fnci-prod.properties" />
+				<include name="fnci-backup.properties" />
+				<include name="str.properties" />
+				<include name="log4net.conf.xml" />
+				<include name="Blitz.Protocol.Chpn.dll" />
+				<include name="Blitz.Protocol.Bap.dll" />
+				<include name="Blitz.Protocol.Btr.dll" />
+				<include name="Blitz.ServeurTempsReel.exe" />
+				<include name="Blitz.ServeurTempsReel.Business.dll" />
+				<include name="Blitz.ServeurTempsReel.Dal.dll" />
+				<include name="Blitz.ServeurTempsReel.Domain.dll" />
+				<include name="Blitz.ServeurTempsReel.Service.dll"/>
+				<include name="Blitz.ServeurTempsReel.Casino.dll" />
+				<include name="Blitz.ServeurTempsReel.Franprix.dll" />
+				<include name="CalithaLib.dll" />
+				<include name="GoldParserEngine.dll" />
+				<include name="bap.cgt" />
+				<include name="Blitz.ServeurTempsReel.BanqueAccord.dll"/>
+				<include name="BouncyCastle.Crypto.dll" />
+				<include name="KopiLua.dll" />
+			</fileset>
+		</zip>
+
+	</target>
+
+	<property name="ws.deploy.dir" value="ws-deploy" />
+	<target name="package-ws" depends="compile-pmml4net-ws" >
+		<mkdir dir="${ws.deploy.dir}" />
+
+		<copy file="src/Blitz.ServeurTempsReel.WebServices/Web.config" todir="${ws.deploy.dir}" />
+		<copy todir="${ws.deploy.dir}">
+			<fileset basedir="src/Blitz.ServeurTempsReel.WebServices">
+				<include name="*.ashx"/>
+				<include name="*.asax"/>
+			</fileset>
+		</copy>
+
+		<copy todir="${ws.deploy.dir}/bin" >
+			<fileset basedir="${build.dir}" >
+				<include name="log4net.dll"/>
+				<include name="Newtonsoft.Json.dll"/>
+				<include name="Blitz.ServeurTempsReel.Dal.dll"/>
+				<include name="Blitz.ServeurTempsReel.Domain.dll" />
+				<include name="Blitz.ServeurTempsReel.Service.dll"/>
+				<include name="Blitz.ServeurTempsReel.Business.dll"/>
+				<include name="Blitz.ServeurTempsReel.WebServices.dll"/>
+			</fileset>
+		</copy>
+
+		<zip zipfile="${dist.dir}/Blitz.ServeurTempsReel.WebServices.zip">
+			<fileset basedir="${ws.deploy.dir}" >
+				<include name="**/*.*" />
+			</fileset>
+		</zip>
+
+		<delete dir="${ws.deploy.dir}" />
+	</target>
+
+	<target name="compile" depends="init compile-pmml4net" >
+	</target>
+
+	<target name="compileTest" depends="init compile-pmml4net-tests" >
+	</target>
+
+	<!-- Target par defaut -->
+	<target name="dist" depends="package" >
+	</target>
+
+	<target name="test" depends="compileTest" >
+		<copy file="src/Blitz.ServeurTempsReel.Tests/chequeservice-test.properties" todir="${build.dir}" />
+		<copy file="src/Blitz.ServeurTempsReel.Tests/certegy-prod.properties" todir="${build.dir}" />
+		<copy file="src/Blitz.ServeurTempsReel.Tests/fnci-prod.properties" todir="${build.dir}" />
+		<copy file="src/Blitz.ServeurTempsReel.Tests/fnci-backup.properties" todir="${build.dir}" />
+		<copy file="src/Blitz.ServeurTempsReel.Tests/fnci-prod-test.properties" todir="${build.dir}" />
+		<copy file="src/Blitz.ServeurTempsReel.Tests/fnci-backup-test.properties" todir="${build.dir}" />
+		<copy file="src/Blitz.ServeurTempsReel.Tests/app.config" tofile="${build.dir}/Blitz.ServeurTempsReel.Tests.dll.config" />
+	<mkdir dir="${build.dir}/DataBMP" />
+	<mkdir dir="${build.dir}/ScriptBMP" />
+	<copy todir="${build.dir}/DataBMP">
+		<fileset basedir="src/Blitz.ServeurTempsReel.Tests/DataBMP">
+			<include name="*.csv"/>
+		</fileset>
+	</copy>
+		<copy todir="${build.dir}/ScriptBMP">
+		<fileset basedir="src/Blitz.ServeurTempsReel.Tests/ScriptBMP">
+			<include name="*.lua"/>
+		</fileset>
+	</copy>
+		<mkdir dir="reports" />
+		<!--
+		<nunit2>
+			<formatter type="Xml" usefile="true" extension=".xml" outputdir="reports" />
+			<test assemblyname="${build.dir}/Blitz.ServeurTempsReel.Tests.dll" appconfig="${build.dir}/Blitz.ServeurTempsReel.Tests.dll.config" />
+		</nunit2>
+		-->
+		<!-- Run Unit Tests under NUnit 2.5 -->
+		<!-- <exec program="C:\nunit\NUnit 2.5.10\bin\net-2.0\nunit-console.exe" failonerror="false" > -->
+	<exec program="C:\Program Files (x86)\NUnit-2.6.1\bin\net-2.0\nunit-console.exe" failonerror="false" >
+				<arg value="${build.dir}\Blitz.ServeurTempsReel.Tests.dll" />
+				<arg value="/xml:reports\testReport.xml" />
+		<arg value="/nothread" />
+		<arg value="/timeout=30000" />
+		</exec>
+	</target>
+
+	<target name="gen">
+
+		<echo level="Info" message="Generation des sources pour tous le projet Temps Reel"/>
+
+		<exec program="java" workingdir="gen" >
+			<arg value="-cp" />
+			<arg>
+				<path>
+					<pathelement file="gen/dal-1.0-SNAPSHOT.jar" />
+					<pathelement file="gen/jtds-1.2.jar" />
+					<pathelement file="gen/mysql-connector-java-5.1.1.jar" />
+					<pathelement file="gen/velocity-1.5.jar" />
+					<pathelement file="gen/commons-collections-3.1.jar"/>
+					<pathelement file="gen/commons-lang-2.1.jar"/>
+					<pathelement file="gen/log4j-1.2.15.jar"/>
+				</path>
+			</arg>
+
+			<arg value="com.blitz.dal.App" />
+
+			<!-- fichier de configuration a utiliser -->
+			<arg value="config.xml" />
+		</exec>
+	</target>
+
+</project>

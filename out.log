@@ -1,0 +1,15 @@
+NAnt 0.92 (Build 0.92.4543.0; release; 09/06/2012)
+Copyright (C) 2001-2012 Gerry Shaw
+http://nant.sourceforge.net
+
+Buildfile: file:///C:/Developpement/Applications/pmml4net/pmml4net.build
+Target framework: Microsoft .NET Framework 2.0
+Target(s) specified: dist 
+
+
+BUILD FAILED
+
+Target 'compile-pmml4net-ws' does not exist in this project. It is used from target 'package-ws'.
+
+Total time: 0 seconds.
+
