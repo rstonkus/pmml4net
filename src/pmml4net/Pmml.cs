@@ -61,7 +61,7 @@ namespace pmml4net
 			}
 				
 			
-			return new Pmml();
+			return pmml;
 		}
 		
 		/// <summary>

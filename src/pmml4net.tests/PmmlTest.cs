@@ -26,14 +26,16 @@ namespace pmml4net.tests
 			Assert.NotNull(Pmml.loadModels(pFilePath));
 		}
 		
-		[TestCase("test-golfing1.xml")]
-		public void TreeModelsTest(string pFilePath)
+		[TestCase("test-golfing1.xml", 1)]
+		public void TreeModelsTest(string pFilePath, int nb_treemodel)
 		{
 			Pmml pmml = Pmml.loadModels(pFilePath);
 			
 			Assert.NotNull(pmml);
 			
 			Assert.NotNull(pmml.getByName("golfing"));
+			
+			Assert.AreEqual(nb_treemodel, pmml.TreeModels.Count);
 		}
 	}
 }
