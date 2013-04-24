@@ -9,6 +9,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Xml;
 
 namespace pmml4net
 {
@@ -38,6 +39,27 @@ namespace pmml4net
 			
 			Pmml pmml = new Pmml();
 			pmml.treeModels = new List<TreeModel>();
+			
+			XmlDocument xml = new XmlDocument();
+			xml.Load(info.FullName);
+			
+			foreach (XmlNode root in xml.ChildNodes)
+			{
+				if (root is XmlElement)
+				{
+					foreach (XmlNode itemTreeModel in root.ChildNodes)
+					{
+						if (itemTreeModel.Name.Equals("TreeModel"))
+						{
+							TreeModel tree = new TreeModel();
+							tree.ModelName = itemTreeModel.Attributes["modelName"].Value;
+							
+							pmml.treeModels.Add(tree);
+						}
+					}
+				}
+			}
+				
 			
 			return new Pmml();
 		}

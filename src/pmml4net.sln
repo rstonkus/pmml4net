@@ -1,10 +1,12 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 9.00
-# Visual Studio 2005
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 # SharpDevelop 4.2.2.8818
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pmml4net", "pmml4net\pmml4net.csproj", "{AC58587D-8827-452C-BC68-55D0C9A1977D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pmml4net.tests", "pmml4net.tests\pmml4net.tests.csproj", "{59E6DFF9-8BB5-48EB-84E8-3D844962E55D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\test.csproj", "{4C9BBC31-4200-4A86-A98D-8D9B12CA3FAB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,5 +22,9 @@ Global
 		{59E6DFF9-8BB5-48EB-84E8-3D844962E55D}.Debug|x86.ActiveCfg = Debug|x86
 		{59E6DFF9-8BB5-48EB-84E8-3D844962E55D}.Release|x86.Build.0 = Release|x86
 		{59E6DFF9-8BB5-48EB-84E8-3D844962E55D}.Release|x86.ActiveCfg = Release|x86
+		{4C9BBC31-4200-4A86-A98D-8D9B12CA3FAB}.Debug|x86.Build.0 = Debug|x86
+		{4C9BBC31-4200-4A86-A98D-8D9B12CA3FAB}.Debug|x86.ActiveCfg = Debug|x86
+		{4C9BBC31-4200-4A86-A98D-8D9B12CA3FAB}.Release|x86.Build.0 = Release|x86
+		{4C9BBC31-4200-4A86-A98D-8D9B12CA3FAB}.Release|x86.ActiveCfg = Release|x86
 	EndGlobalSection
 EndGlobal
