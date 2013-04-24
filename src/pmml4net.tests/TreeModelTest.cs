@@ -39,10 +39,25 @@ namespace pmml4net.tests
 			TreeModel tree = pmml.getByName("golfing");
 			Assert.NotNull(tree);
 			
-			Dictionary<string, object> lDict = new Dictionary<string, object>();
+			Dictionary<string, object> lDict = parseParams(paramList);
 			
 			ScoreResult result = tree.Score(lDict);
+			Assert.NotNull(result);
 			
+			Assert.AreEqual(name, result.Name);
+			Assert.AreEqual(res, result.Value);
+		}
+		
+		private Dictionary<string, object> parseParams(string parameters)
+		{
+			Dictionary<string, object> lDict = new Dictionary<string, object>();
+			
+			foreach (string item in parameters.Split(','))
+			{
+				lDict.Add(item.Split('=')[0].Trim(), item.Split('=')[1].Trim());
+			}
+			
+			return lDict;
 		}
 	}
 }
