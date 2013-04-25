@@ -46,6 +46,11 @@ namespace pmml4net
 			return new ScoreResult("toto", "cool");
 		}
 		
+		/// <summary>
+		/// Load tree model from xmlnode
+		/// </summary>
+		/// <param name="node"></param>
+		/// <returns></returns>
 		public static TreeModel loadFromXmlNode(XmlNode node)
 		{
 			TreeModel tree = new TreeModel();
