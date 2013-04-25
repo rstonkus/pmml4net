@@ -79,7 +79,7 @@ namespace pmml4net.tests
 			
 			foreach (string item in parameters.Split(','))
 			{
-				lDict.Add(item.Split('=')[0].Trim(), item.Split('=')[1].Trim());
+				lDict.Add(item.Split('=')[0].Trim(), item.Split('=')[1].Trim().Replace("\"", ""));
 			}
 			
 			return lDict;
