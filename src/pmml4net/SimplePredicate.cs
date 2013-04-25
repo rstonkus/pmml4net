@@ -66,8 +66,8 @@ namespace pmml4net
 		/// <returns></returns>
 		public override bool Evaluate(Dictionary<string, object> dict, ScoreResult res)
 		{
-			double var_test_double = Convert.ToDouble(dict[field]);
-			double ref_double = Convert.ToDouble(fvalue);
+			object var_test_double = dict[field];
+			object ref_double = fvalue;
 			
 			if ("equal".Equals(foperator.Trim().ToLowerInvariant()))
 				return var_test_double == ref_double;
@@ -76,16 +76,16 @@ namespace pmml4net
 				return var_test_double != ref_double;
 			
 			else if ("lessthan".Equals(foperator.Trim().ToLowerInvariant()))
-				return var_test_double < ref_double;
+				return Convert.ToDouble(var_test_double) < Convert.ToDouble(ref_double);
 			
 			else if ("lessorequal".Equals(foperator.Trim().ToLowerInvariant()))
-				return var_test_double <= ref_double;
+				return Convert.ToDouble(var_test_double) <= Convert.ToDouble(ref_double);
 			
 			else if ("greaterthan".Equals(foperator.Trim().ToLowerInvariant()))
-				return var_test_double > ref_double;
+				return Convert.ToDouble(var_test_double) > Convert.ToDouble(ref_double);
 			
 			else if ("greaterorequal".Equals(foperator.Trim().ToLowerInvariant()))
-				return var_test_double >= ref_double;
+				return Convert.ToDouble(var_test_double) >= Convert.ToDouble(ref_double);
 			
 			else
 				throw new PmmlException();
