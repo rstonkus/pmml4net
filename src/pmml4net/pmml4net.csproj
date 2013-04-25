@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractPredicate.cs" />
+    <Compile Include="CompoundPredicate.cs" />
     <Compile Include="FalsePredicate.cs" />
     <Compile Include="MiningSchema.cs" />
     <Compile Include="Node.cs" />

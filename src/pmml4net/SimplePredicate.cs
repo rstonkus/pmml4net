@@ -43,7 +43,6 @@ namespace pmml4net
 			
 			root.fvalue = node.Attributes["value"].Value;
 			
-			
 			/*foreach(XmlNode item in node.ChildNodes)
 			{
 				if ("node".Equals(item.Name.ToLowerInvariant()))
@@ -67,7 +66,29 @@ namespace pmml4net
 		/// <returns></returns>
 		public override bool Evaluate(Dictionary<string, object> dict, ScoreResult res)
 		{
-			return false;
+			double var_test_double = Convert.ToDouble(dict[field]);
+			double ref_double = Convert.ToDouble(fvalue);
+			
+			if ("equal".Equals(foperator.Trim().ToLowerInvariant()))
+				return var_test_double == ref_double;
+			
+			else if ("notequal".Equals(foperator.Trim().ToLowerInvariant()))
+				return var_test_double != ref_double;
+			
+			else if ("lessthan".Equals(foperator.Trim().ToLowerInvariant()))
+				return var_test_double < ref_double;
+			
+			else if ("lessorequal".Equals(foperator.Trim().ToLowerInvariant()))
+				return var_test_double <= ref_double;
+			
+			else if ("greaterthan".Equals(foperator.Trim().ToLowerInvariant()))
+				return var_test_double > ref_double;
+			
+			else if ("greaterorequal".Equals(foperator.Trim().ToLowerInvariant()))
+				return var_test_double >= ref_double;
+			
+			else
+				throw new PmmlException();
 		}
 	}
 }

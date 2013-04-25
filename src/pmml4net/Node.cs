@@ -77,7 +77,7 @@ namespace pmml4net
 				}
 				else if ("compoundpredicate".Equals(item.Name.ToLowerInvariant()))
 				{
-					root.Predicate = new FalsePredicate();
+					root.Predicate = CompoundPredicate.loadFromXmlNode(item);
 				}
 				else if ("simplesetpredicate".Equals(item.Name.ToLowerInvariant()))
 				{
