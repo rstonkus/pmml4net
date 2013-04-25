@@ -17,7 +17,12 @@ namespace pmml4net.tests
 	/// </summary>
 	public class TreeModelTest
 	{
+		[TestCase("AuditTree.xml")]
+		[TestCase("IrisTree.xml")]
+		[TestCase("SPSS.xml")]
 		[TestCase("test-golfing1.xml")]
+		[TestCase("test-golfing2.xml")]
+		[TestCase("test-simpleset.xml")]
 		public void TreeModelsTest(string pFilePath)
 		{
 			Pmml pmml = Pmml.loadModels(pFilePath);
@@ -27,10 +32,19 @@ namespace pmml4net.tests
 			Assert.AreEqual(pmml.TreeModels.Count, 1);
 		}
 		
-		[TestCase("test-golfing1.xml", 
-		          "temperature=75, humidity=55, windy=\"false\", outlook=\"overcast\"", 
-		          "whatIdo", "may play")]
-		public void ScoreTest(string pFilePath, string paramList, string name, string res)
+		[TestCase("test-golfing1.xml",
+		          "temperature=75, humidity=55, windy=\"false\", outlook=\"overcast\"",
+		          "may play")]
+		[TestCase("test-golfing2.xml",
+		          "temperature=45, humidity=60, outlook=\"sunny\"",
+		          "no play")]
+		[TestCase("test-golfing2.xml",
+		          "outlook=\"sunny\"",
+		          "will play")]
+		[TestCase("test-golfing2.xml",
+		          "",
+		          "will play")]
+		public void ScoreTest(string pFilePath, string paramList, string res)
 		{
 			Pmml pmml = Pmml.loadModels(pFilePath);
 			
@@ -43,9 +57,6 @@ namespace pmml4net.tests
 			
 			ScoreResult result = tree.Score(lDict);
 			Assert.NotNull(result);
-			
-			
-			Assert.AreEqual(3, result.Nodes.Count);
 			
 			Assert.AreEqual(res, result.Value);
 			
@@ -77,7 +88,7 @@ namespace pmml4net.tests
 		{
 			Dictionary<string, object> lDict = new Dictionary<string, object>();
 			
-			foreach (string item in parameters.Split(','))
+			foreach (string item in parameters.Split( new char[] {','}, StringSplitOptions.RemoveEmptyEntries))
 			{
 				lDict.Add(item.Split('=')[0].Trim(), item.Split('=')[1].Trim().Replace("\"", ""));
 			}

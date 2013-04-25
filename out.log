@@ -34,8 +34,9 @@ test:
      [copy] Copying 1 file to 'C:\Developpement\Applications\pmml4net\build'.
      [copy] Copying 1 file to 'C:\Developpement\Applications\pmml4net\build'.
      [copy] Copying 1 file to 'C:\Developpement\Applications\pmml4net\build'.
+     [copy] Copying 1 file to 'C:\Developpement\Applications\pmml4net\build'.
 
 BUILD SUCCEEDED
 
-Total time: 2 seconds.
+Total time: 1.9 seconds.
 

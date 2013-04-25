@@ -65,6 +65,10 @@ namespace pmml4net
 		/// <returns></returns>
 		public override PredicateResult Evaluate(Dictionary<string, object> dict)
 		{
+			// Manage surrogate mode
+			if (!dict.ContainsKey(field))
+				return PredicateResult.Unknown;
+			
 			object var_test_double = dict[field];
 			object ref_double = fvalue;
 			

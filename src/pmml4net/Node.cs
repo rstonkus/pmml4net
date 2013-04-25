@@ -66,7 +66,12 @@ namespace pmml4net
 			root.scoreDistributions = new List<ScoreDistribution>();
 			foreach(XmlNode item in node.ChildNodes)
 			{
-				if ("node".Equals(item.Name.ToLowerInvariant()))
+				if ("extension".Equals(item.Name.ToLowerInvariant()))
+				{
+					// TODO : implement extension
+					//root.Nodes.Add(Node.loadFromXmlNode(item));
+				}
+				else if ("node".Equals(item.Name.ToLowerInvariant()))
 				{
 					root.Nodes.Add(Node.loadFromXmlNode(item));
 				}
