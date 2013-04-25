@@ -19,6 +19,7 @@ namespace pmml4net
 	{
 		private string id;
 		private List<Node> nodes;
+		private AbstractPredicate predicate;
 		
 		private Node()
 		{
@@ -29,6 +30,11 @@ namespace pmml4net
 		/// siblings of this node
 		/// </summary>
 		public List<Node> Nodes { get { return nodes; } set { nodes = value; } }
+		
+		/// <summary>
+		/// Predicates of this node
+		/// </summary>
+		public AbstractPredicate Predicate { get { return predicate; } set { predicate = value; } }
 		
 		/// <summary>
 		/// Load Node from XmlNode
@@ -44,9 +50,21 @@ namespace pmml4net
 			
 			foreach(XmlNode item in node.ChildNodes)
 			{
-				if ("Node".Equals(item.Name))
+				if ("node".Equals(item.Name.ToLowerInvariant()))
 				{
 					root.Nodes.Add(Node.loadFromXmlNode(item));
+				}
+				else if ("simplepredicate".Equals(item.Name.ToLowerInvariant()))
+				{
+					root.Predicate = SimplePredicate.loadFromXmlNode(item);
+				}
+				else if ("true".Equals(item.Name.ToLowerInvariant()))
+				{
+					root.Predicate = new TruePredicate();
+				}
+				else if ("false".Equals(item.Name.ToLowerInvariant()))
+				{
+					root.Predicate = new FalsePredicate();
 				}
 			}
 			

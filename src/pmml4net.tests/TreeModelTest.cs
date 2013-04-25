@@ -58,8 +58,14 @@ namespace pmml4net.tests
 			TreeModel tree = pmml.getByName("golfing");
 			Assert.NotNull(tree);
 			
-			Assert.AreEqual(2, tree.Node.Nodes.Count);
+			// Test first Node
+			Node nodeFirst = tree.Node;
+			Assert.NotNull(nodeFirst);
+			Assert.NotNull(nodeFirst.Predicate);
+			Assert.IsTrue(nodeFirst.Predicate is TruePredicate);
+			Assert.AreEqual(2, nodeFirst.Nodes.Count);
 			
+			//
 			Assert.AreEqual(2, tree.Node.Nodes[0].Nodes.Count);
 			Assert.AreEqual(2, tree.Node.Nodes[1].Nodes.Count);
 		}
