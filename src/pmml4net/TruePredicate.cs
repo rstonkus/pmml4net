@@ -16,6 +16,12 @@ namespace pmml4net
 	/// </summary>
 	public class TruePredicate : AbstractPredicate
 	{
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="dict"></param>
+		/// <param name="res"></param>
+		/// <returns></returns>
 		public override bool Evaluate(Dictionary<string, object> dict, ScoreResult res)
 		{
 			return true;

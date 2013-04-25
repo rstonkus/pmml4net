@@ -22,9 +22,9 @@ namespace pmml4net
 		private string fvalue;
 		
 		/// <summary>
-		/// 
+		/// This attribute of <code>SimplePredicate</code> element is the information to evaluate / compare against.
 		/// </summary>
-		public string Value { get { return fvalue; } set { fvalue = fvalue; } }
+		public string Value { get { return fvalue; } set { fvalue = value; } }
 		
 		/// <summary>
 		/// Load Node from XmlNode

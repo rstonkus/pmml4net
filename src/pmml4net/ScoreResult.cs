@@ -30,6 +30,9 @@ namespace pmml4net
 		/// </summary>
 		public object Value { get { return f_value; } set { f_value = value; } }
 		
+		/// <summary>
+		/// Node which validate
+		/// </summary>
 		public List<Node> Nodes { get { return nodes; } set { nodes = value; } }
 		
 		/// <summary>

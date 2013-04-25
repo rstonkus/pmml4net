@@ -17,16 +17,13 @@ init:
 
 compile-pmml4net:
 
-      [csc] Compiling 6 files to 'C:\Developpement\Applications\pmml4net\build\pmml4net.dll'.
+      [csc] Compiling 12 files to 'C:\Developpement\Applications\pmml4net\build\pmml4net.dll'.
+      [csc] c:\Developpement\Applications\pmml4net\src\pmml4net\SimplePredicate.cs(27,54): error CS1717: Avertissement en tant qu'erreurÿ: Assignation effectu‚e … la mˆme variableÿ; souhaitiez-vous assigner un autre ‚l‚mentÿ?
 
-compile-pmml4net-tests:
+BUILD FAILED
 
-     [copy] Copying 1 file to 'C:\Developpement\Applications\pmml4net\build\'.
-      [csc] Compiling 3 files to 'C:\Developpement\Applications\pmml4net\build\pmml4net.tests.dll'.
+C:\Developpement\Applications\pmml4net\pmml4net.build(18,4):
+External Program Failed: C:\Windows\Microsoft.NET\Framework64\v2.0.50727\csc.exe (return code was 1)
 
-compileTest:
+Total time: 0.3 seconds.
 
-
-test:
-
-     [copy] Copying 1 file to 'C:\Developpement\Applications\pmml4net\build'.

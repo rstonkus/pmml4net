@@ -94,6 +94,7 @@ namespace pmml4net
 		/// Scoring with Tree Model
 		/// </summary>
 		/// <param name="dict">Values</param>
+		/// <param name="res" >Result to return</param>
 		/// <returns></returns>
 		public bool Evaluate(Dictionary<string, object> dict, ScoreResult res)
 		{
