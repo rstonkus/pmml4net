@@ -54,15 +54,15 @@ namespace pmml4net
 		/// <param name="dict"></param>
 		/// <param name="res"></param>
 		/// <returns></returns>
-		public override bool Evaluate(Dictionary<string, object> dict, ScoreResult res)
+		public override PredicateResult Evaluate(Dictionary<string, object> dict)
 		{
 			object var_test = dict[field];
 			bool is_in = farray.Contains(var_test.ToString());
 			
 			if ("isIn".Equals(foperator))
-				return is_in;
+				return ToPredicateResult(is_in);
 			else if ("isIn".Equals(foperator))
-				return !is_in;
+				return ToPredicateResult(!is_in);
 			else
 				throw new PmmlException();
 		}

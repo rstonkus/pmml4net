@@ -64,28 +64,28 @@ namespace pmml4net
 		/// <param name="dict"></param>
 		/// <param name="res"></param>
 		/// <returns></returns>
-		public override bool Evaluate(Dictionary<string, object> dict, ScoreResult res)
+		public override PredicateResult Evaluate(Dictionary<string, object> dict)
 		{
 			object var_test_double = dict[field];
 			object ref_double = fvalue;
 			
 			if ("equal".Equals(foperator.Trim().ToLowerInvariant()))
-				return var_test_double.Equals(ref_double);
+				return ToPredicateResult(var_test_double.Equals(ref_double));
 			
 			else if ("notequal".Equals(foperator.Trim().ToLowerInvariant()))
-				return !var_test_double.Equals(ref_double);
+				return ToPredicateResult(!var_test_double.Equals(ref_double));
 			
 			else if ("lessthan".Equals(foperator.Trim().ToLowerInvariant()))
-				return Convert.ToDouble(var_test_double) < Convert.ToDouble(ref_double);
+				return ToPredicateResult(Convert.ToDouble(var_test_double) < Convert.ToDouble(ref_double));
 			
 			else if ("lessorequal".Equals(foperator.Trim().ToLowerInvariant()))
-				return Convert.ToDouble(var_test_double) <= Convert.ToDouble(ref_double);
+				return ToPredicateResult(Convert.ToDouble(var_test_double) <= Convert.ToDouble(ref_double));
 			
 			else if ("greaterthan".Equals(foperator.Trim().ToLowerInvariant()))
-				return Convert.ToDouble(var_test_double) > Convert.ToDouble(ref_double);
+				return ToPredicateResult(Convert.ToDouble(var_test_double) > Convert.ToDouble(ref_double));
 			
 			else if ("greaterorequal".Equals(foperator.Trim().ToLowerInvariant()))
-				return Convert.ToDouble(var_test_double) >= Convert.ToDouble(ref_double);
+				return ToPredicateResult(Convert.ToDouble(var_test_double) >= Convert.ToDouble(ref_double));
 			
 			else
 				throw new PmmlException();

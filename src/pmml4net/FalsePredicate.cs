@@ -24,9 +24,9 @@ namespace pmml4net
 		/// <param name="dict"></param>
 		/// <param name="res"></param>
 		/// <returns></returns>
-		public override bool Evaluate(Dictionary<string, object> dict, ScoreResult res)
+		public override PredicateResult Evaluate(Dictionary<string, object> dict)
 		{
-			return false;
+			return PredicateResult.False;
 		}
 	}
 }

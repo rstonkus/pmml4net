@@ -21,6 +21,7 @@ namespace pmml4net
 		private string score;
 		private List<Node> nodes;
 		private AbstractPredicate predicate;
+		private List<ScoreDistribution> scoreDistributions;
 		
 		private Node()
 		{
@@ -43,6 +44,11 @@ namespace pmml4net
 		public AbstractPredicate Predicate { get { return predicate; } set { predicate = value; } }
 		
 		/// <summary>
+		/// siblings of this node
+		/// </summary>
+		public List<ScoreDistribution> ScoreDistributions { get { return scoreDistributions; } set { scoreDistributions = value; } }
+		
+		/// <summary>
 		/// Load Node from XmlNode
 		/// </summary>
 		/// <param name="node"></param>
@@ -57,6 +63,7 @@ namespace pmml4net
 			if (node.Attributes["score"] != null)
 				root.score = node.Attributes["score"].Value;
 			
+			root.scoreDistributions = new List<ScoreDistribution>();
 			foreach(XmlNode item in node.ChildNodes)
 			{
 				if ("node".Equals(item.Name.ToLowerInvariant()))
@@ -83,6 +90,10 @@ namespace pmml4net
 				{
 					root.Predicate = SimpleSetPredicate.loadFromXmlNode(item);
 				}
+				else if ("scoredistribution".Equals(item.Name.ToLowerInvariant()))
+				{
+					root.ScoreDistributions.Add(ScoreDistribution.loadFromXmlNode(item));
+				}
 				else
 					throw new NotImplementedException();
 			}
@@ -100,7 +111,7 @@ namespace pmml4net
 		{
 			// Test predicates
 			bool res_predicate = false;
-			if (predicate.Evaluate(dict, res))
+			if (predicate.Evaluate(dict) == PredicateResult.True)
 			{
 				res_predicate = true;
 				

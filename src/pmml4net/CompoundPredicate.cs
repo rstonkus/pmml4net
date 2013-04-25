@@ -78,7 +78,7 @@ namespace pmml4net
 		/// <param name="dict"></param>
 		/// <param name="res"></param>
 		/// <returns></returns>
-		public override bool Evaluate(Dictionary<string, object> dict, ScoreResult res)
+		public override PredicateResult Evaluate(Dictionary<string, object> dict)
 		{
 			//double var_test_double = Convert.ToDouble(dict[field]);
 			//double ref_double = Convert.ToDouble(fvalue);
@@ -86,16 +86,26 @@ namespace pmml4net
 			if ("or".Equals(fbooleanOperator.Trim().ToLowerInvariant()))
 			{
 				foreach(AbstractPredicate pred in fpredicates)
-					if (pred.Evaluate(dict, res))
-						return true;
-				return false;
+					if (pred.Evaluate(dict) == PredicateResult.True)
+						return PredicateResult.True;
+				return PredicateResult.False;
 			}
 			else if ("and".Equals(fbooleanOperator.Trim().ToLowerInvariant()))
 			{
 				foreach(AbstractPredicate pred in fpredicates)
-					if (!pred.Evaluate(dict, res))
-						return false;
-				return true;
+					if (pred.Evaluate(dict) == PredicateResult.False)
+						return PredicateResult.False;
+				return PredicateResult.True;
+			}
+			else if ("surrogate".Equals(fbooleanOperator.Trim().ToLowerInvariant()))
+			{
+				foreach(AbstractPredicate pred in fpredicates)
+				{
+					PredicateResult ret = pred.Evaluate(dict);
+					if (ret != PredicateResult.Unknown)
+						return ret;
+				}
+				return PredicateResult.Unknown;
 			}
 			else
 				throw new PmmlException();

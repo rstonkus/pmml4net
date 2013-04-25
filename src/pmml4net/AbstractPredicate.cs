@@ -21,6 +21,16 @@ namespace pmml4net
 		/// </summary>
 		/// <param name="dict"></param>
 		/// <param name="res"></param>
-		public abstract bool Evaluate(Dictionary<string, object> dict, ScoreResult res);
+		public abstract PredicateResult Evaluate(Dictionary<string, object> dict);
+		
+		protected PredicateResult ToPredicateResult(bool val)
+		{
+			if (val)
+				return PredicateResult.True;
+			
+			return PredicateResult.False;
+		}
 	}
+	
+	
 }
