@@ -48,6 +48,22 @@ namespace pmml4net.tests
 			Assert.AreEqual(res, result.Value);
 		}
 		
+		[TestCase("test-golfing1.xml")]
+		public void loadTest(string pFilePath)
+		{
+			Pmml pmml = Pmml.loadModels(pFilePath);
+			
+			Assert.NotNull(pmml);
+			
+			TreeModel tree = pmml.getByName("golfing");
+			Assert.NotNull(tree);
+			
+			Assert.AreEqual(2, tree.Node.Nodes.Count);
+			
+			Assert.AreEqual(2, tree.Node.Nodes[0].Nodes.Count);
+			Assert.AreEqual(2, tree.Node.Nodes[1].Nodes.Count);
+		}
+		
 		private Dictionary<string, object> parseParams(string parameters)
 		{
 			Dictionary<string, object> lDict = new Dictionary<string, object>();

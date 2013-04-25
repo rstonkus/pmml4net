@@ -51,8 +51,7 @@ namespace pmml4net
 					{
 						if (itemTreeModel.Name.Equals("TreeModel"))
 						{
-							TreeModel tree = new TreeModel();
-							tree.ModelName = itemTreeModel.Attributes["modelName"].Value;
+							TreeModel tree = TreeModel.loadFromXmlNode(itemTreeModel);
 							
 							pmml.treeModels.Add(tree);
 						}
