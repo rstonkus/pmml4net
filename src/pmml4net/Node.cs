@@ -18,6 +18,7 @@ namespace pmml4net
 	public class Node
 	{
 		private string id;
+		private string score;
 		private List<Node> nodes;
 		private AbstractPredicate predicate;
 		
@@ -25,6 +26,11 @@ namespace pmml4net
 		{
 			nodes = new List<Node>();
 		}
+		
+		/// <summary>
+		/// score of this node
+		/// </summary>
+		public string Score { get { return score; } set { score = value; } }
 		
 		/// <summary>
 		/// siblings of this node
@@ -48,6 +54,9 @@ namespace pmml4net
 			if (node.Attributes["id"] != null)
 				root.id = node.Attributes["id"].Value;
 			
+			if (node.Attributes["score"] != null)
+				root.score = node.Attributes["score"].Value;
+			
 			foreach(XmlNode item in node.ChildNodes)
 			{
 				if ("node".Equals(item.Name.ToLowerInvariant()))
@@ -66,9 +75,45 @@ namespace pmml4net
 				{
 					root.Predicate = new FalsePredicate();
 				}
+				else if ("compoundpredicate".Equals(item.Name.ToLowerInvariant()))
+				{
+					root.Predicate = new FalsePredicate();
+				}
+				else if ("simplesetpredicate".Equals(item.Name.ToLowerInvariant()))
+				{
+					root.Predicate = SimpleSetPredicate.loadFromXmlNode(item);
+				}
+				else
+					throw new NotImplementedException();
 			}
 			
 			return root;
+		}
+		
+		/// <summary>
+		/// Scoring with Tree Model
+		/// </summary>
+		/// <param name="dict">Values</param>
+		/// <returns></returns>
+		public bool Evaluate(Dictionary<string, object> dict, ScoreResult res)
+		{
+			// Test predicates
+			bool res_predicate = false;
+			if (predicate.Evaluate(dict, res))
+			{
+				res_predicate = true;
+				
+				res.Nodes.Add(this);
+				
+				// Test childs
+				foreach(Node child in nodes)
+				{
+					if (child.Evaluate(dict, res))
+						break;
+				}
+			}
+				
+			return res_predicate;
 		}
 	}
 }

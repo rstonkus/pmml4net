@@ -43,8 +43,15 @@ namespace pmml4net
 		/// <returns></returns>
 		public ScoreResult Score(Dictionary<string, object> dict)
 		{
+			ScoreResult res = new ScoreResult("XXXXXXXX", "XXXXXXXXX");
 			
-			return new ScoreResult("toto", "cool");
+			// evaluate nodes
+			node.Evaluate(dict, res);
+			
+			if (res.Nodes.Count > 0)
+				res.Value = res.Nodes[res.Nodes.Count - 1].Score;
+			
+			return res;
 		}
 		
 		/// <summary>

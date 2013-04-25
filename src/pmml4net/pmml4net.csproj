@@ -48,9 +48,11 @@
     <Compile Include="MiningSchema.cs" />
     <Compile Include="Node.cs" />
     <Compile Include="Pmml.cs" />
+    <Compile Include="PmmlException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScoreResult.cs" />
     <Compile Include="SimplePredicate.cs" />
+    <Compile Include="SimpleSetPredicate.cs" />
     <Compile Include="TreeModel.cs" />
     <Compile Include="TruePredicate.cs" />
   </ItemGroup>

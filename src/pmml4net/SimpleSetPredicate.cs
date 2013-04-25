@@ -13,48 +13,37 @@ using System.Xml;
 namespace pmml4net
 {
 	/// <summary>
-	/// Description of SimplePredicate.
+	/// Description of SimpleSetPredicate.
 	/// </summary>
-	public class SimplePredicate : AbstractPredicate
+	public class SimpleSetPredicate : AbstractPredicate
 	{
 		private string field;
 		private string foperator;
-		private string fvalue;
-		
-		/// <summary>
-		/// 
-		/// </summary>
-		public string Value { get { return fvalue; } set { fvalue = fvalue; } }
+		private List<string> farray;
 		
 		/// <summary>
 		/// Load Node from XmlNode
 		/// </summary>
 		/// <param name="node"></param>
 		/// <returns></returns>
-		public static SimplePredicate loadFromXmlNode(XmlNode node)
+		public static SimpleSetPredicate loadFromXmlNode(XmlNode node)
 		{
-			SimplePredicate root = new SimplePredicate();
+			SimpleSetPredicate root = new SimpleSetPredicate();
 			
 			// TODO : Add extention reading
 			
 			root.field = node.Attributes["field"].Value;
 			
-			root.foperator = node.Attributes["operator"].Value;
+			root.foperator = node.Attributes["booleanOperator"].Value;
 			
-			root.fvalue = node.Attributes["value"].Value;
-			
-			
-			/*foreach(XmlNode item in node.ChildNodes)
+			root.farray = new List<string>();
+			foreach(XmlNode item in node.ChildNodes)
 			{
-				if ("node".Equals(item.Name.ToLowerInvariant()))
+				if ("array".Equals(item.Name.ToLowerInvariant()))
 				{
-					root.Nodes.Add(Node.loadFromXmlNode(item));
+					root.farray.Add(item.InnerText.Trim());
 				}
-				else if ("simplepredicate".Equals(item.Name.ToLowerInvariant()))
-				{
-					root.Predicate = SimplePredicate.loadFromXmlNode(item);
-				}
-			}*/
+			}
 			
 			return root;
 		}
@@ -67,7 +56,15 @@ namespace pmml4net
 		/// <returns></returns>
 		public override bool Evaluate(Dictionary<string, object> dict, ScoreResult res)
 		{
-			return false;
+			object var_test = dict[field];
+			bool is_in = farray.Contains(var_test.ToString());
+			
+			if ("isIn".Equals(foperator))
+				return is_in;
+			else if ("isIn".Equals(foperator))
+				return !is_in;
+			else
+				throw new PmmlException();
 		}
 	}
 }

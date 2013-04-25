@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" ?>
+<PMML version="4.1" xmlns="http://www.dmg.org/PMML-4_1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Header copyright="www.dmg.org" description="A very small binary tree model to test SimpleSetPredicate."/>
+	<DataDictionary numberOfFields="2" >
+		<DataField name="in" optype="continuous" dataType="double"/>
+		<DataField name="out" optype="continuous" dataType="double"/>
+	</DataDictionary>
+	<TreeModel modelName="SimpleSetTest" functionName="classification">
+		<MiningSchema>
+			<MiningField name="in"/>
+			<MiningField name="out" usageType="predicted"/>
+		</MiningSchema>
+		<Node score="0">
+			<True/>
+			<Node score="1">
+				<SimpleSetPredicate field="in" booleanOperator="isIn" >
+					<Array>5</Array>
+					<Array>15</Array>
+					<Array>25</Array>
+					<Array>35</Array>
+				</SimpleSetPredicate>
+			</Node>
+		</Node>
+	</TreeModel>
+</PMML>

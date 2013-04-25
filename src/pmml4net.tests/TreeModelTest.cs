@@ -44,8 +44,11 @@ namespace pmml4net.tests
 			ScoreResult result = tree.Score(lDict);
 			Assert.NotNull(result);
 			
-			Assert.AreEqual(name, result.Name);
+			
+			Assert.AreEqual(3, result.Nodes.Count);
+			
 			Assert.AreEqual(res, result.Value);
+			
 		}
 		
 		[TestCase("test-golfing1.xml")]
@@ -80,6 +83,30 @@ namespace pmml4net.tests
 			}
 			
 			return lDict;
+		}
+		
+		[TestCase("test-simpleset.xml", 
+		          "in=5", 
+		          "1")]
+		public void SimpleSetPredicateTest(string pFilePath, string paramList, string res)
+		{
+			Pmml pmml = Pmml.loadModels(pFilePath);
+			
+			Assert.NotNull(pmml);
+			
+			TreeModel tree = pmml.getByName("SimpleSetTest");
+			Assert.NotNull(tree);
+			
+			Dictionary<string, object> lDict = parseParams(paramList);
+			
+			ScoreResult result = tree.Score(lDict);
+			Assert.NotNull(result);
+			
+			
+			Assert.AreEqual(2, result.Nodes.Count);
+			
+			Assert.AreEqual(res, result.Value);
+			
 		}
 	}
 }

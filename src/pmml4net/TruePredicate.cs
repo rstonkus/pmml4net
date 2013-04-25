@@ -7,6 +7,7 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
+using System.Collections.Generic;
 
 namespace pmml4net
 {
@@ -15,5 +16,9 @@ namespace pmml4net
 	/// </summary>
 	public class TruePredicate : AbstractPredicate
 	{
+		public override bool Evaluate(Dictionary<string, object> dict, ScoreResult res)
+		{
+			return true;
+		}
 	}
 }
