@@ -90,6 +90,13 @@ namespace pmml4net
 						return true;
 				return false;
 			}
+			else if ("and".Equals(fbooleanOperator.Trim().ToLowerInvariant()))
+			{
+				foreach(AbstractPredicate pred in fpredicates)
+					if (!pred.Evaluate(dict, res))
+						return false;
+				return true;
+			}
 			else
 				throw new PmmlException();
 		}

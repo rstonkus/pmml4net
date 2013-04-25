@@ -70,10 +70,10 @@ namespace pmml4net
 			object ref_double = fvalue;
 			
 			if ("equal".Equals(foperator.Trim().ToLowerInvariant()))
-				return var_test_double == ref_double;
+				return var_test_double.Equals(ref_double);
 			
 			else if ("notequal".Equals(foperator.Trim().ToLowerInvariant()))
-				return var_test_double != ref_double;
+				return !var_test_double.Equals(ref_double);
 			
 			else if ("lessthan".Equals(foperator.Trim().ToLowerInvariant()))
 				return Convert.ToDouble(var_test_double) < Convert.ToDouble(ref_double);
