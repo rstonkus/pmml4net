@@ -38,6 +38,9 @@ namespace pmml4net
 			if (node.Attributes["probability"] != null)
 				root.fprobability = node.Attributes["probability"].Value;
 			
+			if (node.Attributes["confidence"] != null)
+				root.fconfidence = node.Attributes["confidence"].Value;
+			
 			return root;
 		}
 	}

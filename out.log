@@ -17,7 +17,7 @@ init:
 
 compile-pmml4net:
 
-      [csc] Compiling 13 files to 'C:\Developpement\Applications\pmml4net\build\pmml4net.dll'.
+      [csc] Compiling 15 files to 'C:\Developpement\Applications\pmml4net\build\pmml4net.dll'.
 
 compile-pmml4net-tests:
 
@@ -35,10 +35,7 @@ test:
      [copy] Copying 1 file to 'C:\Developpement\Applications\pmml4net\build'.
      [copy] Copying 1 file to 'C:\Developpement\Applications\pmml4net\build'.
 
-BUILD FAILED
+BUILD SUCCEEDED
 
-C:\Developpement\Applications\pmml4net\pmml4net.build(82,4):
-Tests Failed.
-
-Total time: 1.9 seconds.
+Total time: 2 seconds.
 

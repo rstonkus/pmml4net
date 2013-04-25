@@ -62,7 +62,6 @@ namespace pmml4net
 		/// Test predicate
 		/// </summary>
 		/// <param name="dict"></param>
-		/// <param name="res"></param>
 		/// <returns></returns>
 		public override PredicateResult Evaluate(Dictionary<string, object> dict)
 		{

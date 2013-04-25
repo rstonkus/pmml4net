@@ -20,9 +20,13 @@ namespace pmml4net
 		/// Test if predicate is true
 		/// </summary>
 		/// <param name="dict"></param>
-		/// <param name="res"></param>
 		public abstract PredicateResult Evaluate(Dictionary<string, object> dict);
 		
+		/// <summary>
+		/// Convert boolean in predicate result.
+		/// </summary>
+		/// <param name="val"></param>
+		/// <returns></returns>
 		protected PredicateResult ToPredicateResult(bool val)
 		{
 			if (val)

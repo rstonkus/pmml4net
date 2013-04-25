@@ -15,8 +15,17 @@ namespace pmml4net
 	/// </summary>
 	public enum PredicateResult
 	{
+		/// <summary>
+		/// true = predicate is ok
+		/// </summary>
 		True = 0,
+		/// <summary>
+		/// false = predicate is not true
+		/// </summary>
 		False = 1,
+		/// <summary>
+		/// default unspecified value
+		/// </summary>
 		Unknown = 2
 	}
 }
