@@ -41,6 +41,11 @@ namespace pmml4net
 		}
 		
 		/// <summary>
+		/// The value of id serves as a unique identifier for any given Node within the tree model.
+		/// </summary>
+		public string Id { get { return id; } set { id = value; } }
+		
+		/// <summary>
 		/// score of this node
 		/// </summary>
 		public string Score { get { return score; } set { score = value; } }

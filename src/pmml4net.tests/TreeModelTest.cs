@@ -59,6 +59,9 @@ namespace pmml4net.tests
 		[TestCase("BigML1.xml", "51794c13e4b024977881b628",
 		          "000000=4, 00000c=2.1441125, 000013=0.03677125, 00000f=0.0191225",
 		          "Non recurrent")] // confidence = 51%
+		[TestCase("BigML1.xml", "51794c13e4b024977881b628",
+		          "00001d=1, 00000c=1, 000013=0.01, 000019=0.51323, 000018=900, 000000=25",
+		          "Recurrent")] // confidence = 83.18%
 		public void ScoreTest(string pFilePath, string modelname, string paramList, string res)
 		{
 			Pmml pmml = Pmml.loadModels(pFilePath);
@@ -73,8 +76,16 @@ namespace pmml4net.tests
 			ScoreResult result = tree.Score(lDict);
 			Assert.NotNull(result);
 			
-			Assert.AreEqual(res, result.Value);
 			
+			foreach(Node item in result.Nodes)
+			{
+				Console.WriteLine("Node {0} = score {1}", item.Id, item.Score);
+				
+				foreach(ScoreDistribution it2 in item.ScoreDistributions)
+					Console.WriteLine("\tScore Dist. {0} ({1}) = {2}", it2.Value, it2.RecordCount, it2.Confidence);
+			}
+			
+			Assert.AreEqual(res, result.Value);
 		}
 		
 		[TestCase("test-golfing1.xml")]
