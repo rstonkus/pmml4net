@@ -35,6 +35,28 @@ namespace pmml4net
 		private string fvalue;
 		
 		/// <summary>
+		/// This attribute of the SimplePredicate element is the name attribute of a MiningField or a DerivedField from
+		/// TransformationDictionary or LocalTransformations. For Predicates contained within the Segment elements of 
+		/// MiningModels that employ Segmentation's modelChain MULTIPLE-MODEL-METHOD approach, field can also refer to 
+		/// an OutputField from an earlier Segment.
+		/// </summary>
+		public string Field { get { return field; } set { field = value; } }
+		
+		/// <summary>
+		/// This attribute of SimplePredicate is one of the six pre-defined comparison operators.
+		/// <code>
+		/// Operator	Math Symbol
+		/// equal	=
+		/// notEqual	≠
+		/// lessThan	&lt;
+		/// lessOrEqual	≤
+		/// greaterThan	>
+		/// greaterOrEqual	≥
+		/// </code>
+		/// </summary>
+		public string Operator { get { return foperator; } set { foperator = value; } }
+		
+		/// <summary>
 		/// This attribute of <code>SimplePredicate</code> element is the information to evaluate / compare against.
 		/// </summary>
 		public string Value { get { return fvalue; } set { fvalue = value; } }
@@ -99,6 +121,8 @@ namespace pmml4net
 				return PredicateResult.Unknown;
 			
 			object var_test = dict[field];
+			
+			/*Console.WriteLine("Test <field={0}[" + var_test + "]> <operator={1}> <value={2}>", field, foperator, fvalue);*/
 			
 			if ("equal".Equals(foperator.Trim().ToLowerInvariant()))
 				return ToPredicateResult(var_test.Equals(fvalue));
