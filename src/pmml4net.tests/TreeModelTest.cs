@@ -18,7 +18,12 @@ namespace pmml4net.tests
 	/// </summary>
 	public class TreeModelTest
 	{
+		/// <summary>
+		/// Load some generated PMML from other vendors.
+		/// </summary>
+		/// <param name="pFilePath"></param>
 		[TestCase("AuditTree.xml")]
+		[TestCase("BigML1.xml")] // 51794c13e4b024977881b628
 		[TestCase("IrisTree.xml")]
 		[TestCase("SPSS.xml")]
 		[TestCase("test-golfing1.xml")]
@@ -33,25 +38,34 @@ namespace pmml4net.tests
 			Assert.AreEqual(pmml.TreeModels.Count, 1);
 		}
 		
-		[TestCase("test-golfing1.xml",
+		[TestCase("test-golfing1.xml", "golfing",
 		          "temperature=75, humidity=55, windy=\"false\", outlook=\"overcast\"",
 		          "may play")]
-		[TestCase("test-golfing2.xml",
+		[TestCase("test-golfing2.xml", "golfing",
 		          "temperature=45, humidity=60, outlook=\"sunny\"",
 		          "no play")]
-		[TestCase("test-golfing2.xml",
+		[TestCase("test-golfing2.xml", "golfing",
 		          "outlook=\"sunny\"",
 		          "will play")]
-		[TestCase("test-golfing2.xml",
+		[TestCase("test-golfing2.xml", "golfing",
 		          "",
 		          "will play")]
-		public void ScoreTest(string pFilePath, string paramList, string res)
+		[TestCase("BigML1.xml", "51794c13e4b024977881b628",
+		          "000000=78, 000012=0.05, 000013=0.05",
+		          "Non recurrent")] // confidence = 83%
+		[TestCase("BigML1.xml", "51794c13e4b024977881b628",
+		          "000000=36, 00000c=3.12, 000013=0",
+		          "Non recurrent")] // confidence = 83%
+		[TestCase("BigML1.xml", "51794c13e4b024977881b628",
+		          "000000=4, 00000c=2.1441125, 000013=0.03677125, 00000f=0.0191225",
+		          "Non recurrent")] // confidence = 51%
+		public void ScoreTest(string pFilePath, string modelname, string paramList, string res)
 		{
 			Pmml pmml = Pmml.loadModels(pFilePath);
 			
 			Assert.NotNull(pmml);
 			
-			TreeModel tree = pmml.getByName("golfing");
+			TreeModel tree = pmml.getByName(modelname);
 			Assert.NotNull(tree);
 			
 			Dictionary<string, object> lDict = parseParams(paramList);

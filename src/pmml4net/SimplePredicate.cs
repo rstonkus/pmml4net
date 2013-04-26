@@ -21,6 +21,7 @@ Boston, MA  02110-1301, USA.
 using System;
 using System.Collections.Generic;
 using System.Xml;
+using System.Globalization;
 
 namespace pmml4net
 {
@@ -97,26 +98,29 @@ namespace pmml4net
 			if (!dict.ContainsKey(field))
 				return PredicateResult.Unknown;
 			
-			object var_test_double = dict[field];
-			object ref_double = fvalue;
+			object var_test = dict[field];
 			
 			if ("equal".Equals(foperator.Trim().ToLowerInvariant()))
-				return ToPredicateResult(var_test_double.Equals(ref_double));
+				return ToPredicateResult(var_test.Equals(fvalue));
 			
 			else if ("notequal".Equals(foperator.Trim().ToLowerInvariant()))
-				return ToPredicateResult(!var_test_double.Equals(ref_double));
+				return ToPredicateResult(!var_test.Equals(fvalue));
 			
-			else if ("lessthan".Equals(foperator.Trim().ToLowerInvariant()))
-				return ToPredicateResult(Convert.ToDouble(var_test_double) < Convert.ToDouble(ref_double));
+			decimal var_test_double = Convert.ToDecimal(dict[field], CultureInfo.InvariantCulture);
+			decimal ref_double = Convert.ToDecimal(fvalue, CultureInfo.InvariantCulture);
+			
+			
+			if ("lessthan".Equals(foperator.Trim().ToLowerInvariant()))
+				return ToPredicateResult(var_test_double < ref_double);
 			
 			else if ("lessorequal".Equals(foperator.Trim().ToLowerInvariant()))
-				return ToPredicateResult(Convert.ToDouble(var_test_double) <= Convert.ToDouble(ref_double));
+				return ToPredicateResult(var_test_double <= ref_double);
 			
 			else if ("greaterthan".Equals(foperator.Trim().ToLowerInvariant()))
-				return ToPredicateResult(Convert.ToDouble(var_test_double) > Convert.ToDouble(ref_double));
+				return ToPredicateResult(var_test_double > ref_double);
 			
 			else if ("greaterorequal".Equals(foperator.Trim().ToLowerInvariant()))
-				return ToPredicateResult(Convert.ToDouble(var_test_double) >= Convert.ToDouble(ref_double));
+				return ToPredicateResult(var_test_double >= ref_double);
 			
 			else
 				throw new PmmlException();
