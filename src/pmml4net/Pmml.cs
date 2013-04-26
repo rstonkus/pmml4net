@@ -32,16 +32,36 @@ namespace pmml4net
 		/// <summary>
 		/// Load pmml xml file
 		/// </summary>
-		/// <param name="path"></param>
+		/// <param name="path">Path of the PMML file</param>
 		public static Pmml loadModels(string path)
 		{
 			FileInfo info = new FileInfo(path);
+			if (!info.Exists)
+				throw new PmmlException();
 			
-			Pmml pmml = new Pmml();
-			pmml.treeModels = new List<TreeModel>();
-			
+			return loadModels(info);
+		}
+		
+		/// <summary>
+		/// Load pmml xml file
+		/// </summary>
+		/// <param name="info">Informations about the PMML file to read></param>
+		public static Pmml loadModels(FileInfo info)
+		{
 			XmlDocument xml = new XmlDocument();
 			xml.Load(info.FullName);
+			
+			return loadModels(xml);
+		}
+		
+		/// <summary>
+		/// Load pmml xml file
+		/// </summary>
+		/// <param name="xml">Xml PMML file to read></param>
+		public static Pmml loadModels(XmlDocument xml)
+		{
+			Pmml pmml = new Pmml();
+			pmml.treeModels = new List<TreeModel>();
 			
 			foreach (XmlNode root in xml.ChildNodes)
 			{
@@ -58,7 +78,6 @@ namespace pmml4net
 					}
 				}
 			}
-				
 			
 			return pmml;
 		}
