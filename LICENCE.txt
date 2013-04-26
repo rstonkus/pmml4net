@@ -1,4 +1,4 @@
-﻿/*
+
 pmml4net - easy lib to read and consume tree model in PMML file
 Copyright (C) 2013  Damien Carol <damien.carol@gmail.com>
 
@@ -16,28 +16,3 @@ You should have received a copy of the GNU Library General Public
 License along with this library; if not, write to the
 Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
 Boston, MA  02110-1301, USA.
- */
-
-using System;
-using System.Collections.Generic;
-
-namespace pmml4net
-{
-	/// <summary>
-	/// Description of FalsePredicate.
-	/// 
-	/// For FalsePredicate, always returns false.
-	/// </summary>
-	public class FalsePredicate : AbstractPredicate
-	{
-		/// <summary>
-		/// Evaluate the predicate
-		/// </summary>
-		/// <param name="dict"></param>
-		/// <returns></returns>
-		public override PredicateResult Evaluate(Dictionary<string, object> dict)
-		{
-			return PredicateResult.False;
-		}
-	}
-}
