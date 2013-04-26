@@ -7,9 +7,9 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
-
+using System.IO;
+using System.Xml;
 using NUnit.Framework;
-
 using pmml4net;
 
 namespace pmml4net.tests
@@ -23,19 +23,30 @@ namespace pmml4net.tests
 		[TestCase("test-golfing1.xml")]
 		public void LoadModelsTest(string pFilePath)
 		{
+			// Try from string
 			Assert.NotNull(Pmml.loadModels(pFilePath));
+			
+			// Same but with file info
+			FileInfo info = new FileInfo(pFilePath);
+			Assert.NotNull(Pmml.loadModels(info));
+			
+			// Test the Xml constructor
+			XmlDocument xml = new XmlDocument();
+			xml.Load(pFilePath);
+			Assert.NotNull(Pmml.loadModels(xml));
 		}
 		
-		[TestCase("test-golfing1.xml", 1)]
-		public void TreeModelsTest(string pFilePath, int nb_treemodel)
+		[TestCase("test-golfing1.xml", "golfing", 1)]
+		[TestCase("test-golfing2.xml", "golfing", 1)]
+		public void TreeModelsTest(string filePath, string modelName, int nbTreemodels)
 		{
-			Pmml pmml = Pmml.loadModels(pFilePath);
+			Pmml pmml = Pmml.loadModels(filePath);
 			
 			Assert.NotNull(pmml);
 			
-			Assert.NotNull(pmml.getByName("golfing"));
+			Assert.NotNull(pmml.getByName(modelName));
 			
-			Assert.AreEqual(nb_treemodel, pmml.TreeModels.Count);
+			Assert.AreEqual(nbTreemodels, pmml.TreeModels.Count);
 		}
 	}
 }
