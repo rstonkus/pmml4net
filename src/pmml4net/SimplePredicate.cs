@@ -49,11 +49,20 @@ namespace pmml4net
 			
 			// TODO : Add extention reading
 			
+			if (node.Attributes["field"] == null)
+				throw new PmmlException("Attribute 'field' is required in 'SimplePredicate'.");
 			root.field = node.Attributes["field"].Value;
 			
+			if (node.Attributes["operator"] == null)
+				throw new PmmlException("Attribute 'operator' is required in 'SimplePredicate'.");
 			root.foperator = node.Attributes["operator"].Value;
 			
-			root.fvalue = node.Attributes["value"].Value;
+			if (!("isMissing".Equals(root.foperator) || "isNotMissing".Equals(root.foperator)))
+			{
+				if (node.Attributes["value"] == null)
+					throw new PmmlException(string.Format("Attribute 'value' is required in 'SimplePredicate' if 'operator' is '{0}'.", root.foperator));
+				root.fvalue = node.Attributes["value"].Value;
+			}
 			
 			/*foreach(XmlNode item in node.ChildNodes)
 			{
@@ -77,6 +86,13 @@ namespace pmml4net
 		/// <returns></returns>
 		public override PredicateResult Evaluate(Dictionary<string, object> dict)
 		{
+			// Manage 'isMissing' operator
+			if ("ismissing".Equals(foperator.Trim().ToLowerInvariant()))
+				return ToPredicateResult(!dict.ContainsKey(field));
+			
+			else if ("isnotmissing".Equals(foperator.Trim().ToLowerInvariant()))
+				return ToPredicateResult(dict.ContainsKey(field));
+			
 			// Manage surrogate mode
 			if (!dict.ContainsKey(field))
 				return PredicateResult.Unknown;

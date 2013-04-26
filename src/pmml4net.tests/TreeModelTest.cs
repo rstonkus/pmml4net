@@ -8,6 +8,7 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Xml;
 using NUnit.Framework;
 
 namespace pmml4net.tests
@@ -118,6 +119,78 @@ namespace pmml4net.tests
 			
 			Assert.AreEqual(res, result.Value);
 			
+		}
+		
+		/// <summary>
+		/// Test operator isMissing for a simple predicate
+		/// </summary>
+		[TestCase()]
+		public void SimplePredicateIsMissingTest()
+		{
+			string pmmlStr = @"<?xml version=""1.0"" ?>
+<PMML version=""4.1"" xmlns=""http://www.dmg.org/PMML-4_1"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
+	<Header copyright=""www.dmg.org"" description=""A very small binary tree model to test SimpleSetPredicate.""/>
+	<DataDictionary numberOfFields=""2"" >
+		<DataField name=""in"" optype=""continuous"" dataType=""double""/>
+		<DataField name=""out"" optype=""continuous"" dataType=""double""/>
+	</DataDictionary>
+	<TreeModel modelName=""SimpleIsMissingTest"" functionName=""classification"">
+		<MiningSchema>
+			<MiningField name=""in""/>
+			<MiningField name=""out"" usageType=""predicted""/>
+		</MiningSchema>
+		<Node score=""0"">
+			<True/>
+			<Node score=""1"">
+				<SimplePredicate field=""in"" operator=""isMissing"" />
+			</Node>
+		</Node>
+	</TreeModel>
+</PMML>
+";
+			XmlDocument xml = new XmlDocument();
+			xml.LoadXml(pmmlStr);
+			Pmml pmml = Pmml.loadModels(xml);
+			
+			ScoreResult res = pmml.getByName("SimpleIsMissingTest").Score(new Dictionary<string, object>());
+			
+			Assert.AreEqual("1", res.Value);
+		}
+		
+		/// <summary>
+		/// Test operator isNotMissing for a simple predicate
+		/// </summary>
+		[TestCase()]
+		public void SimplePredicateIsNotMissingTest()
+		{
+			string pmmlStr = @"<?xml version=""1.0"" ?>
+<PMML version=""4.1"" xmlns=""http://www.dmg.org/PMML-4_1"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
+	<Header copyright=""www.dmg.org"" description=""A very small binary tree model to test SimpleSetPredicate.""/>
+	<DataDictionary numberOfFields=""2"" >
+		<DataField name=""in"" optype=""continuous"" dataType=""double""/>
+		<DataField name=""out"" optype=""continuous"" dataType=""double""/>
+	</DataDictionary>
+	<TreeModel modelName=""SimpleIsNotMissingTest"" functionName=""classification"">
+		<MiningSchema>
+			<MiningField name=""in""/>
+			<MiningField name=""out"" usageType=""predicted""/>
+		</MiningSchema>
+		<Node score=""0"">
+			<True/>
+			<Node score=""1"">
+				<SimplePredicate field=""in"" operator=""isNotMissing"" />
+			</Node>
+		</Node>
+	</TreeModel>
+</PMML>
+";
+			XmlDocument xml = new XmlDocument();
+			xml.LoadXml(pmmlStr);
+			Pmml pmml = Pmml.loadModels(xml);
+			
+			ScoreResult res = pmml.getByName("SimpleIsNotMissingTest").Score(parseParams("  in=\"foo\"  "));
+			
+			Assert.AreEqual("1", res.Value);
 		}
 	}
 }

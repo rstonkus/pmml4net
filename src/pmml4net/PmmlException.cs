@@ -19,14 +19,46 @@ Boston, MA  02110-1301, USA.
  */
 
 using System;
+using System.Runtime.Serialization;
 
 namespace pmml4net
 {
 	/// <summary>
 	/// 
 	/// </summary>
-	[Serializable]
-	public sealed class PmmlException : Exception
+	public class PmmlException : Exception, ISerializable
 	{
+		/// <summary>
+		/// 
+		/// </summary>
+		public PmmlException()
+		{
+		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="message"></param>
+	 	public PmmlException(string message) : base(message)
+		{
+		}
+		
+	 	/// <summary>
+	 	/// 
+	 	/// </summary>
+	 	/// <param name="message"></param>
+	 	/// <param name="innerException"></param>
+		public PmmlException(string message, Exception innerException) : base(message, innerException)
+		{
+		}
+		
+		/// <summary>
+		/// This constructor is needed for serialization.
+		/// </summary>
+		/// <param name="info"></param>
+		/// <param name="context"></param>
+		protected PmmlException(SerializationInfo info, StreamingContext context) : base(info, context)
+		{
+		}
 	}
 }

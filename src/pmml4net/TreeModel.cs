@@ -32,11 +32,17 @@ namespace pmml4net
 		private String modelName;
 		private MiningSchema miningSchema;
 		private Node node;
+		private string missingValueStrategy;
 		
 		/// <summary>
 		/// Identifies the model with a unique name in the context of the PMML file.
 		/// </summary>
 		public String ModelName { get { return modelName; } set { modelName = value; } }
+		
+		/// <summary>
+		/// Defines a strategy for dealing with missing values.
+		/// </summary>
+		public String MissingValueStrategy { get { return missingValueStrategy; } set { missingValueStrategy = value; } }
 		
 		/// <summary>
 		/// Mining schema for this model.
