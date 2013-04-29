@@ -19,50 +19,24 @@ Boston, MA  02110-1301, USA.
  */
 
 using System;
-using System.Collections.Generic;
 
 namespace pmml4net
 {
 	/// <summary>
-	/// Description of ScoreResult.
+	/// During the scoring of a case, if the scoring reaches an internal Node at which none of the subnodes' 
+	/// predicates evaluate to TRUE, and no missing value handling strategy (if defined) is invoked for any 
+	/// of these subnodes, this optional attribute of TreeModel determines what to do next
 	/// </summary>
-	public class ScoreResult
+	public enum NoTrueChildStrategy
 	{
-		//private string f_name;
-		private object f_value;
-		private decimal confidence;
-		private List<Node> nodes;
-		
-		/*/// <summary>
-		/// name of var out
+		/// <summary>
+		/// No prediction is returned (this is the default behaviour)
 		/// </summary>
-		public string Name { get { return f_name; } set { f_name = value; } }*/
+		ReturnNullPrediction,
 		
 		/// <summary>
-		/// Value of score
+		/// If the parent has a score attribute return the value of this attribute. Otherwise, no prediction is returned.
 		/// </summary>
-		public object Value { get { return f_value; } set { f_value = value; } }
-		
-		/// <summary>
-		/// Confidence of score
-		/// </summary>
-		public decimal Confidence { get { return confidence; } set { confidence = value; } }
-		
-		/// <summary>
-		/// Node which validate
-		/// </summary>
-		public List<Node> Nodes { get { return nodes; } set { nodes = value; } }
-		
-		/// <summary>
-		/// Make result with data
-		/// </summary>
-		/// <param name="p_name"></param>
-		/// <param name="p_value"></param>
-		public ScoreResult(string p_name, object p_value)
-		{
-			//f_name = p_name;
-			f_value = p_value;
-			nodes = new List<Node>();
-		}
+		ReturnLastPrediction
 	}
 }

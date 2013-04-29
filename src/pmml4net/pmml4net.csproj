@@ -49,7 +49,9 @@
     <Compile Include="CompoundPredicate.cs" />
     <Compile Include="FalsePredicate.cs" />
     <Compile Include="MiningSchema.cs" />
+    <Compile Include="MissingValueStrategy.cs" />
     <Compile Include="Node.cs" />
+    <Compile Include="NoTrueChildStrategy.cs" />
     <Compile Include="Pmml.cs" />
     <Compile Include="PmmlException.cs" />
     <Compile Include="PredicateResult.cs" />

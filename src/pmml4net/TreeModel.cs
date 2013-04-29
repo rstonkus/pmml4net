@@ -21,6 +21,7 @@ Boston, MA  02110-1301, USA.
 using System;
 using System.Collections.Generic;
 using System.Xml;
+using System.Globalization;
 
 namespace pmml4net
 {
@@ -32,7 +33,7 @@ namespace pmml4net
 		private String modelName;
 		private MiningSchema miningSchema;
 		private Node node;
-		private string missingValueStrategy;
+		private MissingValueStrategy missingValueStrategy;
 		
 		/// <summary>
 		/// Identifies the model with a unique name in the context of the PMML file.
@@ -42,7 +43,7 @@ namespace pmml4net
 		/// <summary>
 		/// Defines a strategy for dealing with missing values.
 		/// </summary>
-		public String MissingValueStrategy { get { return missingValueStrategy; } set { missingValueStrategy = value; } }
+		public MissingValueStrategy MissingValueStrategy { get { return missingValueStrategy; } set { missingValueStrategy = value; } }
 		
 		/// <summary>
 		/// Mining schema for this model.
@@ -66,8 +67,17 @@ namespace pmml4net
 			// evaluate nodes
 			node.Evaluate(dict, res);
 			
-			if (res.Nodes.Count > 0)
+			if (res.Nodes.Count > 0) {
 				res.Value = res.Nodes[res.Nodes.Count - 1].Score;
+				foreach (ScoreDistribution scoreDistrib in res.Nodes[res.Nodes.Count - 1].ScoreDistributions)
+				{
+					if (scoreDistrib.Value.Equals(res.Value))
+					{
+						// Check if there are explicit confidence
+						res.Confidence = Convert.ToDecimal(scoreDistrib.Confidence, CultureInfo.InvariantCulture);
+					}
+				}
+			}
 			
 			return res;
 		}
@@ -83,6 +93,10 @@ namespace pmml4net
 			
 			tree.ModelName = node.Attributes["modelName"].Value;
 			
+			if (node.Attributes["missingValueStrategy"] != null)
+				tree.MissingValueStrategy = MissingValueStrategyfromString(node.Attributes["missingValueStrategy"].Value);
+				
+			
 			foreach(XmlNode item in node.ChildNodes)
 			{
 				if ("Node".Equals(item.Name))
@@ -92,6 +106,21 @@ namespace pmml4net
 			}
 			
 			return tree;
+		}
+		
+		private static MissingValueStrategy MissingValueStrategyfromString(string val)
+		{
+			switch (val)
+			{
+			case "weightedConfidence": 
+				return MissingValueStrategy.WeightedConfidence;
+			
+			case "none":
+				return MissingValueStrategy.None;
+				
+			default:
+				throw new NotImplementedException();
+			}
 		}
 	}
 }

@@ -31,6 +31,7 @@ namespace pmml4net
 	{
 		private string id;
 		private string score;
+		private decimal recordCount;
 		private List<Node> nodes;
 		private AbstractPredicate predicate;
 		private List<ScoreDistribution> scoreDistributions;
@@ -49,6 +50,14 @@ namespace pmml4net
 		/// score of this node
 		/// </summary>
 		public string Score { get { return score; } set { score = value; } }
+		
+		/// <summary>
+		/// The value of recordCount in a Node serves as a base size for recordCount values in ScoreDistribution elements.
+		/// These numbers do not necessarily determine the number of records which have been used to build/train the model.
+		/// Nevertheless, they allow to determine the relative size of given values in a ScoreDistribution as well as the 
+		/// relative size of a Node when compared to the parent Node.
+		/// </summary>
+		public decimal RecordCount { get { return recordCount; } set { recordCount = value; } }
 		
 		/// <summary>
 		/// siblings of this node
@@ -79,6 +88,9 @@ namespace pmml4net
 			
 			if (node.Attributes["score"] != null)
 				root.score = node.Attributes["score"].Value;
+			
+			if (node.Attributes["recordCount"] != null)
+				root.recordCount = Convert.ToDecimal(node.Attributes["recordCount"].Value);
 			
 			root.scoreDistributions = new List<ScoreDistribution>();
 			foreach(XmlNode item in node.ChildNodes)
