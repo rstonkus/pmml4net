@@ -20,7 +20,18 @@ namespace pmml4net.tests
 	[TestFixture()]
 	public class PmmlTest
 	{
+		/// <summary>
+		/// Load some generated PMML from other vendors.
+		/// </summary>
+		/// <param name="pFilePath"></param>
+		[TestCase("AuditTree.xml")]
+		[TestCase("BigML1.xml")] // 51794c13e4b024977881b628
+		[TestCase("IrisTree.xml")]
+		[TestCase("SIPINA1.xml")]
+		[TestCase("SPSS.xml")]
 		[TestCase("test-golfing1.xml")]
+		[TestCase("test-golfing2.xml")]
+		[TestCase("test-simpleset.xml")]
 		public void LoadModelsTest(string pFilePath)
 		{
 			// Try from string

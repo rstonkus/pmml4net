@@ -74,6 +74,7 @@
 		<copy file="src/pmml4net.tests/AuditTree.xml" todir="${build.dir}" />
 		<copy file="src/pmml4net.tests/BigML1.xml" todir="${build.dir}" />
 		<copy file="src/pmml4net.tests/IrisTree.xml" todir="${build.dir}" />
+		<copy file="src/pmml4net.tests/SIPINA1.xml" todir="${build.dir}" />
 		<copy file="src/pmml4net.tests/SPSS.xml" todir="${build.dir}" />
 		<copy file="src/pmml4net.tests/test-golfing1.xml" todir="${build.dir}" />
 		<copy file="src/pmml4net.tests/test-golfing2.xml" todir="${build.dir}" />

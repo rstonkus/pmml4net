@@ -42,32 +42,28 @@ namespace pmml4net
 		}
 		
 		/// <summary>
-		/// Load pmml xml file
+		/// Load pmml file
 		/// </summary>
 		/// <param name="path">Path of the PMML file</param>
 		public static Pmml loadModels(string path)
 		{
 			FileInfo info = new FileInfo(path);
-			if (!info.Exists)
-				throw new PmmlException();
-			
 			return loadModels(info);
 		}
 		
 		/// <summary>
-		/// Load pmml xml file
+		/// Load pmml file
 		/// </summary>
 		/// <param name="info">Informations about the PMML file to read></param>
 		public static Pmml loadModels(FileInfo info)
 		{
 			XmlDocument xml = new XmlDocument();
 			xml.Load(info.FullName);
-			
 			return loadModels(xml);
 		}
 		
 		/// <summary>
-		/// Load pmml xml file
+		/// Load pmml file
 		/// </summary>
 		/// <param name="xml">Xml PMML file to read></param>
 		public static Pmml loadModels(XmlDocument xml)

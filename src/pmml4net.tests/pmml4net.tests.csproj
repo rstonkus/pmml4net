@@ -52,6 +52,7 @@
     <None Include="IrisTree.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="SIPINA1.xml" />
     <None Include="SPSS.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

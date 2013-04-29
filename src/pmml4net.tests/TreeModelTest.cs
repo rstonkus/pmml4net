@@ -18,25 +18,6 @@ namespace pmml4net.tests
 	/// </summary>
 	public class TreeModelTest
 	{
-		/// <summary>
-		/// Load some generated PMML from other vendors.
-		/// </summary>
-		/// <param name="pFilePath"></param>
-		[TestCase("AuditTree.xml")]
-		[TestCase("BigML1.xml")] // 51794c13e4b024977881b628
-		[TestCase("IrisTree.xml")]
-		[TestCase("SPSS.xml")]
-		[TestCase("test-golfing1.xml")]
-		[TestCase("test-golfing2.xml")]
-		[TestCase("test-simpleset.xml")]
-		public void TreeModelsTest(string pFilePath)
-		{
-			Pmml pmml = Pmml.loadModels(pFilePath);
-			
-			Assert.NotNull(pmml);
-			
-			Assert.AreEqual(pmml.TreeModels.Count, 1);
-		}
 		
 		[TestCase("test-golfing1.xml", "golfing",
 		          "temperature=75, humidity=55, windy=\"false\", outlook=\"overcast\"",
