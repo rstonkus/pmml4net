@@ -166,6 +166,20 @@ namespace pmml4net
 					{
 						case MissingValueStrategy.LastPrediction:
 							return res;
+						case MissingValueStrategy.WeightedConfidence:
+							Dictionary<string, decimal> conf = CalculateConfidence(root, dict);
+							string max_conf = null;
+							foreach(string key in conf.Keys)
+							{
+								if (max_conf == null)
+									max_conf = key;
+								
+								if (conf[key] > conf[max_conf])
+									max_conf = key;
+							}
+							res.Value = max_conf;
+							res.Confidence = conf[max_conf];
+							return res;
 						default:
 							throw new NotImplementedException();
 					}
@@ -179,6 +193,29 @@ namespace pmml4net
 					res.Value = null;
 				}
 			return res;
+		}
+		
+		private static Dictionary<String, decimal> CalculateConfidence(Node node, Dictionary<string, object> dict)
+		{
+			Dictionary<String, decimal> ret = new Dictionary<string, decimal>();
+			
+			// Test childs
+			foreach(Node child in node.Nodes)
+			{
+				PredicateResult childPredicate = child.Predicate.Evaluate(dict);
+				if (childPredicate != PredicateResult.False)
+				{
+					foreach(ScoreDistribution sd in child.ScoreDistributions)
+					{
+						if (!ret.ContainsKey(sd.Value))
+							ret.Add(sd.Value, 0);
+						
+						ret[sd.Value] = ret[sd.Value] + Convert.ToDecimal(sd.RecordCount)/child.RecordCount;
+					}
+				}
+			}
+			
+			return ret;
 		}
 	}
 }
