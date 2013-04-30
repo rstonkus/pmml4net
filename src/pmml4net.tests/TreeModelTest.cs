@@ -58,13 +58,13 @@ namespace pmml4net.tests
 			Assert.NotNull(result);
 			
 			
-			foreach(Node item in result.Nodes)
+			/*foreach(Node item in result.Nodes)
 			{
 				Console.WriteLine("Node {0} = score {1}", item.Id, item.Score);
 				
 				foreach(ScoreDistribution it2 in item.ScoreDistributions)
 					Console.WriteLine("\tScore Dist. {0} ({1}) = {2}", it2.Value, it2.RecordCount, it2.Confidence);
-			}
+			}*/
 			
 			Assert.AreEqual(res, result.Value);
 			Assert.AreEqual(confidence, result.Confidence);
@@ -136,7 +136,7 @@ namespace pmml4net.tests
 		{
 			string pmmlStr = @"<?xml version=""1.0"" ?>
 <PMML version=""4.1"" xmlns=""http://www.dmg.org/PMML-4_1"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
-	<Header copyright=""www.dmg.org"" description=""A very small binary tree model to test SimpleSetPredicate.""/>
+	<Header copyright=""www.dmg.org"" description=""A very small tree model to test isMissing operator.""/>
 	<DataDictionary numberOfFields=""2"" >
 		<DataField name=""in"" optype=""continuous"" dataType=""double""/>
 		<DataField name=""out"" optype=""continuous"" dataType=""double""/>
@@ -172,7 +172,7 @@ namespace pmml4net.tests
 		{
 			string pmmlStr = @"<?xml version=""1.0"" ?>
 <PMML version=""4.1"" xmlns=""http://www.dmg.org/PMML-4_1"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
-	<Header copyright=""www.dmg.org"" description=""A very small binary tree model to test SimpleSetPredicate.""/>
+	<Header copyright=""www.dmg.org"" description=""A very small tree model to test isNotMissing operator.""/>
 	<DataDictionary numberOfFields=""2"" >
 		<DataField name=""in"" optype=""continuous"" dataType=""double""/>
 		<DataField name=""out"" optype=""continuous"" dataType=""double""/>
@@ -198,6 +198,144 @@ namespace pmml4net.tests
 			ScoreResult res = pmml.getByName("SimpleIsNotMissingTest").Score(parseParams("  in=\"foo\"  "));
 			
 			Assert.AreEqual("1", res.Value);
+		}
+		
+		/// <summary>
+		/// Test noTrueChildStrategy (default value).
+		/// 
+		/// In the following example, scoring reaches N1, but the case to be scored has a value for field prob1 which is 
+		/// less than or equal to 0.33, the noTrueChildStrategy defined for the tree determines what action to take.
+		/// 
+		/// If no value is defined for noTrueChildStrategy then no prediction is returned (this is the default behaviour).
+		/// </summary>
+		[TestCase()]
+		public void NoTrueChildStrategyDefaultTest()
+		{
+			string pmmlStr = @"<?xml version=""1.0"" ?>
+<PMML version=""4.1"" xmlns=""http://www.dmg.org/PMML-4_1"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
+	<Header copyright="""" description=""A very small tree model to test noTrueChildStrategy attribute.""/>
+	<DataDictionary numberOfFields=""2"" >
+		<DataField name=""prob1"" optype=""continuous"" dataType=""double""/>
+		<DataField name=""out"" optype=""continuous"" dataType=""double""/>
+	</DataDictionary>
+	<TreeModel modelName=""Test"" functionName=""classification"">
+		<MiningSchema>
+			<MiningField name=""prob1""/>
+			<MiningField name=""out"" usageType=""predicted""/>
+		</MiningSchema>
+		<Node id=""N1"" score=""0"">
+			<True/>
+			<Node id=""T1"" score=""1"">
+				<SimplePredicate field=""prob1"" operator=""greaterThan"" value=""0.33"" />
+			</Node>
+		</Node>
+	</TreeModel>
+</PMML>
+";
+			XmlDocument xml = new XmlDocument();
+			xml.LoadXml(pmmlStr);
+			Pmml pmml = Pmml.loadModels(xml);
+			
+			TreeModel model = pmml.getByName("Test");
+			
+			// Test that default = returnNullPrediction
+			Assert.AreEqual(NoTrueChildStrategy.ReturnNullPrediction, model.NoTrueChildStrategy);
+			
+			ScoreResult res = model.Score(parseParams("  prob1=0.25  "));
+			
+			Assert.AreEqual(null, res.Value);
+		}
+		
+		/// <summary>
+		/// Test noTrueChildStrategy = returnNullPrediction.
+		/// 
+		/// In the following example, scoring reaches N1, but the case to be scored has a value for field prob1 which is 
+		/// less than or equal to 0.33, the noTrueChildStrategy defined for the tree determines what action to take.
+		/// 
+		/// If returnNullPrediction is defined for noTrueChildStrategy then no prediction is returned.
+		/// </summary>
+		[TestCase()]
+		public void NoTrueChildStrategyReturnNullPredictionTest()
+		{
+			string pmmlStr = @"<?xml version=""1.0"" ?>
+<PMML version=""4.1"" xmlns=""http://www.dmg.org/PMML-4_1"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
+	<Header copyright="""" description=""A very small tree model to test noTrueChildStrategy attribute.""/>
+	<DataDictionary numberOfFields=""2"" >
+		<DataField name=""prob1"" optype=""continuous"" dataType=""double""/>
+		<DataField name=""out"" optype=""continuous"" dataType=""double""/>
+	</DataDictionary>
+	<TreeModel modelName=""Test"" functionName=""classification"" noTrueChildStrategy=""returnNullPrediction"" >
+		<MiningSchema>
+			<MiningField name=""prob1""/>
+			<MiningField name=""out"" usageType=""predicted""/>
+		</MiningSchema>
+		<Node id=""N1"" score=""0"">
+			<True/>
+			<Node id=""T1"" score=""1"">
+				<SimplePredicate field=""prob1"" operator=""greaterThan"" value=""0.33"" />
+			</Node>
+		</Node>
+	</TreeModel>
+</PMML>
+";
+			XmlDocument xml = new XmlDocument();
+			xml.LoadXml(pmmlStr);
+			Pmml pmml = Pmml.loadModels(xml);
+			
+			TreeModel model = pmml.getByName("Test");
+			
+			// Test that = returnNullPrediction
+			Assert.AreEqual(NoTrueChildStrategy.ReturnNullPrediction, model.NoTrueChildStrategy);
+			
+			ScoreResult res = model.Score(parseParams("  prob1=0.25  "));
+			
+			Assert.AreEqual(null, res.Value);
+		}
+		
+		/// <summary>
+		/// Test noTrueChildStrategy = returnLastPrediction.
+		/// 
+		/// In the following example, scoring reaches N1, but the case to be scored has a value for field prob1 which is 
+		/// less than or equal to 0.33, the noTrueChildStrategy defined for the tree determines what action to take.
+		/// 
+		/// If set to returnLastPrediction, then the score of N1 (0) is returned.
+		/// </summary>
+		[TestCase()]
+		public void NoTrueChildStrategyReturnLastPredictionTest()
+		{
+			string pmmlStr = @"<?xml version=""1.0"" ?>
+<PMML version=""4.1"" xmlns=""http://www.dmg.org/PMML-4_1"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
+	<Header copyright="""" description=""A very small tree model to test noTrueChildStrategy attribute.""/>
+	<DataDictionary numberOfFields=""2"" >
+		<DataField name=""prob1"" optype=""continuous"" dataType=""double""/>
+		<DataField name=""out"" optype=""continuous"" dataType=""double""/>
+	</DataDictionary>
+	<TreeModel modelName=""Test"" functionName=""classification"" noTrueChildStrategy=""returnLastPrediction"" >
+		<MiningSchema>
+			<MiningField name=""prob1""/>
+			<MiningField name=""out"" usageType=""predicted""/>
+		</MiningSchema>
+		<Node id=""N1"" score=""0"">
+			<True/>
+			<Node id=""T1"" score=""1"">
+				<SimplePredicate field=""prob1"" operator=""greaterThan"" value=""0.33"" />
+			</Node>
+		</Node>
+	</TreeModel>
+</PMML>
+";
+			XmlDocument xml = new XmlDocument();
+			xml.LoadXml(pmmlStr);
+			Pmml pmml = Pmml.loadModels(xml);
+			
+			TreeModel model = pmml.getByName("Test");
+			
+			// Test that = returnNullPrediction
+			Assert.AreEqual(NoTrueChildStrategy.ReturnLastPrediction, model.NoTrueChildStrategy);
+			
+			ScoreResult res = model.Score(parseParams("  prob1=0.25  "));
+			
+			Assert.AreEqual("0", res.Value);
 		}
 	}
 }

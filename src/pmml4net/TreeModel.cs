@@ -31,9 +31,11 @@ namespace pmml4net
 	public class TreeModel
 	{
 		private String modelName;
+		private MissingValueStrategy missingValueStrategy;
+		private NoTrueChildStrategy noTrueChildStrategy;
+		
 		private MiningSchema miningSchema;
 		private Node node;
-		private MissingValueStrategy missingValueStrategy;
 		
 		/// <summary>
 		/// Identifies the model with a unique name in the context of the PMML file.
@@ -44,6 +46,11 @@ namespace pmml4net
 		/// Defines a strategy for dealing with missing values.
 		/// </summary>
 		public MissingValueStrategy MissingValueStrategy { get { return missingValueStrategy; } set { missingValueStrategy = value; } }
+		
+		/// <summary>
+		/// Defines what to do in situations where scoring cannot reach a leaf node.
+		/// </summary>
+		public NoTrueChildStrategy NoTrueChildStrategy { get { return noTrueChildStrategy; } set { noTrueChildStrategy = value; } }
 		
 		/// <summary>
 		/// Mining schema for this model.
@@ -62,24 +69,12 @@ namespace pmml4net
 		/// <returns></returns>
 		public ScoreResult Score(Dictionary<string, object> dict)
 		{
-			ScoreResult res = new ScoreResult("XXXXXXXX", "XXXXXXXXX");
+			ScoreResult resStart = new ScoreResult("", null);
+			Node root = this.node;
+			resStart.Nodes.Add(root);
+			resStart.Value = root.Score;
 			
-			// evaluate nodes
-			node.Evaluate(dict, res);
-			
-			if (res.Nodes.Count > 0) {
-				res.Value = res.Nodes[res.Nodes.Count - 1].Score;
-				foreach (ScoreDistribution scoreDistrib in res.Nodes[res.Nodes.Count - 1].ScoreDistributions)
-				{
-					if (scoreDistrib.Value.Equals(res.Value))
-					{
-						// Check if there are explicit confidence
-						res.Confidence = Convert.ToDecimal(scoreDistrib.Confidence, CultureInfo.InvariantCulture);
-					}
-				}
-			}
-			
-			return res;
+			return Node.Evaluate(root, missingValueStrategy, noTrueChildStrategy, dict, resStart);
 		}
 		
 		/// <summary>
@@ -95,7 +90,12 @@ namespace pmml4net
 			
 			if (node.Attributes["missingValueStrategy"] != null)
 				tree.MissingValueStrategy = MissingValueStrategyfromString(node.Attributes["missingValueStrategy"].Value);
-				
+			
+			// By default noTrueChildStrategy = returnNullPrediction
+			tree.noTrueChildStrategy = NoTrueChildStrategy.ReturnNullPrediction;
+			if (node.Attributes["noTrueChildStrategy"] != null)
+				tree.noTrueChildStrategy = NoTrueChildStrategyfromString(node.Attributes["noTrueChildStrategy"].Value);
+			
 			
 			foreach(XmlNode item in node.ChildNodes)
 			{
@@ -112,11 +112,29 @@ namespace pmml4net
 		{
 			switch (val)
 			{
+			case "lastPrediction": 
+				return MissingValueStrategy.LastPrediction;
+			
 			case "weightedConfidence": 
 				return MissingValueStrategy.WeightedConfidence;
 			
 			case "none":
 				return MissingValueStrategy.None;
+				
+			default:
+				throw new NotImplementedException();
+			}
+		}
+		
+		private static NoTrueChildStrategy NoTrueChildStrategyfromString(string val)
+		{
+			switch (val)
+			{
+			case "returnNullPrediction": 
+				return NoTrueChildStrategy.ReturnNullPrediction;
+			
+			case "returnLastPrediction":
+				return NoTrueChildStrategy.ReturnLastPrediction;
 				
 			default:
 				throw new NotImplementedException();

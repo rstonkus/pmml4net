@@ -21,6 +21,7 @@ Boston, MA  02110-1301, USA.
 using System;
 using System.Collections.Generic;
 using System.Xml;
+using System.Globalization;
 
 namespace pmml4net
 {
@@ -90,7 +91,7 @@ namespace pmml4net
 				root.score = node.Attributes["score"].Value;
 			
 			if (node.Attributes["recordCount"] != null)
-				root.recordCount = Convert.ToDecimal(node.Attributes["recordCount"].Value);
+				root.recordCount = Convert.ToDecimal(node.Attributes["recordCount"].Value, CultureInfo.InvariantCulture);
 			
 			root.scoreDistributions = new List<ScoreDistribution>();
 			foreach(XmlNode item in node.ChildNodes)
@@ -138,28 +139,46 @@ namespace pmml4net
 		/// <summary>
 		/// Scoring with Tree Model
 		/// </summary>
+		/// <param name="root">Parent node</param>
+		/// <param name="missingvalueStr">Missing value strategy to evaluate this node.</param>
+		/// <param name="noTrueChildStr">Strategy to evaluate this node if no child are true</param>
 		/// <param name="dict">Values</param>
 		/// <param name="res" >Result to return</param>
 		/// <returns></returns>
-		public bool Evaluate(Dictionary<string, object> dict, ScoreResult res)
+		public static ScoreResult Evaluate(Node root, MissingValueStrategy missingvalueStr, NoTrueChildStrategy noTrueChildStr, 
+		                            Dictionary<string, object> dict, ScoreResult res)
 		{
-			// Test predicates
-			bool res_predicate = false;
-			if (predicate.Evaluate(dict) == PredicateResult.True)
+			// Test childs
+			foreach(Node child in root.Nodes)
 			{
-				res_predicate = true;
-				
-				res.Nodes.Add(this);
-				
-				// Test childs
-				foreach(Node child in nodes)
+				PredicateResult childPredicate = child.Predicate.Evaluate(dict);
+				if (childPredicate == PredicateResult.True)
 				{
-					if (child.Evaluate(dict, res))
-						break;
+					res.Nodes.Add(child);
+					res.Value = child.Score;
+					
+					return Evaluate(child, missingvalueStr, noTrueChildStr, dict, res);
+				}
+				else if (childPredicate == PredicateResult.Unknown)
+				{
+					// Unknow value lead to act with missingvalueStr
+					switch(missingvalueStr)
+					{
+						case MissingValueStrategy.LastPrediction:
+							return res;
+						default:
+							throw new NotImplementedException();
+					}
 				}
 			}
-				
-			return res_predicate;
+			
+			// All child nodes are false
+			if (root.Nodes.Count > 0)
+				if (noTrueChildStr == NoTrueChildStrategy.ReturnNullPrediction)
+				{
+					res.Value = null;
+				}
+			return res;
 		}
 	}
 }
