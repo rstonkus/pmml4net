@@ -156,6 +156,14 @@ namespace pmml4net
 				{
 					res.Nodes.Add(child);
 					res.Value = child.Score;
+					foreach(ScoreDistribution sco in child.ScoreDistributions)
+					{
+						if (sco.Value.Equals(child.Score))
+						{
+							if (sco.Confidence != null)
+								res.Confidence = Convert.ToDecimal(sco.Confidence, CultureInfo.InvariantCulture);
+						}
+					}
 					
 					return Evaluate(child, missingvalueStr, noTrueChildStr, dict, res);
 				}

@@ -24,13 +24,16 @@ namespace pmml4net.tests
 		          "may play", 0)]
 		[TestCase("test-golfing2.xml", "golfing",
 		          "temperature=45, humidity=60, outlook=\"sunny\"",
-		          "no play", 0.6)]
+		          "no play", 0.6)] // Example 1 in PMML doc
 		[TestCase("test-golfing2.xml", "golfing",
 		          "outlook=\"sunny\"",
-		          "will play", 0)]
+		          "will play", 0.8)] // Example 2 in PMML doc
 		[TestCase("test-golfing2.xml", "golfing",
 		          "",
-		          "will play", 0)]
+		          "will play", 0.6)] // Example 3 in PMML doc
+		[TestCase("test-golfing2.xml", "golfing",
+		          "temperature=45, humidity=90",
+		          "may play", 0.47)] // Example 8 in PMML doc
 		[TestCase("BigML1.xml", "51794c13e4b024977881b628",
 		          "000000=78, 000012=0.05, 000013=0.05",
 		          "Non recurrent", 0)] // confidence = 83%
