@@ -17,7 +17,7 @@
 	<target name="compile-pmml4net" >
 		<csc target="library" output="${build.dir}/pmml4net.dll"
 				 nostdlib="true" doc="${build.dir}/pmml4net.xml"
-				 warnaserror="true" verbose="${verbose}" debug="${debug}">
+				 warnaserror="true" verbose="${verbose}" debug="${debug}" platform="anycpu">
 			<references basedir="${build.dir}">
 				<include name="mscorlib.dll"/>
 				<include name="System.dll"/>
