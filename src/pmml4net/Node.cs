@@ -210,7 +210,8 @@ namespace pmml4net
 						if (!ret.ContainsKey(sd.Value))
 							ret.Add(sd.Value, 0);
 						
-						ret[sd.Value] = ret[sd.Value] + Convert.ToDecimal(sd.RecordCount)/child.RecordCount;
+						decimal new_val = (Convert.ToDecimal(sd.RecordCount)/child.RecordCount) * (child.RecordCount / node.RecordCount);
+						ret[sd.Value] = ret[sd.Value] + new_val;
 					}
 				}
 			}

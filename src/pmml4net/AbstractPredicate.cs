@@ -46,6 +46,26 @@ namespace pmml4net
 			
 			return PredicateResult.False;
 		}
+		
+		/// <summary>
+		/// Compute OR operator between 2 predicates.
+		/// </summary>
+		/// <param name="pred1"></param>
+		/// <param name="pred2"></param>
+		/// <returns></returns>
+		protected PredicateResult Or(PredicateResult pred1, PredicateResult pred2)
+		{
+			if (pred1 == PredicateResult.True)
+				return PredicateResult.True;
+		
+			if (pred2 == PredicateResult.True)
+				return PredicateResult.True;
+			
+			if (pred1 == PredicateResult.False && pred2 == PredicateResult.False)
+				return PredicateResult.False;
+			
+			return PredicateResult.Unknown;
+		}
 	}
 	
 	

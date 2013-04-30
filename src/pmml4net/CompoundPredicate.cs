@@ -96,10 +96,15 @@ namespace pmml4net
 			
 			if ("or".Equals(fbooleanOperator.Trim().ToLowerInvariant()))
 			{
-				foreach(AbstractPredicate pred in fpredicates)
-					if (pred.Evaluate(dict) == PredicateResult.True)
+				PredicateResult ret = fpredicates[0].Evaluate(dict);
+				for(int i=1; i < fpredicates.Count; i++)
+				{
+					ret = Or(ret, fpredicates[i].Evaluate(dict));
+					
+					if (ret == PredicateResult.True)
 						return PredicateResult.True;
-				return PredicateResult.False;
+				}
+				return ret;
 			}
 			else if ("and".Equals(fbooleanOperator.Trim().ToLowerInvariant()))
 			{
