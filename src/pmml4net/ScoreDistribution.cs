@@ -54,6 +54,13 @@ namespace pmml4net
 		public string Confidence { get { return fconfidence; } set { fconfidence = value; } }
 		
 		/// <summary>
+		/// This optional attribute assigns a predicted probability for the given value within the node. If not specified, 
+		/// the predicted probability is calculated from the record counts. If defined for any class label, it must be defined 
+		/// for all and the predicted probabilities must sum to 1
+		/// </summary>
+		public string Probability { get { return fprobability; } set { fprobability = value; } }
+		
+		/// <summary>
 		/// Load Node from XmlNode
 		/// </summary>
 		/// <param name="node"></param>
