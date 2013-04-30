@@ -108,6 +108,32 @@ namespace pmml4net.tests
 			Assert.AreEqual(confidence, result.Confidence);
 		}
 		
+		[Test()]
+		[Description("Example 7 in PMML doc")]
+		public void ScoreExample7Test()
+		{
+			string pFilePath = "test-golfing2.xml";
+			string modelname = "golfing";
+			string paramList = "outlook=\"sunny\"";
+			
+			Pmml pmml = Pmml.loadModels(pFilePath);
+			
+			Assert.NotNull(pmml);
+			
+			TreeModel tree = pmml.getByName(modelname);
+			Assert.NotNull(tree);
+			
+			// Modification for NullPrediction
+			tree.MissingValueStrategy = MissingValueStrategy.NullPrediction;
+			
+			Dictionary<string, object> lDict = parseParams(paramList);
+			
+			ScoreResult result = tree.Score(lDict);
+			Assert.NotNull(result);
+			
+			Assert.IsNull(result.Value);
+		}
+		
 		[TestCase("test-golfing1.xml")]
 		public void loadTest(string pFilePath)
 		{

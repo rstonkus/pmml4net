@@ -175,6 +175,10 @@ namespace pmml4net
 						case MissingValueStrategy.LastPrediction:
 							return res;
 							
+						case MissingValueStrategy.NullPrediction:
+							res.Value = null;
+							return res;
+							
 						case MissingValueStrategy.WeightedConfidence:
 							Dictionary<string, decimal> conf = CalculateConfidence(root, dict);
 							string max_conf = null;
