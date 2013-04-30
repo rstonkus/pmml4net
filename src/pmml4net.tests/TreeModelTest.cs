@@ -31,9 +31,6 @@ namespace pmml4net.tests
 		[TestCase("test-golfing2.xml", "golfing",
 		          "",
 		          "will play", 0.6)] // Example 3 in PMML doc
-		[TestCase("test-golfing2.xml", "golfing",
-		          "temperature=45, humidity=90",
-		          "may play", 0.47)] // Example 8 in PMML doc
 		[TestCase("BigML1.xml", "51794c13e4b024977881b628",
 		          "000000=78, 000012=0.05, 000013=0.05",
 		          "Non recurrent", 0)] // confidence = 83%
@@ -54,6 +51,44 @@ namespace pmml4net.tests
 			
 			TreeModel tree = pmml.getByName(modelname);
 			Assert.NotNull(tree);
+			
+			Dictionary<string, object> lDict = parseParams(paramList);
+			
+			ScoreResult result = tree.Score(lDict);
+			Assert.NotNull(result);
+			
+			
+			/*foreach(Node item in result.Nodes)
+			{
+				Console.WriteLine("Node {0} = score {1}", item.Id, item.Score);
+				
+				foreach(ScoreDistribution it2 in item.ScoreDistributions)
+					Console.WriteLine("\tScore Dist. {0} ({1}) = {2}", it2.Value, it2.RecordCount, it2.Confidence);
+			}*/
+			
+			Assert.AreEqual(res, result.Value);
+			Assert.AreEqual(confidence, result.Confidence);
+		}
+		
+		[Test()]
+		[Ignore("MissingValueStrategy.AggregateNodes is not implemented")]
+		public void ScoreExample8Test()
+		{
+			string pFilePath = "test-golfing2.xml";
+			string modelname = "golfing";
+			string paramList = "temperature=45, humidity=90";
+			string res = "may play";
+			decimal confidence = 0.47M;
+			
+			Pmml pmml = Pmml.loadModels(pFilePath);
+			
+			Assert.NotNull(pmml);
+			
+			TreeModel tree = pmml.getByName(modelname);
+			Assert.NotNull(tree);
+			
+			// Modification for aggregateNode
+			tree.MissingValueStrategy = MissingValueStrategy.AggregateNodes;
 			
 			Dictionary<string, object> lDict = parseParams(paramList);
 			

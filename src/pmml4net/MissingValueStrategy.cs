@@ -55,6 +55,19 @@ namespace pmml4net
 		WeightedConfidence,
 		
 		/// <summary>
+		/// If a Node's predicate value evaluates to UNKNOWN while traversing the tree, we consider evaluation of the Node's predicate
+		/// being TRUE and follow this Node. In addition, subsequent Nodes to the initial Node are evaluated as well. This procedure is 
+		/// applied recursively for each Node being evaluated until a leaf Node is reached. All leaf Nodes being reached by this 
+		/// procedure are aggregated such that for each value attribute of such a leaf Node's ScoreDistribution element the 
+		/// corresponding recordCount attribute values are accumulated. The value associated with the highest recordCount accumulated 
+		/// through this procedure is predicted.
+		/// The basic idea of missingValueStrategy aggregateNodes is to aggregate all leaf Nodes which may be reached by a record with 
+		/// one or more missing values considering all possible values. Strategy aggregateNodes calculates a virtual Node and predicts 
+		/// a score according to this virtual Node. Requires the presence of attribute recordCount in all ScoreDistribution elements.
+		/// </summary>
+		AggregateNodes,
+		
+		/// <summary>
 		/// Comparisons with missing values other than checks for missing values always evaluate to FALSE.
 		/// </summary>
 		None

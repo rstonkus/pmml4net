@@ -174,6 +174,7 @@ namespace pmml4net
 					{
 						case MissingValueStrategy.LastPrediction:
 							return res;
+							
 						case MissingValueStrategy.WeightedConfidence:
 							Dictionary<string, decimal> conf = CalculateConfidence(root, dict);
 							string max_conf = null;
@@ -188,6 +189,10 @@ namespace pmml4net
 							res.Value = max_conf;
 							res.Confidence = conf[max_conf];
 							return res;
+							
+						case MissingValueStrategy.AggregateNodes:
+							return res;
+							
 						default:
 							throw new NotImplementedException();
 					}
