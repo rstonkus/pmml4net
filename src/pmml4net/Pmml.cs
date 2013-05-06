@@ -30,8 +30,8 @@ namespace pmml4net
 	/// </summary>
 	public class Pmml
 	{
-		
 		private IList<TreeModel> treeModels;
+		private IList<MiningModel> miningModels;
 		
 		/// <summary>
 		/// TreeModel in pmml file.
@@ -39,6 +39,14 @@ namespace pmml4net
 		public IList<TreeModel> TreeModels 
 		{ 
 			get { return treeModels; }
+		}
+		
+		/// <summary>
+		/// Mining models in pmml file.
+		/// </summary>
+		public IList<MiningModel> MiningModels 
+		{ 
+			get { return miningModels; }
 		}
 		
 		/// <summary>
@@ -70,6 +78,7 @@ namespace pmml4net
 		{
 			Pmml pmml = new Pmml();
 			pmml.treeModels = new List<TreeModel>();
+			pmml.miningModels = new List<MiningModel>();
 			
 			foreach (XmlNode root in xml.ChildNodes)
 			{
@@ -79,9 +88,11 @@ namespace pmml4net
 					{
 						if (itemTreeModel.Name.Equals("TreeModel"))
 						{
-							TreeModel tree = TreeModel.loadFromXmlNode(itemTreeModel);
-							
-							pmml.treeModels.Add(tree);
+							pmml.treeModels.Add(TreeModel.loadFromXmlNode(itemTreeModel));
+						}
+						else if (itemTreeModel.Name.Equals("MiningModel"))
+						{
+							pmml.miningModels.Add(MiningModel.loadFromXmlNode(itemTreeModel));
 						}
 					}
 				}

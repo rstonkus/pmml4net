@@ -27,7 +27,7 @@ namespace pmml4net
 	/// <summary>
 	/// Description of SimpleSetPredicate.
 	/// </summary>
-	public class SimpleSetPredicate : AbstractPredicate
+	public class SimpleSetPredicate : Predicate
 	{
 		private string field;
 		private string foperator;

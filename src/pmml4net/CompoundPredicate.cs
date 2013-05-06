@@ -27,15 +27,15 @@ namespace pmml4net
 	/// <summary>
 	/// Description of CompoundPredicate.
 	/// </summary>
-	public class CompoundPredicate : AbstractPredicate
+	public class CompoundPredicate : Predicate
 	{
 		private string fbooleanOperator;
-		private List<AbstractPredicate> fpredicates;
+		private List<Predicate> fpredicates;
 		
 		/// <summary>
 		/// This attribute of <code>SimplePredicate</code> element is the information to evaluate / compare against.
 		/// </summary>
-		public List<AbstractPredicate> Predicates { get { return fpredicates; } set { fpredicates = value; } }
+		public List<Predicate> Predicates { get { return fpredicates; } set { fpredicates = value; } }
 		
 		/// <summary>
 		/// Load Node from XmlNode
@@ -50,7 +50,7 @@ namespace pmml4net
 			
 			root.fbooleanOperator = node.Attributes["booleanOperator"].Value;
 			
-			root.fpredicates = new List<AbstractPredicate>();
+			root.fpredicates = new List<Predicate>();
 			foreach(XmlNode item in node.ChildNodes)
 			{
 				if ("extension".Equals(item.Name.ToLowerInvariant()))
@@ -108,14 +108,14 @@ namespace pmml4net
 			}
 			else if ("and".Equals(fbooleanOperator.Trim().ToLowerInvariant()))
 			{
-				foreach(AbstractPredicate pred in fpredicates)
+				foreach(Predicate pred in fpredicates)
 					if (pred.Evaluate(dict) == PredicateResult.False)
 						return PredicateResult.False;
 				return PredicateResult.True;
 			}
 			else if ("surrogate".Equals(fbooleanOperator.Trim().ToLowerInvariant()))
 			{
-				foreach(AbstractPredicate pred in fpredicates)
+				foreach(Predicate pred in fpredicates)
 				{
 					PredicateResult ret = pred.Evaluate(dict);
 					if (ret != PredicateResult.Unknown)

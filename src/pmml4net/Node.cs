@@ -33,9 +33,9 @@ namespace pmml4net
 		private string id;
 		private string score;
 		private decimal recordCount;
-		private List<Node> nodes;
-		private AbstractPredicate predicate;
-		private List<ScoreDistribution> scoreDistributions;
+		private IList<Node> nodes;
+		private Predicate predicate;
+		private IList<ScoreDistribution> scoreDistributions;
 		
 		private Node()
 		{
@@ -63,17 +63,17 @@ namespace pmml4net
 		/// <summary>
 		/// siblings of this node
 		/// </summary>
-		public List<Node> Nodes { get { return nodes; } set { nodes = value; } }
+		public IList<Node> Nodes { get { return nodes; } set { nodes = value; } }
 		
 		/// <summary>
 		/// Predicates of this node
 		/// </summary>
-		public AbstractPredicate Predicate { get { return predicate; } set { predicate = value; } }
+		public Predicate Predicate { get { return predicate; } set { predicate = value; } }
 		
 		/// <summary>
 		/// siblings of this node
 		/// </summary>
-		public List<ScoreDistribution> ScoreDistributions { get { return scoreDistributions; } set { scoreDistributions = value; } }
+		public IList<ScoreDistribution> ScoreDistributions { get { return scoreDistributions; } set { scoreDistributions = value; } }
 		
 		/// <summary>
 		/// Load Node from XmlNode

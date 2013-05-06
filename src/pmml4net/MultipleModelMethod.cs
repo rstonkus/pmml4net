@@ -19,25 +19,20 @@ Boston, MA  02110-1301, USA.
  */
 
 using System;
-using System.Collections.Generic;
 
 namespace pmml4net
 {
 	/// <summary>
-	/// Description of FalsePredicate.
-	/// 
-	/// For FalsePredicate, always returns false.
+	/// Description of MultipleModelMethod.
 	/// </summary>
-	public class FalsePredicate : Predicate
+	public enum MultipleModelMethod
 	{
 		/// <summary>
-		/// Evaluate the predicate
+		/// selectAll is applicable to any model type. All models for which the predicate in the Segment evaluates to true are evaluated.
+		/// The Output element should be used to specify inclusion of a segment id in the evaluation results so as to match results with 
+		/// the associated model segment. The PMML standard does not specify a mechanism for returning more than one value per record scored.
+		/// Different implementations may choose to implement returning multiple values for a single record differently.
 		/// </summary>
-		/// <param name="dict"></param>
-		/// <returns></returns>
-		public override PredicateResult Evaluate(Dictionary<string, object> dict)
-		{
-			return PredicateResult.False;
-		}
+		SelectAll
 	}
 }

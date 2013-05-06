@@ -28,7 +28,7 @@ namespace pmml4net
 	/// <summary>
 	/// Description of TreeModel.
 	/// </summary>
-	public class TreeModel
+	public class TreeModel : ModelElement
 	{
 		private String modelName;
 		private MissingValueStrategy missingValueStrategy;

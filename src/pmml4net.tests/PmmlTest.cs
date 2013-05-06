@@ -27,8 +27,10 @@ namespace pmml4net.tests
 		[TestCase("AuditTree.xml")]
 		[TestCase("BigML1.xml")] // 51794c13e4b024977881b628
 		[TestCase("IrisTree.xml")]
+		[TestCase("Segmentation.xml")]
 		[TestCase("SIPINA1.xml")]
 		[TestCase("SPSS.xml")]
+		[TestCase("SPSS-2.xml")]
 		[TestCase("test-golfing1.xml")]
 		[TestCase("test-golfing2.xml")]
 		[TestCase("test-simpleset.xml")]

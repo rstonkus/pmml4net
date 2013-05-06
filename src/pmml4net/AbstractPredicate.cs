@@ -18,7 +18,7 @@ Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
 Boston, MA  02110-1301, USA.
  */
 
-using System;
+//using System;
 using System.Collections.Generic;
 
 namespace pmml4net
@@ -26,7 +26,7 @@ namespace pmml4net
 	/// <summary>
 	/// Description of AbstractPredicate.
 	/// </summary>
-	public abstract class AbstractPredicate
+	public abstract class Predicate
 	{
 		/// <summary>
 		/// Test if predicate is true

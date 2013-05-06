@@ -14,7 +14,7 @@ namespace pmml4net
 	/// <summary>
 	/// Description of TruePredicate.
 	/// </summary>
-	public class TruePredicate : AbstractPredicate
+	public class TruePredicate : Predicate
 	{
 		/// <summary>
 		/// 

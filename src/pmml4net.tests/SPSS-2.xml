@@ -1,0 +1,879 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<PMML version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.dmg.org/PMML-4_0">
+	<Header copyright="(C) Copyright IBM Corp. 1994, 2011">
+		<Application name="IBM SPSS Modeler" version="15" />
+	</Header>
+	<DataDictionary numberOfFields="14">
+		<DataField dataType="double" name="VerifianceCPT2" optype="continuous">
+			<Extension extender="spss" name="storageType" value="numeric" />
+		</DataField>
+		<DataField dataType="double" name="CA3TRetMtt" optype="continuous">
+			<Extension extender="spss" name="storageType" value="numeric" />
+		</DataField>
+		<DataField dataType="double" name="DiffDateTr3" optype="continuous">
+			<Extension extender="spss" name="storageType" value="numeric" />
+		</DataField>
+		<DataField dataType="double" name="D2CB" optype="continuous">
+			<Extension extender="spss" name="storageType" value="numeric" />
+		</DataField>
+		<DataField dataType="double" name="Montant" optype="continuous">
+			<Extension extender="spss" name="storageType" value="numeric" />
+		</DataField>
+		<DataField dataType="double" name="TauxImpNb_RB" optype="continuous">
+			<Extension extender="spss" name="storageType" value="numeric" />
+		</DataField>
+		<DataField dataType="double" name="EcartNumCheq" optype="continuous">
+			<Extension extender="spss" name="storageType" value="numeric" />
+		</DataField>
+		<DataField dataType="double" name="CA3TR" optype="continuous">
+			<Extension extender="spss" name="storageType" value="numeric" />
+		</DataField>
+		<DataField dataType="double" name="TauxImpNB_CPM" optype="continuous">
+			<Extension extender="spss" name="storageType" value="numeric" />
+		</DataField>
+		<DataField dataType="double" name="VerifianceCPT1" optype="continuous">
+			<Extension extender="spss" name="storageType" value="numeric" />
+		</DataField>
+		<DataField dataType="double" name="DiffDateTr1" optype="continuous">
+			<Extension extender="spss" name="storageType" value="numeric" />
+		</DataField>
+		<DataField dataType="double" name="NbrMagasin3J" optype="continuous">
+			<Extension extender="spss" name="storageType" value="numeric" />
+		</DataField>
+		<DataField dataType="double" name="Heure" optype="continuous">
+			<Extension extender="spss" name="storageType" value="numeric" />
+		</DataField>
+		<DataField dataType="string" name="Class" optype="categorical">
+			<Extension extender="spss" name="storageType" value="string" />
+			<Value property="valid" value="F" />
+			<Value property="valid" value="N" />
+		</DataField>
+	</DataDictionary>
+	<TreeModel algorithmName="C5" functionName="classification" missingValueStrategy="weightedConfidence" modelName="Class: 1.0">
+		<Extension extender="spss" name="missingValueStrategy" value="weightedConfidence" />
+		<MiningSchema>
+			<MiningField name="VerifianceCPT2" usageType="active" />
+			<MiningField name="CA3TRetMtt" usageType="active" />
+			<MiningField name="DiffDateTr3" usageType="active" />
+			<MiningField name="D2CB" usageType="active" />
+			<MiningField name="Montant" usageType="active" />
+			<MiningField name="TauxImpNb_RB" usageType="active" />
+			<MiningField name="EcartNumCheq" usageType="active" />
+			<MiningField name="CA3TR" usageType="active" />
+			<MiningField name="TauxImpNB_CPM" usageType="active" />
+			<MiningField name="VerifianceCPT1" usageType="active" />
+			<MiningField name="DiffDateTr1" usageType="active" />
+			<MiningField name="NbrMagasin3J" usageType="active" />
+			<MiningField name="Heure" usageType="active" />
+			<MiningField name="Class" usageType="predicted" />
+		</MiningSchema>
+		<Node defaultChild="1" id="0" recordCount="6377633" score="N">
+			<Extension extender="spss" name="defaultChild" value="0" />
+			<True />
+			<ScoreDistribution confidence="5.974003207773166E-4" recordCount="3810" value="F" />
+			<ScoreDistribution confidence="0.02164031702670881" recordCount="138014" value="N" />
+			<Node defaultChild="2" id="1" recordCount="6361139" score="N">
+				<Extension extender="spss" name="defaultChild" value="0" />
+				<SimplePredicate field="VerifianceCPT2" operator="lessOrEqual" value="2" />
+				<ScoreDistribution confidence="3.0230435146913156E-4" recordCount="1923" value="F" />
+				<ScoreDistribution confidence="0.019400142018591325" recordCount="123407" value="N" />
+				<Node defaultChild="24" id="2" recordCount="6260431" score="N">
+					<Extension extender="spss" name="defaultChild" value="1" />
+					<SimplePredicate field="CA3TRetMtt" operator="lessOrEqual" value="361.02" />
+					<ScoreDistribution confidence="4.105148671073925E-5" recordCount="257" value="F" />
+					<ScoreDistribution confidence="0.0038919045669539368" recordCount="24365" value="N" />
+					<Node defaultChild="23" id="3" recordCount="24622" score="N">
+						<Extension extender="spss" name="defaultChild" value="1" />
+						<SimplePredicate field="DiffDateTr3" operator="lessOrEqual" value="2.99861" />
+						<ScoreDistribution confidence="0.010437819835919097" recordCount="257" value="F" />
+						<ScoreDistribution confidence="0.9895621801640809" recordCount="24365" value="N" />
+						<Node defaultChild="6" id="4" recordCount="1215" score="N">
+							<Extension extender="spss" name="defaultChild" value="1" />
+							<SimplePredicate field="D2CB" operator="lessOrEqual" value="68" />
+							<ScoreDistribution confidence="0.1646090534979424" recordCount="200" value="F" />
+							<ScoreDistribution confidence="0.8353909465020576" recordCount="1015" value="N" />
+							<Node id="5" recordCount="319" score="N">
+								<SimplePredicate field="Montant" operator="lessOrEqual" value="15" />
+								<ScoreDistribution confidence="0.003134796238244514" recordCount="1" value="F" />
+								<ScoreDistribution confidence="0.9968652037617555" recordCount="318" value="N" />
+							</Node>
+							<Node defaultChild="7" id="6" recordCount="896" score="N">
+								<Extension extender="spss" name="defaultChild" value="0" />
+								<SimplePredicate field="Montant" operator="greaterThan" value="15" />
+								<ScoreDistribution confidence="0.22209821428571427" recordCount="199" value="F" />
+								<ScoreDistribution confidence="0.7779017857142857" recordCount="697" value="N" />
+								<Node defaultChild="8" id="7" recordCount="816" score="N">
+									<Extension extender="spss" name="defaultChild" value="0" />
+									<SimplePredicate field="TauxImpNb_RB" operator="lessOrEqual" value="69.4559" />
+									<ScoreDistribution confidence="0.18382352941176472" recordCount="150" value="F" />
+									<ScoreDistribution confidence="0.8161764705882353" recordCount="666" value="N" />
+									<Node id="8" recordCount="567" score="N">
+										<SimplePredicate field="EcartNumCheq" operator="lessOrEqual" value="6" />
+										<ScoreDistribution confidence="0.12698412698412698" recordCount="72" value="F" />
+										<ScoreDistribution confidence="0.873015873015873" recordCount="495" value="N" />
+									</Node>
+									<Node defaultChild="17" id="9" recordCount="249" score="N">
+										<Extension extender="spss" name="defaultChild" value="1" />
+										<SimplePredicate field="EcartNumCheq" operator="greaterThan" value="6" />
+										<ScoreDistribution confidence="0.3132530120481928" recordCount="78" value="F" />
+										<ScoreDistribution confidence="0.6867469879518072" recordCount="171" value="N" />
+										<Node defaultChild="12" id="10" recordCount="63" score="F">
+											<Extension extender="spss" name="defaultChild" value="1" />
+											<SimplePredicate field="D2CB" operator="lessOrEqual" value="3" />
+											<ScoreDistribution confidence="0.6825396825396826" recordCount="43" value="F" />
+											<ScoreDistribution confidence="0.31746031746031744" recordCount="20" value="N" />
+											<Node id="11" recordCount="6" score="N">
+												<SimplePredicate field="CA3TR" operator="lessOrEqual" value="66.09" />
+												<ScoreDistribution confidence="0.0" recordCount="0" value="F" />
+												<ScoreDistribution confidence="1.0" recordCount="6" value="N" />
+											</Node>
+											<Node defaultChild="13" id="12" recordCount="57" score="F">
+												<Extension extender="spss" name="defaultChild" value="0" />
+												<SimplePredicate field="CA3TR" operator="greaterThan" value="66.09" />
+												<ScoreDistribution confidence="0.7543859649122807" recordCount="43" value="F" />
+												<ScoreDistribution confidence="0.24561403508771928" recordCount="14" value="N" />
+												<Node id="13" recordCount="39" score="F">
+													<SimplePredicate field="TauxImpNB_CPM" operator="lessOrEqual" value="42.7172" />
+													<ScoreDistribution confidence="0.8974358974358975" recordCount="35" value="F" />
+													<ScoreDistribution confidence="0.10256410256410256" recordCount="4" value="N" />
+												</Node>
+												<Node defaultChild="16" id="14" recordCount="18" score="N">
+													<Extension extender="spss" name="defaultChild" value="1" />
+													<SimplePredicate field="TauxImpNB_CPM" operator="greaterThan" value="42.7172" />
+													<ScoreDistribution confidence="0.4444444444444444" recordCount="8" value="F" />
+													<ScoreDistribution confidence="0.5555555555555556" recordCount="10" value="N" />
+													<Node id="15" recordCount="4" score="F">
+														<SimplePredicate field="D2CB" operator="lessOrEqual" value="1" />
+														<ScoreDistribution confidence="1.0" recordCount="4" value="F" />
+														<ScoreDistribution confidence="0.0" recordCount="0" value="N" />
+													</Node>
+													<Node id="16" recordCount="14" score="N">
+														<SimplePredicate field="D2CB" operator="greaterThan" value="1" />
+														<ScoreDistribution confidence="0.2857142857142857" recordCount="4" value="F" />
+														<ScoreDistribution confidence="0.7142857142857143" recordCount="10" value="N" />
+													</Node>
+												</Node>
+											</Node>
+										</Node>
+										<Node id="17" recordCount="186" score="N">
+											<SimplePredicate field="D2CB" operator="greaterThan" value="3" />
+											<ScoreDistribution confidence="0.1881720430107527" recordCount="35" value="F" />
+											<ScoreDistribution confidence="0.8118279569892473" recordCount="151" value="N" />
+										</Node>
+									</Node>
+								</Node>
+								<Node defaultChild="19" id="18" recordCount="80" score="F">
+									<Extension extender="spss" name="defaultChild" value="0" />
+									<SimplePredicate field="TauxImpNb_RB" operator="greaterThan" value="69.4559" />
+									<ScoreDistribution confidence="0.6125" recordCount="49" value="F" />
+									<ScoreDistribution confidence="0.3875" recordCount="31" value="N" />
+									<Node defaultChild="21" id="19" recordCount="68" score="F">
+										<Extension extender="spss" name="defaultChild" value="1" />
+										<SimplePredicate field="D2CB" operator="lessOrEqual" value="14" />
+										<ScoreDistribution confidence="0.7058823529411765" recordCount="48" value="F" />
+										<ScoreDistribution confidence="0.29411764705882354" recordCount="20" value="N" />
+										<Node id="20" recordCount="19" score="N">
+											<SimplePredicate field="EcartNumCheq" operator="lessOrEqual" value="4" />
+											<ScoreDistribution confidence="0.3684210526315789" recordCount="7" value="F" />
+											<ScoreDistribution confidence="0.631578947368421" recordCount="12" value="N" />
+										</Node>
+										<Node id="21" recordCount="49" score="F">
+											<SimplePredicate field="EcartNumCheq" operator="greaterThan" value="4" />
+											<ScoreDistribution confidence="0.8367346938775511" recordCount="41" value="F" />
+											<ScoreDistribution confidence="0.16326530612244897" recordCount="8" value="N" />
+										</Node>
+									</Node>
+									<Node id="22" recordCount="12" score="N">
+										<SimplePredicate field="D2CB" operator="greaterThan" value="14" />
+										<ScoreDistribution confidence="0.08333333333333333" recordCount="1" value="F" />
+										<ScoreDistribution confidence="0.9166666666666666" recordCount="11" value="N" />
+									</Node>
+								</Node>
+							</Node>
+						</Node>
+						<Node id="23" recordCount="23407" score="N">
+							<SimplePredicate field="D2CB" operator="greaterThan" value="68" />
+							<ScoreDistribution confidence="0.0024351689665484686" recordCount="57" value="F" />
+							<ScoreDistribution confidence="0.9975648310334515" recordCount="23350" value="N" />
+						</Node>
+					</Node>
+					<Node id="24" recordCount="6235809" score="N">
+						<SimplePredicate field="DiffDateTr3" operator="greaterThan" value="2.99861" />
+						<ScoreDistribution confidence="0.0" recordCount="0" value="F" />
+						<ScoreDistribution confidence="0.0" recordCount="0" value="N" />
+					</Node>
+				</Node>
+				<Node defaultChild="83" id="25" recordCount="100708" score="N">
+					<Extension extender="spss" name="defaultChild" value="1" />
+					<SimplePredicate field="CA3TRetMtt" operator="greaterThan" value="361.02" />
+					<ScoreDistribution confidence="0.016542876434841324" recordCount="1666" value="F" />
+					<ScoreDistribution confidence="0.9834571235651587" recordCount="99042" value="N" />
+					<Node defaultChild="40" id="26" recordCount="34528" score="N">
+						<Extension extender="spss" name="defaultChild" value="1" />
+						<SimplePredicate field="D2CB" operator="lessOrEqual" value="197" />
+						<ScoreDistribution confidence="0.041473586654309544" recordCount="1432" value="F" />
+						<ScoreDistribution confidence="0.9585264133456904" recordCount="33096" value="N" />
+						<Node defaultChild="28" id="27" recordCount="489" score="N">
+							<Extension extender="spss" name="defaultChild" value="0" />
+							<SimplePredicate field="DiffDateTr3" operator="lessOrEqual" value="2.98056" />
+							<ScoreDistribution confidence="0.37627811860940696" recordCount="184" value="F" />
+							<ScoreDistribution confidence="0.623721881390593" recordCount="305" value="N" />
+							<Node defaultChild="29" id="28" recordCount="287" score="F">
+								<Extension extender="spss" name="defaultChild" value="0" />
+								<SimplePredicate field="D2CB" operator="lessOrEqual" value="21" />
+								<ScoreDistribution confidence="0.5435540069686411" recordCount="156" value="F" />
+								<ScoreDistribution confidence="0.4564459930313589" recordCount="131" value="N" />
+								<Node defaultChild="31" id="29" recordCount="201" score="N">
+									<Extension extender="spss" name="defaultChild" value="1" />
+									<SimplePredicate field="EcartNumCheq" operator="lessOrEqual" value="8" />
+									<ScoreDistribution confidence="0.43781094527363185" recordCount="88" value="F" />
+									<ScoreDistribution confidence="0.5621890547263682" recordCount="113" value="N" />
+									<Node id="30" recordCount="53" score="N">
+										<SimplePredicate field="TauxImpNb_RB" operator="lessOrEqual" value="29.4897" />
+										<ScoreDistribution confidence="0.18867924528301888" recordCount="10" value="F" />
+										<ScoreDistribution confidence="0.8113207547169812" recordCount="43" value="N" />
+									</Node>
+									<Node id="31" recordCount="148" score="F">
+										<SimplePredicate field="TauxImpNb_RB" operator="greaterThan" value="29.4897" />
+										<ScoreDistribution confidence="0.527027027027027" recordCount="78" value="F" />
+										<ScoreDistribution confidence="0.47297297297297297" recordCount="70" value="N" />
+									</Node>
+								</Node>
+								<Node defaultChild="33" id="32" recordCount="86" score="F">
+									<Extension extender="spss" name="defaultChild" value="0" />
+									<SimplePredicate field="EcartNumCheq" operator="greaterThan" value="8" />
+									<ScoreDistribution confidence="0.7906976744186046" recordCount="68" value="F" />
+									<ScoreDistribution confidence="0.20930232558139536" recordCount="18" value="N" />
+									<Node defaultChild="37" id="33" recordCount="73" score="F">
+										<Extension extender="spss" name="defaultChild" value="1" />
+										<SimplePredicate field="EcartNumCheq" operator="lessOrEqual" value="30" />
+										<ScoreDistribution confidence="0.863013698630137" recordCount="63" value="F" />
+										<ScoreDistribution confidence="0.136986301369863" recordCount="10" value="N" />
+										<Node defaultChild="35" id="34" recordCount="17" score="F">
+											<Extension extender="spss" name="defaultChild" value="0" />
+											<SimplePredicate field="CA3TR" operator="lessOrEqual" value="372.2" />
+											<ScoreDistribution confidence="0.5294117647058824" recordCount="9" value="F" />
+											<ScoreDistribution confidence="0.47058823529411764" recordCount="8" value="N" />
+											<Node id="35" recordCount="10" score="N">
+												<SimplePredicate field="EcartNumCheq" operator="lessOrEqual" value="14" />
+												<ScoreDistribution confidence="0.2" recordCount="2" value="F" />
+												<ScoreDistribution confidence="0.8" recordCount="8" value="N" />
+											</Node>
+											<Node id="36" recordCount="7" score="F">
+												<SimplePredicate field="EcartNumCheq" operator="greaterThan" value="14" />
+												<ScoreDistribution confidence="1.0" recordCount="7" value="F" />
+												<ScoreDistribution confidence="0.0" recordCount="0" value="N" />
+											</Node>
+										</Node>
+										<Node id="37" recordCount="56" score="F">
+											<SimplePredicate field="CA3TR" operator="greaterThan" value="372.2" />
+											<ScoreDistribution confidence="0.9642857142857143" recordCount="54" value="F" />
+											<ScoreDistribution confidence="0.03571428571428571" recordCount="2" value="N" />
+										</Node>
+									</Node>
+									<Node id="38" recordCount="13" score="N">
+										<SimplePredicate field="EcartNumCheq" operator="greaterThan" value="30" />
+										<ScoreDistribution confidence="0.38461538461538464" recordCount="5" value="F" />
+										<ScoreDistribution confidence="0.6153846153846154" recordCount="8" value="N" />
+									</Node>
+								</Node>
+							</Node>
+							<Node id="39" recordCount="202" score="N">
+								<SimplePredicate field="D2CB" operator="greaterThan" value="21" />
+								<ScoreDistribution confidence="0.13861386138613863" recordCount="28" value="F" />
+								<ScoreDistribution confidence="0.8613861386138614" recordCount="174" value="N" />
+							</Node>
+						</Node>
+						<Node defaultChild="72" id="40" recordCount="34039" score="N">
+							<Extension extender="spss" name="defaultChild" value="1" />
+							<SimplePredicate field="DiffDateTr3" operator="greaterThan" value="2.98056" />
+							<ScoreDistribution confidence="0.036663826786920886" recordCount="1248" value="F" />
+							<ScoreDistribution confidence="0.9633361732130791" recordCount="32791" value="N" />
+							<Node defaultChild="42" id="41" recordCount="2615" score="N">
+								<Extension extender="spss" name="defaultChild" value="0" />
+								<SimplePredicate field="VerifianceCPT1" operator="lessOrEqual" value="0" />
+								<ScoreDistribution confidence="0.1824091778202677" recordCount="477" value="F" />
+								<ScoreDistribution confidence="0.8175908221797323" recordCount="2138" value="N" />
+								<Node defaultChild="43" id="42" recordCount="2443" score="N">
+									<Extension extender="spss" name="defaultChild" value="0" />
+									<SimplePredicate field="DiffDateTr1" operator="lessOrEqual" value="4" />
+									<ScoreDistribution confidence="0.14613180515759314" recordCount="357" value="F" />
+									<ScoreDistribution confidence="0.8538681948424068" recordCount="2086" value="N" />
+									<Node id="43" recordCount="1728" score="N">
+										<SimplePredicate field="Montant" operator="lessOrEqual" value="138.68" />
+										<ScoreDistribution confidence="0.07523148148148148" recordCount="130" value="F" />
+										<ScoreDistribution confidence="0.9247685185185185" recordCount="1598" value="N" />
+									</Node>
+									<Node defaultChild="45" id="44" recordCount="715" score="N">
+										<Extension extender="spss" name="defaultChild" value="0" />
+										<SimplePredicate field="Montant" operator="greaterThan" value="138.68" />
+										<ScoreDistribution confidence="0.3174825174825175" recordCount="227" value="F" />
+										<ScoreDistribution confidence="0.6825174825174826" recordCount="488" value="N" />
+										<Node defaultChild="46" id="45" recordCount="390" score="F">
+											<Extension extender="spss" name="defaultChild" value="0" />
+											<SimplePredicate field="D2CB" operator="lessOrEqual" value="48" />
+											<ScoreDistribution confidence="0.5435897435897435" recordCount="212" value="F" />
+											<ScoreDistribution confidence="0.4564102564102564" recordCount="178" value="N" />
+											<Node defaultChild="47" id="46" recordCount="369" score="F">
+												<Extension extender="spss" name="defaultChild" value="0" />
+												<SimplePredicate field="Montant" operator="lessOrEqual" value="1981.89" />
+												<ScoreDistribution confidence="0.5636856368563685" recordCount="208" value="F" />
+												<ScoreDistribution confidence="0.4363143631436314" recordCount="161" value="N" />
+												<Node defaultChild="48" id="47" recordCount="314" score="F">
+													<Extension extender="spss" name="defaultChild" value="0" />
+													<SimplePredicate field="D2CB" operator="lessOrEqual" value="12" />
+													<ScoreDistribution confidence="0.6050955414012739" recordCount="190" value="F" />
+													<ScoreDistribution confidence="0.39490445859872614" recordCount="124" value="N" />
+													<Node defaultChild="49" id="48" recordCount="172" score="F">
+														<Extension extender="spss" name="defaultChild" value="0" />
+														<SimplePredicate field="EcartNumCheq" operator="lessOrEqual" value="2" />
+														<ScoreDistribution confidence="0.5174418604651163" recordCount="89" value="F" />
+														<ScoreDistribution confidence="0.48255813953488375" recordCount="83" value="N" />
+														<Node defaultChild="50" id="49" recordCount="119" score="F">
+															<Extension extender="spss" name="defaultChild" value="0" />
+															<SimplePredicate field="NbrMagasin3J" operator="lessOrEqual" value="1" />
+															<ScoreDistribution confidence="0.5798319327731093" recordCount="69" value="F" />
+															<ScoreDistribution confidence="0.42016806722689076" recordCount="50" value="N" />
+															<Node defaultChild="52" id="50" recordCount="92" score="F">
+																<Extension extender="spss" name="defaultChild" value="1" />
+																<SimplePredicate field="DiffDateTr1" operator="lessOrEqual" value="0.825694" />
+																<ScoreDistribution confidence="0.6630434782608695" recordCount="61" value="F" />
+																<ScoreDistribution confidence="0.33695652173913043" recordCount="31" value="N" />
+																<Node id="51" recordCount="20" score="N">
+																	<SimplePredicate field="DiffDateTr1" operator="lessOrEqual" value="0.00138889" />
+																	<ScoreDistribution confidence="0.35" recordCount="7" value="F" />
+																	<ScoreDistribution confidence="0.65" recordCount="13" value="N" />
+																</Node>
+																<Node id="52" recordCount="72" score="F">
+																	<SimplePredicate field="DiffDateTr1" operator="greaterThan" value="0.00138889" />
+																	<ScoreDistribution confidence="0.75" recordCount="54" value="F" />
+																	<ScoreDistribution confidence="0.25" recordCount="18" value="N" />
+																</Node>
+															</Node>
+															<Node defaultChild="54" id="53" recordCount="27" score="N">
+																<Extension extender="spss" name="defaultChild" value="0" />
+																<SimplePredicate field="DiffDateTr1" operator="greaterThan" value="0.825694" />
+																<ScoreDistribution confidence="0.2962962962962963" recordCount="8" value="F" />
+																<ScoreDistribution confidence="0.7037037037037037" recordCount="19" value="N" />
+																<Node id="54" recordCount="18" score="N">
+																	<SimplePredicate field="DiffDateTr1" operator="lessOrEqual" value="2.99931" />
+																	<ScoreDistribution confidence="0.05555555555555555" recordCount="1" value="F" />
+																	<ScoreDistribution confidence="0.9444444444444444" recordCount="17" value="N" />
+																</Node>
+																<Node id="55" recordCount="9" score="F">
+																	<SimplePredicate field="DiffDateTr1" operator="greaterThan" value="2.99931" />
+																	<ScoreDistribution confidence="0.7777777777777778" recordCount="7" value="F" />
+																	<ScoreDistribution confidence="0.2222222222222222" recordCount="2" value="N" />
+																</Node>
+															</Node>
+														</Node>
+														<Node id="56" recordCount="53" score="N">
+															<SimplePredicate field="NbrMagasin3J" operator="greaterThan" value="1" />
+															<ScoreDistribution confidence="0.37735849056603776" recordCount="20" value="F" />
+															<ScoreDistribution confidence="0.6226415094339622" recordCount="33" value="N" />
+														</Node>
+													</Node>
+													<Node defaultChild="58" id="57" recordCount="142" score="F">
+														<Extension extender="spss" name="defaultChild" value="0" />
+														<SimplePredicate field="EcartNumCheq" operator="greaterThan" value="2" />
+														<ScoreDistribution confidence="0.7112676056338029" recordCount="101" value="F" />
+														<ScoreDistribution confidence="0.2887323943661972" recordCount="41" value="N" />
+														<Node defaultChild="59" id="58" recordCount="131" score="F">
+															<Extension extender="spss" name="defaultChild" value="0" />
+															<SimplePredicate field="EcartNumCheq" operator="lessOrEqual" value="21" />
+															<ScoreDistribution confidence="0.7633587786259542" recordCount="100" value="F" />
+															<ScoreDistribution confidence="0.2366412213740458" recordCount="31" value="N" />
+															<Node defaultChild="63" id="59" recordCount="90" score="F">
+																<Extension extender="spss" name="defaultChild" value="1" />
+																<SimplePredicate field="EcartNumCheq" operator="lessOrEqual" value="6" />
+																<ScoreDistribution confidence="0.7" recordCount="63" value="F" />
+																<ScoreDistribution confidence="0.3" recordCount="27" value="N" />
+																<Node defaultChild="62" id="60" recordCount="22" score="N">
+																	<Extension extender="spss" name="defaultChild" value="1" />
+																	<SimplePredicate field="Heure" operator="lessOrEqual" value="48600" />
+																	<ScoreDistribution confidence="0.4090909090909091" recordCount="9" value="F" />
+																	<ScoreDistribution confidence="0.5909090909090909" recordCount="13" value="N" />
+																	<Node id="61" recordCount="7" score="F">
+																		<SimplePredicate field="Heure" operator="lessOrEqual" value="41220" />
+																		<ScoreDistribution confidence="0.8571428571428571" recordCount="6" value="F" />
+																		<ScoreDistribution confidence="0.14285714285714285" recordCount="1" value="N" />
+																	</Node>
+																	<Node id="62" recordCount="15" score="N">
+																		<SimplePredicate field="Heure" operator="greaterThan" value="41220" />
+																		<ScoreDistribution confidence="0.2" recordCount="3" value="F" />
+																		<ScoreDistribution confidence="0.8" recordCount="12" value="N" />
+																	</Node>
+																</Node>
+																<Node id="63" recordCount="68" score="F">
+																	<SimplePredicate field="Heure" operator="greaterThan" value="48600" />
+																	<ScoreDistribution confidence="0.7941176470588235" recordCount="54" value="F" />
+																	<ScoreDistribution confidence="0.20588235294117646" recordCount="14" value="N" />
+																</Node>
+															</Node>
+															<Node id="64" recordCount="41" score="F">
+																<SimplePredicate field="EcartNumCheq" operator="greaterThan" value="6" />
+																<ScoreDistribution confidence="0.9024390243902439" recordCount="37" value="F" />
+																<ScoreDistribution confidence="0.0975609756097561" recordCount="4" value="N" />
+															</Node>
+														</Node>
+														<Node id="65" recordCount="11" score="N">
+															<SimplePredicate field="EcartNumCheq" operator="greaterThan" value="21" />
+															<ScoreDistribution confidence="0.09090909090909091" recordCount="1" value="F" />
+															<ScoreDistribution confidence="0.9090909090909091" recordCount="10" value="N" />
+														</Node>
+													</Node>
+												</Node>
+												<Node id="66" recordCount="55" score="N">
+													<SimplePredicate field="D2CB" operator="greaterThan" value="12" />
+													<ScoreDistribution confidence="0.32727272727272727" recordCount="18" value="F" />
+													<ScoreDistribution confidence="0.6727272727272727" recordCount="37" value="N" />
+												</Node>
+											</Node>
+											<Node id="67" recordCount="21" score="N">
+												<SimplePredicate field="Montant" operator="greaterThan" value="1981.89" />
+												<ScoreDistribution confidence="0.19047619047619047" recordCount="4" value="F" />
+												<ScoreDistribution confidence="0.8095238095238095" recordCount="17" value="N" />
+											</Node>
+										</Node>
+										<Node id="68" recordCount="325" score="N">
+											<SimplePredicate field="D2CB" operator="greaterThan" value="48" />
+											<ScoreDistribution confidence="0.046153846153846156" recordCount="15" value="F" />
+											<ScoreDistribution confidence="0.9538461538461539" recordCount="310" value="N" />
+										</Node>
+									</Node>
+								</Node>
+								<Node defaultChild="70" id="69" recordCount="172" score="F">
+									<Extension extender="spss" name="defaultChild" value="0" />
+									<SimplePredicate field="DiffDateTr1" operator="greaterThan" value="4" />
+									<ScoreDistribution confidence="0.6976744186046512" recordCount="120" value="F" />
+									<ScoreDistribution confidence="0.3023255813953488" recordCount="52" value="N" />
+									<Node id="70" recordCount="163" score="F">
+										<SimplePredicate field="TauxImpNb_RB" operator="lessOrEqual" value="120.773" />
+										<ScoreDistribution confidence="0.7239263803680982" recordCount="118" value="F" />
+										<ScoreDistribution confidence="0.27607361963190186" recordCount="45" value="N" />
+									</Node>
+									<Node id="71" recordCount="9" score="N">
+										<SimplePredicate field="TauxImpNb_RB" operator="greaterThan" value="120.773" />
+										<ScoreDistribution confidence="0.2222222222222222" recordCount="2" value="F" />
+										<ScoreDistribution confidence="0.7777777777777778" recordCount="7" value="N" />
+									</Node>
+								</Node>
+							</Node>
+							<Node defaultChild="73" id="72" recordCount="31424" score="N">
+								<Extension extender="spss" name="defaultChild" value="0" />
+								<SimplePredicate field="VerifianceCPT1" operator="greaterThan" value="0" />
+								<ScoreDistribution confidence="0.02453538696537678" recordCount="771" value="F" />
+								<ScoreDistribution confidence="0.9754646130346232" recordCount="30653" value="N" />
+								<Node id="73" recordCount="28680" score="N">
+									<SimplePredicate field="VerifianceCPT1" operator="lessOrEqual" value="1" />
+									<ScoreDistribution confidence="0.017294281729428172" recordCount="496" value="F" />
+									<ScoreDistribution confidence="0.9827057182705718" recordCount="28184" value="N" />
+								</Node>
+								<Node defaultChild="76" id="74" recordCount="2744" score="N">
+									<Extension extender="spss" name="defaultChild" value="1" />
+									<SimplePredicate field="VerifianceCPT1" operator="greaterThan" value="1" />
+									<ScoreDistribution confidence="0.10021865889212828" recordCount="275" value="F" />
+									<ScoreDistribution confidence="0.8997813411078717" recordCount="2469" value="N" />
+									<Node id="75" recordCount="1210" score="N">
+										<SimplePredicate field="TauxImpNb_RB" operator="lessOrEqual" value="31.4878" />
+										<ScoreDistribution confidence="0.045454545454545456" recordCount="55" value="F" />
+										<ScoreDistribution confidence="0.9545454545454546" recordCount="1155" value="N" />
+									</Node>
+									<Node defaultChild="77" id="76" recordCount="1534" score="N">
+										<Extension extender="spss" name="defaultChild" value="0" />
+										<SimplePredicate field="TauxImpNb_RB" operator="greaterThan" value="31.4878" />
+										<ScoreDistribution confidence="0.14341590612777053" recordCount="220" value="F" />
+										<ScoreDistribution confidence="0.8565840938722294" recordCount="1314" value="N" />
+										<Node id="77" recordCount="1135" score="N">
+											<SimplePredicate field="DiffDateTr1" operator="lessOrEqual" value="4" />
+											<ScoreDistribution confidence="0.08986784140969163" recordCount="102" value="F" />
+											<ScoreDistribution confidence="0.9101321585903084" recordCount="1033" value="N" />
+										</Node>
+										<Node defaultChild="79" id="78" recordCount="399" score="N">
+											<Extension extender="spss" name="defaultChild" value="0" />
+											<SimplePredicate field="DiffDateTr1" operator="greaterThan" value="4" />
+											<ScoreDistribution confidence="0.2957393483709273" recordCount="118" value="F" />
+											<ScoreDistribution confidence="0.7042606516290727" recordCount="281" value="N" />
+											<Node id="79" recordCount="283" score="N">
+												<SimplePredicate field="Montant" operator="lessOrEqual" value="651.41" />
+												<ScoreDistribution confidence="0.19081272084805653" recordCount="54" value="F" />
+												<ScoreDistribution confidence="0.8091872791519434" recordCount="229" value="N" />
+											</Node>
+											<Node defaultChild="81" id="80" recordCount="116" score="F">
+												<Extension extender="spss" name="defaultChild" value="0" />
+												<SimplePredicate field="Montant" operator="greaterThan" value="651.41" />
+												<ScoreDistribution confidence="0.5517241379310345" recordCount="64" value="F" />
+												<ScoreDistribution confidence="0.4482758620689655" recordCount="52" value="N" />
+												<Node id="81" recordCount="91" score="F">
+													<SimplePredicate field="Heure" operator="lessOrEqual" value="71160" />
+													<ScoreDistribution confidence="0.6263736263736264" recordCount="57" value="F" />
+													<ScoreDistribution confidence="0.37362637362637363" recordCount="34" value="N" />
+												</Node>
+												<Node id="82" recordCount="25" score="N">
+													<SimplePredicate field="Heure" operator="greaterThan" value="71160" />
+													<ScoreDistribution confidence="0.28" recordCount="7" value="F" />
+													<ScoreDistribution confidence="0.72" recordCount="18" value="N" />
+												</Node>
+											</Node>
+										</Node>
+									</Node>
+								</Node>
+							</Node>
+						</Node>
+					</Node>
+					<Node id="83" recordCount="66180" score="N">
+						<SimplePredicate field="D2CB" operator="greaterThan" value="197" />
+						<ScoreDistribution confidence="0.0035358114233907524" recordCount="234" value="F" />
+						<ScoreDistribution confidence="0.9964641885766092" recordCount="65946" value="N" />
+					</Node>
+				</Node>
+			</Node>
+			<Node defaultChild="85" id="84" recordCount="16494" score="N">
+				<Extension extender="spss" name="defaultChild" value="0" />
+				<SimplePredicate field="VerifianceCPT2" operator="greaterThan" value="2" />
+				<ScoreDistribution confidence="0.11440523826846126" recordCount="1887" value="F" />
+				<ScoreDistribution confidence="0.8855947617315387" recordCount="14607" value="N" />
+				<Node defaultChild="141" id="85" recordCount="15615" score="N">
+					<Extension extender="spss" name="defaultChild" value="1" />
+					<SimplePredicate field="VerifianceCPT2" operator="lessOrEqual" value="5" />
+					<ScoreDistribution confidence="0.07140569964777457" recordCount="1115" value="F" />
+					<ScoreDistribution confidence="0.9285943003522255" recordCount="14500" value="N" />
+					<Node defaultChild="87" id="86" recordCount="5658" score="N">
+						<Extension extender="spss" name="defaultChild" value="0" />
+						<SimplePredicate field="D2CB" operator="lessOrEqual" value="83" />
+						<ScoreDistribution confidence="0.16578296217744787" recordCount="938" value="F" />
+						<ScoreDistribution confidence="0.8342170378225522" recordCount="4720" value="N" />
+						<Node defaultChild="88" id="87" recordCount="4327" score="N">
+							<Extension extender="spss" name="defaultChild" value="0" />
+							<SimplePredicate field="CA3TRetMtt" operator="lessOrEqual" value="374.66" />
+							<ScoreDistribution confidence="0.10792697018719667" recordCount="467" value="F" />
+							<ScoreDistribution confidence="0.8920730298128033" recordCount="3860" value="N" />
+							<Node id="88" recordCount="3477" score="N">
+								<SimplePredicate field="VerifianceCPT2" operator="lessOrEqual" value="3" />
+								<ScoreDistribution confidence="0.08196721311475409" recordCount="285" value="F" />
+								<ScoreDistribution confidence="0.9180327868852459" recordCount="3192" value="N" />
+							</Node>
+							<Node defaultChild="91" id="89" recordCount="850" score="N">
+								<Extension extender="spss" name="defaultChild" value="1" />
+								<SimplePredicate field="VerifianceCPT2" operator="greaterThan" value="3" />
+								<ScoreDistribution confidence="0.21411764705882352" recordCount="182" value="F" />
+								<ScoreDistribution confidence="0.7858823529411765" recordCount="668" value="N" />
+								<Node id="90" recordCount="131" score="N">
+									<SimplePredicate field="TauxImpNb_RB" operator="lessOrEqual" value="22.5069" />
+									<ScoreDistribution confidence="0.06870229007633588" recordCount="9" value="F" />
+									<ScoreDistribution confidence="0.9312977099236641" recordCount="122" value="N" />
+								</Node>
+								<Node defaultChild="92" id="91" recordCount="719" score="N">
+									<Extension extender="spss" name="defaultChild" value="0" />
+									<SimplePredicate field="TauxImpNb_RB" operator="greaterThan" value="22.5069" />
+									<ScoreDistribution confidence="0.24061196105702365" recordCount="173" value="F" />
+									<ScoreDistribution confidence="0.7593880389429764" recordCount="546" value="N" />
+									<Node defaultChild="93" id="92" recordCount="561" score="N">
+										<Extension extender="spss" name="defaultChild" value="0" />
+										<SimplePredicate field="VerifianceCPT1" operator="lessOrEqual" value="3" />
+										<ScoreDistribution confidence="0.2727272727272727" recordCount="153" value="F" />
+										<ScoreDistribution confidence="0.7272727272727273" recordCount="408" value="N" />
+										<Node defaultChild="94" id="93" recordCount="511" score="N">
+											<Extension extender="spss" name="defaultChild" value="0" />
+											<SimplePredicate field="VerifianceCPT2" operator="lessOrEqual" value="4" />
+											<ScoreDistribution confidence="0.23874755381604695" recordCount="122" value="F" />
+											<ScoreDistribution confidence="0.761252446183953" recordCount="389" value="N" />
+											<Node defaultChild="95" id="94" recordCount="403" score="N">
+												<Extension extender="spss" name="defaultChild" value="0" />
+												<SimplePredicate field="D2CB" operator="lessOrEqual" value="15" />
+												<ScoreDistribution confidence="0.27791563275434245" recordCount="112" value="F" />
+												<ScoreDistribution confidence="0.7220843672456576" recordCount="291" value="N" />
+												<Node id="95" recordCount="376" score="N">
+													<SimplePredicate field="D2CB" operator="lessOrEqual" value="9" />
+													<ScoreDistribution confidence="0.25" recordCount="94" value="F" />
+													<ScoreDistribution confidence="0.75" recordCount="282" value="N" />
+												</Node>
+												<Node id="96" recordCount="27" score="F">
+													<SimplePredicate field="D2CB" operator="greaterThan" value="9" />
+													<ScoreDistribution confidence="0.6666666666666666" recordCount="18" value="F" />
+													<ScoreDistribution confidence="0.3333333333333333" recordCount="9" value="N" />
+												</Node>
+											</Node>
+											<Node id="97" recordCount="108" score="N">
+												<SimplePredicate field="D2CB" operator="greaterThan" value="15" />
+												<ScoreDistribution confidence="0.09259259259259259" recordCount="10" value="F" />
+												<ScoreDistribution confidence="0.9074074074074074" recordCount="98" value="N" />
+											</Node>
+										</Node>
+										<Node defaultChild="100" id="98" recordCount="50" score="F">
+											<Extension extender="spss" name="defaultChild" value="1" />
+											<SimplePredicate field="VerifianceCPT2" operator="greaterThan" value="4" />
+											<ScoreDistribution confidence="0.62" recordCount="31" value="F" />
+											<ScoreDistribution confidence="0.38" recordCount="19" value="N" />
+											<Node id="99" recordCount="10" score="N">
+												<SimplePredicate field="TauxImpNB_CPM" operator="lessOrEqual" value="27.2095" />
+												<ScoreDistribution confidence="0.1" recordCount="1" value="F" />
+												<ScoreDistribution confidence="0.9" recordCount="9" value="N" />
+											</Node>
+											<Node id="100" recordCount="40" score="F">
+												<SimplePredicate field="TauxImpNB_CPM" operator="greaterThan" value="27.2095" />
+												<ScoreDistribution confidence="0.75" recordCount="30" value="F" />
+												<ScoreDistribution confidence="0.25" recordCount="10" value="N" />
+											</Node>
+										</Node>
+									</Node>
+									<Node defaultChild="105" id="101" recordCount="158" score="N">
+										<Extension extender="spss" name="defaultChild" value="1" />
+										<SimplePredicate field="VerifianceCPT1" operator="greaterThan" value="3" />
+										<ScoreDistribution confidence="0.12658227848101267" recordCount="20" value="F" />
+										<ScoreDistribution confidence="0.8734177215189873" recordCount="138" value="N" />
+										<Node defaultChild="103" id="102" recordCount="46" score="N">
+											<Extension extender="spss" name="defaultChild" value="0" />
+											<SimplePredicate field="DiffDateTr1" operator="lessOrEqual" value="0.690278" />
+											<ScoreDistribution confidence="0.3695652173913043" recordCount="17" value="F" />
+											<ScoreDistribution confidence="0.6304347826086957" recordCount="29" value="N" />
+											<Node id="103" recordCount="36" score="N">
+												<SimplePredicate field="Heure" operator="lessOrEqual" value="72420" />
+												<ScoreDistribution confidence="0.2222222222222222" recordCount="8" value="F" />
+												<ScoreDistribution confidence="0.7777777777777778" recordCount="28" value="N" />
+											</Node>
+											<Node id="104" recordCount="10" score="F">
+												<SimplePredicate field="Heure" operator="greaterThan" value="72420" />
+												<ScoreDistribution confidence="0.9" recordCount="9" value="F" />
+												<ScoreDistribution confidence="0.1" recordCount="1" value="N" />
+											</Node>
+										</Node>
+										<Node id="105" recordCount="112" score="N">
+											<SimplePredicate field="DiffDateTr1" operator="greaterThan" value="0.690278" />
+											<ScoreDistribution confidence="0.026785714285714284" recordCount="3" value="F" />
+											<ScoreDistribution confidence="0.9732142857142857" recordCount="109" value="N" />
+										</Node>
+									</Node>
+								</Node>
+							</Node>
+						</Node>
+						<Node defaultChild="108" id="106" recordCount="1331" score="N">
+							<Extension extender="spss" name="defaultChild" value="1" />
+							<SimplePredicate field="CA3TRetMtt" operator="greaterThan" value="374.66" />
+							<ScoreDistribution confidence="0.3538692712246431" recordCount="471" value="F" />
+							<ScoreDistribution confidence="0.6461307287753568" recordCount="860" value="N" />
+							<Node id="107" recordCount="254" score="N">
+								<SimplePredicate field="TauxImpNb_RB" operator="lessOrEqual" value="24.007" />
+								<ScoreDistribution confidence="0.12992125984251968" recordCount="33" value="F" />
+								<ScoreDistribution confidence="0.8700787401574803" recordCount="221" value="N" />
+							</Node>
+							<Node defaultChild="109" id="108" recordCount="1077" score="N">
+								<Extension extender="spss" name="defaultChild" value="0" />
+								<SimplePredicate field="TauxImpNb_RB" operator="greaterThan" value="24.007" />
+								<ScoreDistribution confidence="0.40668523676880225" recordCount="438" value="F" />
+								<ScoreDistribution confidence="0.5933147632311978" recordCount="639" value="N" />
+								<Node defaultChild="110" id="109" recordCount="896" score="N">
+									<Extension extender="spss" name="defaultChild" value="0" />
+									<SimplePredicate field="D2CB" operator="lessOrEqual" value="20" />
+									<ScoreDistribution confidence="0.44308035714285715" recordCount="397" value="F" />
+									<ScoreDistribution confidence="0.5569196428571429" recordCount="499" value="N" />
+									<Node defaultChild="118" id="110" recordCount="811" score="N">
+										<Extension extender="spss" name="defaultChild" value="1" />
+										<SimplePredicate field="NbrMagasin3J" operator="lessOrEqual" value="1" />
+										<ScoreDistribution confidence="0.4204685573366215" recordCount="341" value="F" />
+										<ScoreDistribution confidence="0.5795314426633785" recordCount="470" value="N" />
+										<Node defaultChild="112" id="111" recordCount="227" score="N">
+											<Extension extender="spss" name="defaultChild" value="0" />
+											<SimplePredicate field="Montant" operator="lessOrEqual" value="207.4" />
+											<ScoreDistribution confidence="0.2555066079295154" recordCount="58" value="F" />
+											<ScoreDistribution confidence="0.7444933920704846" recordCount="169" value="N" />
+											<Node id="112" recordCount="172" score="N">
+												<SimplePredicate field="VerifianceCPT2" operator="lessOrEqual" value="3" />
+												<ScoreDistribution confidence="0.1744186046511628" recordCount="30" value="F" />
+												<ScoreDistribution confidence="0.8255813953488372" recordCount="142" value="N" />
+											</Node>
+											<Node defaultChild="115" id="113" recordCount="55" score="F">
+												<Extension extender="spss" name="defaultChild" value="1" />
+												<SimplePredicate field="VerifianceCPT2" operator="greaterThan" value="3" />
+												<ScoreDistribution confidence="0.509090909090909" recordCount="28" value="F" />
+												<ScoreDistribution confidence="0.4909090909090909" recordCount="27" value="N" />
+												<Node id="114" recordCount="4" score="N">
+													<SimplePredicate field="DiffDateTr3" operator="lessOrEqual" value="2.99931" />
+													<ScoreDistribution confidence="0.0" recordCount="0" value="F" />
+													<ScoreDistribution confidence="1.0" recordCount="4" value="N" />
+												</Node>
+												<Node defaultChild="116" id="115" recordCount="51" score="F">
+													<Extension extender="spss" name="defaultChild" value="0" />
+													<SimplePredicate field="DiffDateTr3" operator="greaterThan" value="2.99931" />
+													<ScoreDistribution confidence="0.5490196078431373" recordCount="28" value="F" />
+													<ScoreDistribution confidence="0.45098039215686275" recordCount="23" value="N" />
+													<Node id="116" recordCount="46" score="F">
+														<SimplePredicate field="TauxImpNB_CPM" operator="lessOrEqual" value="69.2791" />
+														<ScoreDistribution confidence="0.6086956521739131" recordCount="28" value="F" />
+														<ScoreDistribution confidence="0.391304347826087" recordCount="18" value="N" />
+													</Node>
+													<Node id="117" recordCount="5" score="N">
+														<SimplePredicate field="TauxImpNB_CPM" operator="greaterThan" value="69.2791" />
+														<ScoreDistribution confidence="0.0" recordCount="0" value="F" />
+														<ScoreDistribution confidence="1.0" recordCount="5" value="N" />
+													</Node>
+												</Node>
+											</Node>
+										</Node>
+										<Node defaultChild="119" id="118" recordCount="584" score="N">
+											<Extension extender="spss" name="defaultChild" value="0" />
+											<SimplePredicate field="Montant" operator="greaterThan" value="207.4" />
+											<ScoreDistribution confidence="0.4845890410958904" recordCount="283" value="F" />
+											<ScoreDistribution confidence="0.5154109589041096" recordCount="301" value="N" />
+											<Node defaultChild="120" id="119" recordCount="486" score="F">
+												<Extension extender="spss" name="defaultChild" value="0" />
+												<SimplePredicate field="VerifianceCPT1" operator="lessOrEqual" value="3" />
+												<ScoreDistribution confidence="0.5349794238683128" recordCount="260" value="F" />
+												<ScoreDistribution confidence="0.46502057613168724" recordCount="226" value="N" />
+												<Node defaultChild="121" id="120" recordCount="314" score="N">
+													<Extension extender="spss" name="defaultChild" value="0" />
+													<SimplePredicate field="Montant" operator="lessOrEqual" value="477.94" />
+													<ScoreDistribution confidence="0.4299363057324841" recordCount="135" value="F" />
+													<ScoreDistribution confidence="0.5700636942675159" recordCount="179" value="N" />
+													<Node defaultChild="122" id="121" recordCount="243" score="N">
+														<Extension extender="spss" name="defaultChild" value="0" />
+														<SimplePredicate field="VerifianceCPT2" operator="lessOrEqual" value="3" />
+														<ScoreDistribution confidence="0.37037037037037035" recordCount="90" value="F" />
+														<ScoreDistribution confidence="0.6296296296296297" recordCount="153" value="N" />
+														<Node id="122" recordCount="231" score="N">
+															<SimplePredicate field="EcartNumCheq" operator="lessOrEqual" value="5" />
+															<ScoreDistribution confidence="0.35064935064935066" recordCount="81" value="F" />
+															<ScoreDistribution confidence="0.6493506493506493" recordCount="150" value="N" />
+														</Node>
+														<Node id="123" recordCount="12" score="F">
+															<SimplePredicate field="EcartNumCheq" operator="greaterThan" value="5" />
+															<ScoreDistribution confidence="0.75" recordCount="9" value="F" />
+															<ScoreDistribution confidence="0.25" recordCount="3" value="N" />
+														</Node>
+													</Node>
+													<Node defaultChild="125" id="124" recordCount="71" score="F">
+														<Extension extender="spss" name="defaultChild" value="0" />
+														<SimplePredicate field="VerifianceCPT2" operator="greaterThan" value="3" />
+														<ScoreDistribution confidence="0.6338028169014085" recordCount="45" value="F" />
+														<ScoreDistribution confidence="0.36619718309859156" recordCount="26" value="N" />
+														<Node id="125" recordCount="68" score="F">
+															<SimplePredicate field="TauxImpNb_RB" operator="lessOrEqual" value="195.531" />
+															<ScoreDistribution confidence="0.6617647058823529" recordCount="45" value="F" />
+															<ScoreDistribution confidence="0.3382352941176471" recordCount="23" value="N" />
+														</Node>
+														<Node id="126" recordCount="3" score="N">
+															<SimplePredicate field="TauxImpNb_RB" operator="greaterThan" value="195.531" />
+															<ScoreDistribution confidence="0.0" recordCount="0" value="F" />
+															<ScoreDistribution confidence="1.0" recordCount="3" value="N" />
+														</Node>
+													</Node>
+												</Node>
+												<Node id="127" recordCount="172" score="F">
+													<SimplePredicate field="Montant" operator="greaterThan" value="477.94" />
+													<ScoreDistribution confidence="0.7267441860465116" recordCount="125" value="F" />
+													<ScoreDistribution confidence="0.27325581395348836" recordCount="47" value="N" />
+												</Node>
+											</Node>
+											<Node defaultChild="130" id="128" recordCount="98" score="N">
+												<Extension extender="spss" name="defaultChild" value="1" />
+												<SimplePredicate field="VerifianceCPT1" operator="greaterThan" value="3" />
+												<ScoreDistribution confidence="0.23469387755102042" recordCount="23" value="F" />
+												<ScoreDistribution confidence="0.7653061224489796" recordCount="75" value="N" />
+												<Node id="129" recordCount="33" score="F">
+													<SimplePredicate field="DiffDateTr1" operator="lessOrEqual" value="4" />
+													<ScoreDistribution confidence="0.6363636363636364" recordCount="21" value="F" />
+													<ScoreDistribution confidence="0.36363636363636365" recordCount="12" value="N" />
+												</Node>
+												<Node id="130" recordCount="65" score="N">
+													<SimplePredicate field="DiffDateTr1" operator="greaterThan" value="4" />
+													<ScoreDistribution confidence="0.03076923076923077" recordCount="2" value="F" />
+													<ScoreDistribution confidence="0.9692307692307692" recordCount="63" value="N" />
+												</Node>
+											</Node>
+										</Node>
+									</Node>
+									<Node defaultChild="132" id="131" recordCount="85" score="F">
+										<Extension extender="spss" name="defaultChild" value="0" />
+										<SimplePredicate field="NbrMagasin3J" operator="greaterThan" value="1" />
+										<ScoreDistribution confidence="0.6588235294117647" recordCount="56" value="F" />
+										<ScoreDistribution confidence="0.3411764705882353" recordCount="29" value="N" />
+										<Node defaultChild="133" id="132" recordCount="49" score="N">
+											<Extension extender="spss" name="defaultChild" value="0" />
+											<SimplePredicate field="VerifianceCPT1" operator="lessOrEqual" value="2" />
+											<ScoreDistribution confidence="0.46938775510204084" recordCount="23" value="F" />
+											<ScoreDistribution confidence="0.5306122448979592" recordCount="26" value="N" />
+											<Node defaultChild="134" id="133" recordCount="46" score="N">
+												<Extension extender="spss" name="defaultChild" value="0" />
+												<SimplePredicate field="NbrMagasin3J" operator="lessOrEqual" value="2" />
+												<ScoreDistribution confidence="0.43478260869565216" recordCount="20" value="F" />
+												<ScoreDistribution confidence="0.5652173913043478" recordCount="26" value="N" />
+												<Node id="134" recordCount="37" score="N">
+													<SimplePredicate field="VerifianceCPT2" operator="lessOrEqual" value="3" />
+													<ScoreDistribution confidence="0.3783783783783784" recordCount="14" value="F" />
+													<ScoreDistribution confidence="0.6216216216216216" recordCount="23" value="N" />
+												</Node>
+												<Node defaultChild="137" id="135" recordCount="9" score="F">
+													<Extension extender="spss" name="defaultChild" value="1" />
+													<SimplePredicate field="VerifianceCPT2" operator="greaterThan" value="3" />
+													<ScoreDistribution confidence="0.6666666666666666" recordCount="6" value="F" />
+													<ScoreDistribution confidence="0.3333333333333333" recordCount="3" value="N" />
+													<Node id="136" recordCount="3" score="N">
+														<SimplePredicate field="Montant" operator="lessOrEqual" value="125.63" />
+														<ScoreDistribution confidence="0.0" recordCount="0" value="F" />
+														<ScoreDistribution confidence="1.0" recordCount="3" value="N" />
+													</Node>
+													<Node id="137" recordCount="6" score="F">
+														<SimplePredicate field="Montant" operator="greaterThan" value="125.63" />
+														<ScoreDistribution confidence="1.0" recordCount="6" value="F" />
+														<ScoreDistribution confidence="0.0" recordCount="0" value="N" />
+													</Node>
+												</Node>
+											</Node>
+											<Node id="138" recordCount="3" score="F">
+												<SimplePredicate field="NbrMagasin3J" operator="greaterThan" value="2" />
+												<ScoreDistribution confidence="1.0" recordCount="3" value="F" />
+												<ScoreDistribution confidence="0.0" recordCount="0" value="N" />
+											</Node>
+										</Node>
+										<Node id="139" recordCount="36" score="F">
+											<SimplePredicate field="VerifianceCPT1" operator="greaterThan" value="2" />
+											<ScoreDistribution confidence="0.9166666666666666" recordCount="33" value="F" />
+											<ScoreDistribution confidence="0.08333333333333333" recordCount="3" value="N" />
+										</Node>
+									</Node>
+								</Node>
+								<Node id="140" recordCount="181" score="N">
+									<SimplePredicate field="D2CB" operator="greaterThan" value="20" />
+									<ScoreDistribution confidence="0.2265193370165746" recordCount="41" value="F" />
+									<ScoreDistribution confidence="0.7734806629834254" recordCount="140" value="N" />
+								</Node>
+							</Node>
+						</Node>
+					</Node>
+					<Node id="141" recordCount="9957" score="N">
+						<SimplePredicate field="D2CB" operator="greaterThan" value="83" />
+						<ScoreDistribution confidence="0.01777643868635131" recordCount="177" value="F" />
+						<ScoreDistribution confidence="0.9822235613136487" recordCount="9780" value="N" />
+					</Node>
+				</Node>
+				<Node defaultChild="143" id="142" recordCount="879" score="F">
+					<Extension extender="spss" name="defaultChild" value="0" />
+					<SimplePredicate field="VerifianceCPT2" operator="greaterThan" value="5" />
+					<ScoreDistribution confidence="0.8782707622298066" recordCount="772" value="F" />
+					<ScoreDistribution confidence="0.1217292377701934" recordCount="107" value="N" />
+					<Node id="143" recordCount="682" score="F">
+						<SimplePredicate field="D2CB" operator="lessOrEqual" value="35" />
+						<ScoreDistribution confidence="1.0" recordCount="682" value="F" />
+						<ScoreDistribution confidence="0.0" recordCount="0" value="N" />
+					</Node>
+					<Node defaultChild="145" id="144" recordCount="197" score="N">
+						<Extension extender="spss" name="defaultChild" value="0" />
+						<SimplePredicate field="D2CB" operator="greaterThan" value="35" />
+						<ScoreDistribution confidence="0.45685279187817257" recordCount="90" value="F" />
+						<ScoreDistribution confidence="0.5431472081218274" recordCount="107" value="N" />
+						<Node id="145" recordCount="142" score="N">
+							<SimplePredicate field="VerifianceCPT2" operator="lessOrEqual" value="7" />
+							<ScoreDistribution confidence="0.24647887323943662" recordCount="35" value="F" />
+							<ScoreDistribution confidence="0.7535211267605634" recordCount="107" value="N" />
+						</Node>
+						<Node id="146" recordCount="55" score="F">
+							<SimplePredicate field="VerifianceCPT2" operator="greaterThan" value="7" />
+							<ScoreDistribution confidence="1.0" recordCount="55" value="F" />
+							<ScoreDistribution confidence="0.0" recordCount="0" value="N" />
+						</Node>
+					</Node>
+				</Node>
+			</Node>
+		</Node>
+	</TreeModel>
+</PMML>
