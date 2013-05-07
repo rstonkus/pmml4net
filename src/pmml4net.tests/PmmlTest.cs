@@ -21,6 +21,23 @@ namespace pmml4net.tests
 	public class PmmlTest
 	{
 		/// <summary>
+		/// test to load Mining Model
+		/// </summary>
+		/// <param name="pFilePath"></param>
+		[TestCase("Segmentation.xml")]
+		public void LoadMiningModelTest(string pFilePath)
+		{
+			Pmml pmml = Pmml.loadModels(pFilePath);
+			Assert.NotNull(pmml);
+			
+			Assert.AreEqual(1, pmml.MiningModels.Count);
+			
+			MiningModel model = pmml.MiningModels[0];
+			
+			Assert.AreEqual(3, model.Segmentation.Segments.Count);
+		}
+		
+		/// <summary>
 		/// Load some generated PMML from other vendors.
 		/// </summary>
 		/// <param name="pFilePath"></param>
