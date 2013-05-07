@@ -49,8 +49,11 @@ namespace pmml4net.tests
 			
 			Assert.NotNull(pmml);
 			
-			TreeModel tree = pmml.getByName(modelname);
-			Assert.NotNull(tree);
+			ModelElement model = pmml.getByName(modelname);
+			Assert.NotNull(model);
+			
+			Assert.IsInstanceOf(typeof(TreeModel), model);
+			TreeModel tree = (TreeModel)model;
 			
 			Dictionary<string, object> lDict = parseParams(paramList);
 			
@@ -84,7 +87,7 @@ namespace pmml4net.tests
 			
 			Assert.NotNull(pmml);
 			
-			TreeModel tree = pmml.getByName(modelname);
+			TreeModel tree = (TreeModel)pmml.getByName(modelname);
 			Assert.NotNull(tree);
 			
 			// Modification for aggregateNode
@@ -120,7 +123,7 @@ namespace pmml4net.tests
 			
 			Assert.NotNull(pmml);
 			
-			TreeModel tree = pmml.getByName(modelname);
+			TreeModel tree = (TreeModel)pmml.getByName(modelname);
 			Assert.NotNull(tree);
 			
 			// Modification for NullPrediction
@@ -141,7 +144,7 @@ namespace pmml4net.tests
 			
 			Assert.NotNull(pmml);
 			
-			TreeModel tree = pmml.getByName("golfing");
+			TreeModel tree = (TreeModel)pmml.getByName("golfing");
 			Assert.NotNull(tree);
 			
 			// Test first Node
@@ -177,7 +180,7 @@ namespace pmml4net.tests
 			
 			Assert.NotNull(pmml);
 			
-			TreeModel tree = pmml.getByName("SimpleSetTest");
+			TreeModel tree = (TreeModel)pmml.getByName("SimpleSetTest");
 			Assert.NotNull(tree);
 			
 			Dictionary<string, object> lDict = parseParams(paramList);
@@ -300,7 +303,7 @@ namespace pmml4net.tests
 			xml.LoadXml(pmmlStr);
 			Pmml pmml = Pmml.loadModels(xml);
 			
-			TreeModel model = pmml.getByName("Test");
+			TreeModel model = (TreeModel)pmml.getByName("Test");
 			
 			// Test that default = returnNullPrediction
 			Assert.AreEqual(NoTrueChildStrategy.ReturnNullPrediction, model.NoTrueChildStrategy);
@@ -346,7 +349,7 @@ namespace pmml4net.tests
 			xml.LoadXml(pmmlStr);
 			Pmml pmml = Pmml.loadModels(xml);
 			
-			TreeModel model = pmml.getByName("Test");
+			TreeModel model = (TreeModel)pmml.getByName("Test");
 			
 			// Test that = returnNullPrediction
 			Assert.AreEqual(NoTrueChildStrategy.ReturnNullPrediction, model.NoTrueChildStrategy);
@@ -392,7 +395,7 @@ namespace pmml4net.tests
 			xml.LoadXml(pmmlStr);
 			Pmml pmml = Pmml.loadModels(xml);
 			
-			TreeModel model = pmml.getByName("Test");
+			TreeModel model = (TreeModel)pmml.getByName("Test");
 			
 			// Test that = returnNullPrediction
 			Assert.AreEqual(NoTrueChildStrategy.ReturnLastPrediction, model.NoTrueChildStrategy);

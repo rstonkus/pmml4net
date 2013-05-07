@@ -7,6 +7,7 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using NUnit.Framework;
@@ -30,11 +31,27 @@ namespace pmml4net.tests
 			Pmml pmml = Pmml.loadModels(pFilePath);
 			Assert.NotNull(pmml);
 			
-			Assert.AreEqual(1, pmml.MiningModels.Count);
+			Assert.AreEqual(1, pmml.Models.Count);
 			
-			MiningModel model = pmml.MiningModels[0];
+			ModelElement model = pmml.Models[0];
+			Assert.IsInstanceOf(typeof(MiningModel), pmml.Models[0]);
 			
-			Assert.AreEqual(3, model.Segmentation.Segments.Count);
+			MiningModel miningModel = (MiningModel)model;
+			Assert.AreEqual(3, miningModel.Segmentation.Segments.Count);
+		}
+		
+		/// <summary>
+		/// Test with random data
+		/// </summary>
+		/// <param name="pFilePath"></param>
+		[TestCase("Segmentation.xml")]
+		public void RandomTest(string pFilePath)
+		{
+			Pmml pmml = Pmml.loadModels(pFilePath);
+			Assert.NotNull(pmml);
+			
+			ScoreResult res = pmml.Models[0].Score(new Dictionary<string, object>());
+			Assert.IsNotNull(res);
 		}
 		
 		/// <summary>
@@ -76,7 +93,7 @@ namespace pmml4net.tests
 			
 			Assert.NotNull(pmml.getByName(modelName));
 			
-			Assert.AreEqual(nbTreemodels, pmml.TreeModels.Count);
+			Assert.AreEqual(nbTreemodels, pmml.Models.Count);
 		}
 	}
 }

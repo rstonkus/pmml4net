@@ -32,6 +32,13 @@ namespace pmml4net
 		private ModelElement model;
 		
 		/// <summary>
+		/// The Segment element is used to tag each model that can be combined as part of an ensemble or associated with a 
+		/// population segment. A multiple model combination method must be specified using multipleModelMethod attribute 
+		/// in Segmentation element.
+		/// </summary>
+		public ModelElement Model { get { return model; } }
+		
+		/// <summary>
 		/// Load Segmentation node from XmlElement of PMML file
 		/// </summary>
 		/// <param name="node">Xml PMML file to read</param>

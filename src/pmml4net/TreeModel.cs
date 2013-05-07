@@ -30,17 +30,11 @@ namespace pmml4net
 	/// </summary>
 	public class TreeModel : ModelElement
 	{
-		private String modelName;
 		private MissingValueStrategy missingValueStrategy;
 		private NoTrueChildStrategy noTrueChildStrategy;
 		
 		private MiningSchema miningSchema;
 		private Node node;
-		
-		/// <summary>
-		/// Identifies the model with a unique name in the context of the PMML file.
-		/// </summary>
-		public String ModelName { get { return modelName; } set { modelName = value; } }
 		
 		/// <summary>
 		/// Defines a strategy for dealing with missing values.
@@ -67,7 +61,7 @@ namespace pmml4net
 		/// </summary>
 		/// <param name="dict">Values</param>
 		/// <returns></returns>
-		public ScoreResult Score(Dictionary<string, object> dict)
+		public override ScoreResult Score(Dictionary<string, object> dict)
 		{
 			ScoreResult resStart = new ScoreResult("", null);
 			Node root = this.node;

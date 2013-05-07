@@ -19,6 +19,7 @@ Boston, MA  02110-1301, USA.
  */
 
 using System;
+using System.Collections.Generic;
 using System.Xml;
 
 namespace pmml4net
@@ -26,7 +27,7 @@ namespace pmml4net
 	/// <summary>
 	/// Description of MiningModel.
 	/// </summary>
-	public class MiningModel
+	public class MiningModel : ModelElement
 	{
 		private Segmentation segmentation;
 		
@@ -87,6 +88,21 @@ namespace pmml4net
 			default:
 				throw new NotImplementedException();
 			}
+		}
+		
+		/// <summary>
+		/// Scoring with Model
+		/// </summary>
+		/// <param name="dict">Values</param>
+		/// <returns></returns>
+		public override ScoreResult Score(Dictionary<string, object> dict)
+		{
+//			ScoreResult resStart = new ScoreResult("", null);
+//			Node root = this.node;
+//			resStart.Nodes.Add(root);
+//			resStart.Value = root.Score;
+			
+			return this.Segmentation.Segments[0].Model.Score(dict);
 		}
 	}
 }
