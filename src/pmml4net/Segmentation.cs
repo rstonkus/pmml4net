@@ -29,7 +29,13 @@ namespace pmml4net
 	/// </summary>
 	public class Segmentation
 	{
+		private MultipleModelMethod multipleModelMethod;
 		private IList<Segment> segments;
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public MultipleModelMethod MultipleModelMethod { get { return multipleModelMethod; } set { multipleModelMethod = value; } }
 		
 		/// <summary>
 		/// The Segment element is used to tag each model that can be combined as part of an ensemble or associated with a population segment.
@@ -45,16 +51,8 @@ namespace pmml4net
 		{
 			Segmentation segmentation = new Segmentation();
 			
-			/*tree.ModelName = node.Attributes["modelName"].Value;
-			
-			if (node.Attributes["missingValueStrategy"] != null)
-				tree.MissingValueStrategy = MissingValueStrategyfromString(node.Attributes["missingValueStrategy"].Value);
-			
 			// By default noTrueChildStrategy = returnNullPrediction
-			tree.noTrueChildStrategy = NoTrueChildStrategy.ReturnNullPrediction;
-			if (node.Attributes["noTrueChildStrategy"] != null)
-				tree.noTrueChildStrategy = NoTrueChildStrategyfromString(node.Attributes["noTrueChildStrategy"].Value);
-			*/
+			segmentation.multipleModelMethod = MultipleModelMethodfromString(node.Attributes["multipleModelMethod"].Value);
 			
 			segmentation.segments = new List<Segment>();
 			foreach(XmlNode item in node.ChildNodes)
@@ -72,6 +70,41 @@ namespace pmml4net
 			}
 			
 			return segmentation;
+		}
+		
+		/// <summary>
+		/// Parse <see cref="MultipleModelMethod" >MultipleModelMethod</see> from string.
+		/// </summary>
+		/// <param name="val"></param>
+		/// <returns></returns>
+		public static MultipleModelMethod MultipleModelMethodfromString(String val)
+		{
+			switch (val.ToLowerInvariant().Trim())
+			{
+			case "majorityVote" :
+				return MultipleModelMethod.MajorityVote;
+			case "weightedMajorityVote" :
+				return MultipleModelMethod.WeightedMajorityVote;
+			case "average" :
+				return MultipleModelMethod.Average;
+			case "weightedAverage" :
+				return MultipleModelMethod.WeightedAverage;
+			case "median" :
+				return MultipleModelMethod.Median;
+			case "max" :
+				return MultipleModelMethod.Max;
+			case "sum" :
+				return MultipleModelMethod.Sum;
+			case "selectFirst" :
+				return MultipleModelMethod.SelectFirst;
+			case "selectAll" :
+				return MultipleModelMethod.SelectAll;
+			case "modelChain" :
+				return MultipleModelMethod.ModelChain;
+				
+			default:
+				throw new NotImplementedException();
+			}
 		}
 	}
 }
