@@ -134,5 +134,18 @@ namespace pmml4net
 				throw new NotImplementedException();
 			}
 		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="writer"></param>
+		public override void save(XmlWriter writer)
+		{
+			writer.WriteStartElement("TreeModel");
+			
+			writer.WriteAttributeString("modelName", this.ModelName);
+			
+			writer.WriteEndElement();
+		}
 	}
 }

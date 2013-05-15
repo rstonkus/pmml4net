@@ -55,6 +55,7 @@
     <None Include="Segmentation.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="SegmentationTest.cs" />
     <None Include="SIPINA1.xml" />
     <None Include="SPSS-2.xml" />
     <None Include="SPSS.xml">

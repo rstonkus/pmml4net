@@ -21,6 +21,7 @@ Boston, MA  02110-1301, USA.
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Xml;
 
 namespace pmml4net
@@ -30,7 +31,8 @@ namespace pmml4net
 	/// </summary>
 	public class Pmml
 	{
-		private IList<ModelElement> models;
+		private Header header = new Header();
+		private IList<ModelElement> models = new List<ModelElement>();
 		
 		/// <summary>
 		/// Model in pmml file.
@@ -38,6 +40,49 @@ namespace pmml4net
 		public IList<ModelElement> Models 
 		{ 
 			get { return models; }
+		}
+		
+		/// <summary>
+		/// Save pmml file
+		/// </summary>
+		/// <param name="path">Path of the PMML file</param>
+		public void save(string path)
+		{
+			FileInfo info = new FileInfo(path);
+			save(info);
+		}
+		
+		/// <summary>
+		/// Save pmml file
+		/// </summary>
+		/// <param name="info">Informations about the PMML file to read></param>
+		public void save(FileInfo info)
+		{
+			// Write to file
+			using (XmlWriter writer = XmlWriter.Create(info.FullName))
+				save(writer);
+		}
+		
+		/// <summary>
+		/// Save pmml file
+		/// </summary>
+		/// <param name="writer">Xml PMML file to read></param>
+		public void save(XmlWriter writer)
+		{
+			writer.WriteStartDocument();
+			writer.WriteStartElement("PMML");
+			
+			writer.WriteAttributeString("version", "4.1");
+			
+			this.header.save(writer);
+			
+			foreach (ModelElement model in this.models)
+			{
+				model.save(writer);
+			}
+			
+			writer.WriteEndElement();
+			writer.WriteEndDocument();
 		}
 		
 		/// <summary>

@@ -81,13 +81,13 @@ namespace pmml4net
 		{
 			switch (val.ToLowerInvariant().Trim())
 			{
-			case "majorityVote" :
+			case "majorityvote" :
 				return MultipleModelMethod.MajorityVote;
-			case "weightedMajorityVote" :
+			case "weightedmajorityvote" :
 				return MultipleModelMethod.WeightedMajorityVote;
 			case "average" :
 				return MultipleModelMethod.Average;
-			case "weightedAverage" :
+			case "weightedaverage" :
 				return MultipleModelMethod.WeightedAverage;
 			case "median" :
 				return MultipleModelMethod.Median;
@@ -95,11 +95,11 @@ namespace pmml4net
 				return MultipleModelMethod.Max;
 			case "sum" :
 				return MultipleModelMethod.Sum;
-			case "selectFirst" :
+			case "selectfirst" :
 				return MultipleModelMethod.SelectFirst;
-			case "selectAll" :
+			case "selectall" :
 				return MultipleModelMethod.SelectAll;
-			case "modelChain" :
+			case "modelchain" :
 				return MultipleModelMethod.ModelChain;
 				
 			default:

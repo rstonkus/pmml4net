@@ -104,5 +104,18 @@ namespace pmml4net
 			
 			return this.Segmentation.Segments[0].Model.Score(dict);
 		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="writer"></param>
+		public override void save(XmlWriter writer)
+		{
+			writer.WriteStartElement("MiningModel");
+			
+			writer.WriteAttributeString("modelName", this.ModelName);
+			
+			writer.WriteEndElement();
+		}
 	}
 }
