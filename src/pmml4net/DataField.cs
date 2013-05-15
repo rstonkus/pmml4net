@@ -19,36 +19,62 @@ Boston, MA  02110-1301, USA.
  */
 
 using System;
-using System.Collections.Generic;
 using System.Xml;
 
 namespace pmml4net
 {
 	/// <summary>
-	/// Description of FalsePredicate.
-	/// 
-	/// For FalsePredicate, always returns false.
+	/// Description of DataField.
 	/// </summary>
-	public class FalsePredicate : Predicate
+	public class DataField
 	{
+		private string name;
+		private Optype optype;
+		private string dataType;
+		
 		/// <summary>
-		/// Evaluate the predicate
+		/// Build data field.
 		/// </summary>
-		/// <param name="dict"></param>
-		/// <returns></returns>
-		public override PredicateResult Evaluate(Dictionary<string, object> dict)
+		/// <param name="name"></param>
+		/// <param name="optype"></param>
+		/// <param name="dataType"></param>
+		public DataField(string name, Optype optype, string dataType)
 		{
-			return PredicateResult.False;
+			this.name = name;
+			this.optype = optype;
+			this.dataType = dataType;
 		}
 		
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="writer"></param>
-		public override void save(XmlWriter writer)
+		public void save(XmlWriter writer)
 		{
-			writer.WriteStartElement("False");
+			writer.WriteStartElement("DataField");
+			
+			writer.WriteAttributeString("name", this.name);
+			
+			writer.WriteAttributeString("optype", OptypeToString(this.optype));
+			
+			writer.WriteAttributeString("dataType", this.dataType);
+			
 			writer.WriteEndElement();
+		}
+		
+		private string OptypeToString(Optype val)
+		{
+			switch(val)
+			{
+			case Optype.categorical :
+				return "categorical";
+			case Optype.continuous :
+				return "continuous";
+			case Optype.ordinal :
+				return "ordinal";
+				default :
+					throw new NotImplementedException();
+			}
 		}
 	}
 }

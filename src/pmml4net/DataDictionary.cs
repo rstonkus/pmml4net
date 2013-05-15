@@ -25,29 +25,34 @@ using System.Xml;
 namespace pmml4net
 {
 	/// <summary>
-	/// Description of FalsePredicate.
-	/// 
-	/// For FalsePredicate, always returns false.
+	/// Description of DataDictionary.
 	/// </summary>
-	public class FalsePredicate : Predicate
+	public class DataDictionary
 	{
+		private IList<DataField> dataFields = new List<DataField>();
+		
 		/// <summary>
-		/// Evaluate the predicate
+		/// The name of a DataField must be unique from other names in the DataDictionary and, with few exceptions, 
+		/// unique from the names of other fields in the PMML document. For information on the naming and scope of DataFields, see Scope of Fields.
 		/// </summary>
-		/// <param name="dict"></param>
-		/// <returns></returns>
-		public override PredicateResult Evaluate(Dictionary<string, object> dict)
-		{
-			return PredicateResult.False;
-		}
+		public IList<DataField> DataFields { get { return this.dataFields; } set { dataFields = value; } }
 		
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="writer"></param>
-		public override void save(XmlWriter writer)
+		public void save(XmlWriter writer)
 		{
-			writer.WriteStartElement("False");
+			writer.WriteStartElement("DataDictionary");
+			
+			// The value numberOfFields is the number of fields which are defined in the content of DataDictionary, 
+			// this number can be added for consistency checks.
+			writer.WriteAttributeString("numberOfFields", this.dataFields.Count.ToString());
+			
+			// Write data fields
+			foreach (DataField dataField in this.dataFields)
+				dataField.save(writer);
+			
 			writer.WriteEndElement();
 		}
 	}

@@ -32,7 +32,13 @@ namespace pmml4net
 	public class Pmml
 	{
 		private Header header = new Header();
+		private DataDictionary dataDictionary = new DataDictionary();
 		private IList<ModelElement> models = new List<ModelElement>();
+		
+		/// <summary>
+		/// Data dictionary.
+		/// </summary>
+		public DataDictionary DataDictionary { get { return dataDictionary; } set { dataDictionary = value; } }
 		
 		/// <summary>
 		/// Model in pmml file.
@@ -58,8 +64,12 @@ namespace pmml4net
 		/// <param name="info">Informations about the PMML file to read></param>
 		public void save(FileInfo info)
 		{
+			XmlWriterSettings settings = new XmlWriterSettings();
+			settings.Indent = true;
+			settings.NewLineHandling = NewLineHandling.Entitize;
+			
 			// Write to file
-			using (XmlWriter writer = XmlWriter.Create(info.FullName))
+			using (XmlWriter writer = XmlWriter.Create(info.FullName, settings))
 				save(writer);
 		}
 		
@@ -70,11 +80,15 @@ namespace pmml4net
 		public void save(XmlWriter writer)
 		{
 			writer.WriteStartDocument();
-			writer.WriteStartElement("PMML");
+			writer.WriteStartElement("PMML", "http://www.dmg.org/PMML-4_1");
 			
 			writer.WriteAttributeString("version", "4.1");
 			
+			// Save header
 			this.header.save(writer);
+			
+			// Save data dictionnary
+			this.dataDictionary.save(writer);
 			
 			foreach (ModelElement model in this.models)
 			{

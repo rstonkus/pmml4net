@@ -47,8 +47,12 @@
   <ItemGroup>
     <Compile Include="AbstractPredicate.cs" />
     <Compile Include="CompoundPredicate.cs" />
+    <Compile Include="DataDictionary.cs" />
+    <Compile Include="DataField.cs" />
     <Compile Include="FalsePredicate.cs" />
     <Compile Include="Header.cs" />
+    <Compile Include="MiningField.cs" />
+    <Compile Include="MiningFunction.cs" />
     <Compile Include="MiningModel.cs" />
     <Compile Include="MiningSchema.cs" />
     <Compile Include="MissingValueStrategy.cs" />
@@ -56,6 +60,7 @@
     <Compile Include="MultipleModelMethod.cs" />
     <Compile Include="Node.cs" />
     <Compile Include="NoTrueChildStrategy.cs" />
+    <Compile Include="Optype.cs" />
     <Compile Include="Pmml.cs" />
     <Compile Include="PmmlException.cs" />
     <Compile Include="PredicateResult.cs" />

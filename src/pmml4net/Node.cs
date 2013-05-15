@@ -37,9 +37,13 @@ namespace pmml4net
 		private Predicate predicate;
 		private IList<ScoreDistribution> scoreDistributions;
 		
-		private Node()
+		/// <summary>
+		/// 
+		/// </summary>
+		public Node(Predicate predicate)
 		{
 			nodes = new List<Node>();
+			this.predicate = predicate;
 		}
 		
 		/// <summary>
@@ -82,7 +86,7 @@ namespace pmml4net
 		/// <returns></returns>
 		public static Node loadFromXmlNode(XmlNode node)
 		{
-			Node root = new Node();
+			Node root = new Node(new TruePredicate());
 			
 			if (node.Attributes["id"] != null)
 				root.id = node.Attributes["id"].Value;
@@ -234,6 +238,31 @@ namespace pmml4net
 			}
 			
 			return ret;
+		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="writer"></param>
+		public void save(XmlWriter writer)
+		{
+			writer.WriteStartElement("Node");
+			
+			/*writer.WriteAttributeString("modelName", this.ModelName);
+			
+			writer.WriteAttributeString("functionName", MiningFunctionToString(this.FunctionName));
+			
+			writer.WriteAttributeString("algorithmName", this.AlgorithmName);
+			
+			// Save Mining schema
+			this.MiningSchema.save(writer);*/
+			
+			// FIXME : Add all elements in xml
+			
+			// Save predicate
+			this.Predicate.save(writer);
+			
+			writer.WriteEndElement();
 		}
 	}
 }

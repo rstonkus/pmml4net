@@ -19,36 +19,47 @@ Boston, MA  02110-1301, USA.
  */
 
 using System;
-using System.Collections.Generic;
-using System.Xml;
 
 namespace pmml4net
 {
 	/// <summary>
-	/// Description of FalsePredicate.
-	/// 
-	/// For FalsePredicate, always returns false.
+	/// Description of MiningFunction.
 	/// </summary>
-	public class FalsePredicate : Predicate
+	public enum MiningFunction
 	{
 		/// <summary>
-		/// Evaluate the predicate
+		/// 
 		/// </summary>
-		/// <param name="dict"></param>
-		/// <returns></returns>
-		public override PredicateResult Evaluate(Dictionary<string, object> dict)
-		{
-			return PredicateResult.False;
-		}
+		AssociationRules,
 		
 		/// <summary>
 		/// 
 		/// </summary>
-		/// <param name="writer"></param>
-		public override void save(XmlWriter writer)
-		{
-			writer.WriteStartElement("False");
-			writer.WriteEndElement();
-		}
+		Sequences,
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		Classification,
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		Regression,
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		Clustering,
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		TimeSeries,
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		Mixed
 	}
 }

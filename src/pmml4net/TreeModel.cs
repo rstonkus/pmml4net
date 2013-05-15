@@ -33,8 +33,8 @@ namespace pmml4net
 		private MissingValueStrategy missingValueStrategy;
 		private NoTrueChildStrategy noTrueChildStrategy;
 		
-		private MiningSchema miningSchema;
-		private Node node;
+		private MiningSchema miningSchema = new MiningSchema();
+		private Node node = new Node(new TruePredicate());
 		
 		/// <summary>
 		/// Defines a strategy for dealing with missing values.
@@ -55,6 +55,23 @@ namespace pmml4net
 		/// Root node of this model.
 		/// </summary>
 		public Node Node { get { return node; } set { node = value; } }
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="functionName"></param>
+		public TreeModel(MiningFunction functionName)
+		{
+			this.FunctionName = functionName;
+		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public TreeModel()
+		{
+			this.FunctionName = MiningFunction.Classification;
+		}
 		
 		/// <summary>
 		/// Scoring with Tree Model
@@ -78,7 +95,11 @@ namespace pmml4net
 		/// <returns></returns>
 		public static TreeModel loadFromXmlNode(XmlNode node)
 		{
-			TreeModel tree = new TreeModel();
+			string functionName = null;
+			if (node.Attributes["functionName"] != null)
+				functionName = node.Attributes["functionName"].Value;
+			
+			TreeModel tree = new TreeModel(MiningFunctionFromString(functionName));
 			
 			tree.ModelName = node.Attributes["modelName"].Value;
 			
@@ -135,6 +156,36 @@ namespace pmml4net
 			}
 		}
 		
+		private static MiningFunction MiningFunctionFromString(string val)
+		{
+			switch (val.ToLowerInvariant().Trim())
+			{
+			case "associationrules": 
+				return MiningFunction.AssociationRules;
+			
+			case "classification":
+				return MiningFunction.Classification;
+				
+			default:
+				throw new NotImplementedException();
+			}
+		}
+		
+		private static string MiningFunctionToString(MiningFunction val)
+		{
+			switch (val)
+			{
+			case MiningFunction.AssociationRules:
+				return "associationRules";
+			case MiningFunction.Classification:
+				return "classification";
+			case MiningFunction.Clustering:
+				return "clustering";
+			default:
+				throw new NotImplementedException();
+			}
+		}
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -144,6 +195,18 @@ namespace pmml4net
 			writer.WriteStartElement("TreeModel");
 			
 			writer.WriteAttributeString("modelName", this.ModelName);
+			
+			writer.WriteAttributeString("functionName", MiningFunctionToString(this.FunctionName));
+			
+			writer.WriteAttributeString("algorithmName", this.AlgorithmName);
+			
+			// Save Mining schema
+			this.MiningSchema.save(writer);
+			
+			// FIXME : Add all elements in xml
+			
+			// Save Node
+			this.Node.save(writer);
 			
 			writer.WriteEndElement();
 		}

@@ -8,6 +8,7 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Xml;
 
 namespace pmml4net
 {
@@ -24,6 +25,16 @@ namespace pmml4net
 		public override PredicateResult Evaluate(Dictionary<string, object> dict)
 		{
 			return PredicateResult.True;
+		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="writer"></param>
+		public override void save(XmlWriter writer)
+		{
+			writer.WriteStartElement("True");
+			writer.WriteEndElement();
 		}
 	}
 }

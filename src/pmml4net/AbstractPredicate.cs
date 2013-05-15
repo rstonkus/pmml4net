@@ -20,6 +20,7 @@ Boston, MA  02110-1301, USA.
 
 //using System;
 using System.Collections.Generic;
+using System.Xml;
 
 namespace pmml4net
 {
@@ -66,7 +67,11 @@ namespace pmml4net
 			
 			return PredicateResult.Unknown;
 		}
+		
+		/// <summary>
+		/// Add predicate to <see cref="XmlWriter">XmlWriter</see>.
+		/// </summary>
+		/// <param name="writer">writer</param>
+		public abstract void save(XmlWriter writer);
 	}
-	
-	
 }

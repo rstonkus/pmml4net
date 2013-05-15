@@ -19,28 +19,24 @@ Boston, MA  02110-1301, USA.
  */
 
 using System;
-using System.Collections.Generic;
 using System.Xml;
 
 namespace pmml4net
 {
 	/// <summary>
-	/// The MiningSchema is the Gate Keeper for its model element. All data entering a model must pass through the MiningSchema. 
-	/// Each model element contains one MiningSchema which lists fields as used in that model. While the MiningSchema contains 
-	/// information that is specific to a certain model, the DataDictionary contains data definitions which do not vary per 
-	/// model. The main purpose of the MiningSchema is to list the fields that have to be provided in order to apply the model.
-	/// 
-	/// MiningFields also define the usage of each field (active, supplementary, predicted, ...) as well as policies for treating 
-	/// missing, invalid or outlier values.
+	/// Description of MiningField.
 	/// </summary>
-	public class MiningSchema
+	public class MiningField
 	{
-		private IList<MiningField> miningFields = new List<MiningField>();
+		private string name;
 		
 		/// <summary>
-		/// Mining fields.
+		/// 
 		/// </summary>
-		public IList<MiningField> MiningFields { get { return miningFields; } }
+		public MiningField(string name)
+		{
+			this.name = name;
+		}
 		
 		/// <summary>
 		/// 
@@ -48,21 +44,18 @@ namespace pmml4net
 		/// <param name="writer"></param>
 		public void save(XmlWriter writer)
 		{
-			writer.WriteStartElement("MiningSchema");
+			writer.WriteStartElement("MiningField");
 			
-			/*writer.WriteAttributeString("modelName", this.ModelName);
+			writer.WriteAttributeString("name", this.name);
 			
-			writer.WriteAttributeString("functionName", MiningFunctionToString(this.FunctionName));
+			/*writer.WriteAttributeString("functionName", MiningFunctionToString(this.FunctionName));
 			
 			writer.WriteAttributeString("algorithmName", this.AlgorithmName);
 			
 			// Save Mining fields
 			this.MiningSchema.save(writer);*/
 			
-			// Save mining fields
-			foreach(MiningField miningField in this.miningFields) {
-				miningField.save(writer);
-			}
+			
 			
 			writer.WriteEndElement();
 		}

@@ -77,5 +77,18 @@ namespace pmml4net
 			else
 				throw new PmmlException();
 		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="writer"></param>
+		public override void save(XmlWriter writer)
+		{
+			writer.WriteStartElement("SimpleSetPredicate");
+			
+			//writer.WriteAttributeString("modelName", this.ModelName);
+			
+			writer.WriteEndElement();
+		}
 	}
 }

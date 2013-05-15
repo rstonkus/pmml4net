@@ -37,12 +37,26 @@ namespace pmml4net
 	public abstract class ModelElement
 	{
 		private string modelName;
+		private MiningFunction functionName;
+		private string algorithmName;
 		
 		/// <summary>
 		/// Identifies the model with a unique name in the context of the PMML file.
 		/// This attribute is not required. Consumers of PMML models are free to manage the names of the models at their discretion.
 		/// </summary>
 		public string ModelName { get { return modelName; } set { modelName = value; } }
+		
+		/// <summary>
+		/// Identifies the model with a unique name in the context of the PMML file.
+		/// This attribute is not required. Consumers of PMML models are free to manage the names of the models at their discretion.
+		/// </summary>
+		public MiningFunction FunctionName { get { return functionName; } set { functionName = value; } }
+		
+		/// <summary>
+		/// Identifies the model with a unique name in the context of the PMML file.
+		/// This attribute is not required. Consumers of PMML models are free to manage the names of the models at their discretion.
+		/// </summary>
+		public string AlgorithmName { get { return algorithmName; } set { algorithmName = value; } }
 		
 		/// <summary>
 		/// Score the model.
