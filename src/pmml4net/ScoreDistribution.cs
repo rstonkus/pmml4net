@@ -81,5 +81,23 @@ namespace pmml4net
 			
 			return root;
 		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="writer"></param>
+		public void save(XmlWriter writer)
+		{
+			writer.WriteStartElement("ScoreDistribution");
+			
+			writer.WriteAttributeString("value", this.Value);
+			writer.WriteAttributeString("recordCount", this.RecordCount.ToString());
+			if (!string.IsNullOrEmpty(this.Confidence))
+				writer.WriteAttributeString("confidence", this.Confidence);
+			if (!string.IsNullOrEmpty(this.Probability))
+				writer.WriteAttributeString("probability", this.Probability);
+			
+			writer.WriteEndElement();
+		}
 	}
 }

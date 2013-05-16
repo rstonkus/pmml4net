@@ -43,6 +43,30 @@ namespace pmml4net
 		public IList<MiningField> MiningFields { get { return miningFields; } }
 		
 		/// <summary>
+		/// Load mining schema from xmlnode
+		/// </summary>
+		/// <param name="node"></param>
+		/// <returns></returns>
+		public static MiningSchema loadFromXmlNode(XmlNode node)
+		{
+			MiningSchema schema = new MiningSchema();
+			
+			foreach(XmlNode item in node.ChildNodes)
+			{
+				if ("Extension".Equals(item.Name))
+				{
+					//tree.Node = Node.loadFromXmlNode(item);
+				}
+				else if ("MiningField".Equals(item.Name))
+				{
+					schema.MiningFields.Add(MiningField.loadFromXmlNode(item));
+				}
+			}
+			
+			return schema;
+		}
+		
+		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="writer"></param>

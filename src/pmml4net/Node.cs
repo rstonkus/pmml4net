@@ -33,6 +33,8 @@ namespace pmml4net
 		private string id;
 		private string score;
 		private decimal recordCount;
+		private string defaultChild;
+		
 		private IList<Node> nodes;
 		private Predicate predicate;
 		private IList<ScoreDistribution> scoreDistributions;
@@ -63,6 +65,13 @@ namespace pmml4net
 		/// relative size of a Node when compared to the parent Node.
 		/// </summary>
 		public decimal RecordCount { get { return recordCount; } set { recordCount = value; } }
+		
+		/// <summary>
+		/// Only applicable when missingValueStrategy is set to defaultChild in the TreeModel element.
+		/// Gives the id of the child node to use when no predicates can be evaluated due to missing values.
+		/// Note that only Nodes which are immediate children of the respective Node can be referenced.
+		/// </summary>
+		public string DefaultChild { get { return defaultChild; } set { defaultChild = value; } }
 		
 		/// <summary>
 		/// siblings of this node
@@ -248,19 +257,24 @@ namespace pmml4net
 		{
 			writer.WriteStartElement("Node");
 			
-			/*writer.WriteAttributeString("modelName", this.ModelName);
-			
-			writer.WriteAttributeString("functionName", MiningFunctionToString(this.FunctionName));
-			
-			writer.WriteAttributeString("algorithmName", this.AlgorithmName);
-			
-			// Save Mining schema
-			this.MiningSchema.save(writer);*/
-			
-			// FIXME : Add all elements in xml
+			writer.WriteAttributeString("id", this.Id);
+			writer.WriteAttributeString("score", this.Score);
+			writer.WriteAttributeString("recordCount", this.RecordCount.ToString());
+			if (!string.IsNullOrEmpty(this.defaultChild))
+				writer.WriteAttributeString("defaultChild", this.defaultChild);
 			
 			// Save predicate
 			this.Predicate.save(writer);
+			
+			// FIXME : Add all elements in xml
+			
+			// Save score distribution
+			foreach(ScoreDistribution scoreDistribution in this.ScoreDistributions)
+				scoreDistribution.save(writer);
+			
+			// Save nodes
+			foreach(Node node in this.Nodes)
+				node.save(writer);
 			
 			writer.WriteEndElement();
 		}

@@ -158,7 +158,10 @@ namespace pmml4net
 		{
 			writer.WriteStartElement("SimplePredicate");
 			
-			//writer.WriteAttributeString("modelName", this.ModelName);
+			writer.WriteAttributeString("field", this.Field);
+			writer.WriteAttributeString("pperator", this.Operator);
+			if (!string.IsNullOrEmpty(this.Value))
+				writer.WriteAttributeString("value", this.Value);
 			
 			writer.WriteEndElement();
 		}

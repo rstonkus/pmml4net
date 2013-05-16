@@ -112,6 +112,10 @@ namespace pmml4net
 				{
 					tree.Node = Node.loadFromXmlNode(item);
 				}
+				else if ("MiningSchema".Equals(item.Name))
+				{
+					tree.MiningSchema = MiningSchema.loadFromXmlNode(item);
+				}
 			}
 			
 			return tree;

@@ -39,6 +39,26 @@ namespace pmml4net
 		}
 		
 		/// <summary>
+		/// Load mining field from xmlnode
+		/// </summary>
+		/// <param name="node"></param>
+		/// <returns></returns>
+		public static MiningField loadFromXmlNode(XmlNode node)
+		{
+			MiningField field = new MiningField(node.Attributes["name"].Value);
+			
+			//field.name = node.Attributes["name"].Value;
+			
+			/*if (node.Attributes["probability"] != null)
+				field.fprobability = node.Attributes["probability"].Value;
+			
+			if (node.Attributes["confidence"] != null)
+				field.fconfidence = node.Attributes["confidence"].Value;*/
+			
+			return field;
+		}
+		
+		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="writer"></param>
