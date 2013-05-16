@@ -32,11 +32,16 @@ namespace pmml4net
 		private ModelElement model;
 		
 		/// <summary>
+		/// Predicate of this segment
+		/// </summary>
+		public Predicate Predicate { get { return predicate; } set { predicate = value; } }
+		
+		/// <summary>
 		/// The Segment element is used to tag each model that can be combined as part of an ensemble or associated with a 
 		/// population segment. A multiple model combination method must be specified using multipleModelMethod attribute 
 		/// in Segmentation element.
 		/// </summary>
-		public ModelElement Model { get { return model; } }
+		public ModelElement Model { get { return model; } set { model = value; } }
 		
 		/// <summary>
 		/// Load Segmentation node from XmlElement of PMML file
@@ -93,6 +98,23 @@ namespace pmml4net
 			}
 			
 			return segment;
+		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="writer"></param>
+		public void save(XmlWriter writer)
+		{
+			writer.WriteStartElement("Segment");
+			
+			// Save predicate
+			this.Predicate.save(writer);
+			
+			// Save model
+			this.Model.save(writer);
+			
+			writer.WriteEndElement();
 		}
 	}
 }

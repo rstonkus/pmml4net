@@ -113,7 +113,19 @@ namespace pmml4net
 		{
 			writer.WriteStartElement("MiningModel");
 			
-			writer.WriteAttributeString("modelName", this.ModelName);
+			if (!string.IsNullOrEmpty(this.ModelName))
+				writer.WriteAttributeString("modelName", this.ModelName);
+			
+			writer.WriteAttributeString("functionName", MiningFunctionToString(this.FunctionName));
+			
+			if (!string.IsNullOrEmpty(this.AlgorithmName))
+				writer.WriteAttributeString("algorithmName", this.AlgorithmName);
+			
+			// Save Mining schema
+			this.MiningSchema.save(writer);
+			
+			// Save segmentation
+			this.Segmentation.save(writer);
 			
 			writer.WriteEndElement();
 		}

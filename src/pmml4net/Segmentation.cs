@@ -106,5 +106,42 @@ namespace pmml4net
 				throw new NotImplementedException();
 			}
 		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="writer"></param>
+		public void save(XmlWriter writer)
+		{
+			writer.WriteStartElement("Segmentation");
+			
+			writer.WriteAttributeString("multipleModelMethod", MultipleModelMethodToString(this.MultipleModelMethod));
+			
+			// Save segments
+			foreach (Segment segment in this.Segments)
+				segment.save(writer);
+			
+			writer.WriteEndElement();
+		}
+		
+		/// <summary>
+		/// Convert MultipleModelMethod to string
+		/// </summary>
+		/// <param name="val"></param>
+		/// <returns></returns>
+		protected static string MultipleModelMethodToString(MultipleModelMethod val)
+		{
+			switch (val)
+			{
+			case MultipleModelMethod.Average:
+				return "average";
+			case MultipleModelMethod.MajorityVote:
+				return "majorityVote";
+			case MultipleModelMethod.Max:
+				return "max";
+			default:
+				throw new NotImplementedException();
+			}
+		}
 	}
 }

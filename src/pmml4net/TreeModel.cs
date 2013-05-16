@@ -33,7 +33,6 @@ namespace pmml4net
 		private MissingValueStrategy missingValueStrategy;
 		private NoTrueChildStrategy noTrueChildStrategy;
 		
-		private MiningSchema miningSchema = new MiningSchema();
 		private Node node = new Node(new TruePredicate());
 		
 		/// <summary>
@@ -45,11 +44,6 @@ namespace pmml4net
 		/// Defines what to do in situations where scoring cannot reach a leaf node.
 		/// </summary>
 		public NoTrueChildStrategy NoTrueChildStrategy { get { return noTrueChildStrategy; } set { noTrueChildStrategy = value; } }
-		
-		/// <summary>
-		/// Mining schema for this model.
-		/// </summary>
-		public MiningSchema MiningSchema { get { return miningSchema; } set { miningSchema = value; } }
 		
 		/// <summary>
 		/// Root node of this model.
@@ -171,21 +165,6 @@ namespace pmml4net
 			}
 		}
 		
-		private static string MiningFunctionToString(MiningFunction val)
-		{
-			switch (val)
-			{
-			case MiningFunction.AssociationRules:
-				return "associationRules";
-			case MiningFunction.Classification:
-				return "classification";
-			case MiningFunction.Clustering:
-				return "clustering";
-			default:
-				throw new NotImplementedException();
-			}
-		}
-		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -194,11 +173,13 @@ namespace pmml4net
 		{
 			writer.WriteStartElement("TreeModel");
 			
-			writer.WriteAttributeString("modelName", this.ModelName);
+			if (!string.IsNullOrEmpty(this.ModelName))
+				writer.WriteAttributeString("modelName", this.ModelName);
 			
 			writer.WriteAttributeString("functionName", MiningFunctionToString(this.FunctionName));
 			
-			writer.WriteAttributeString("algorithmName", this.AlgorithmName);
+			if (!string.IsNullOrEmpty(this.AlgorithmName))
+				writer.WriteAttributeString("algorithmName", this.AlgorithmName);
 			
 			// Save Mining schema
 			this.MiningSchema.save(writer);

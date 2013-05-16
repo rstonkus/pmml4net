@@ -40,6 +40,8 @@ namespace pmml4net
 		private MiningFunction functionName;
 		private string algorithmName;
 		
+		private MiningSchema miningSchema = new MiningSchema();
+		
 		/// <summary>
 		/// Identifies the model with a unique name in the context of the PMML file.
 		/// This attribute is not required. Consumers of PMML models are free to manage the names of the models at their discretion.
@@ -59,6 +61,11 @@ namespace pmml4net
 		public string AlgorithmName { get { return algorithmName; } set { algorithmName = value; } }
 		
 		/// <summary>
+		/// Mining schema for this model.
+		/// </summary>
+		public MiningSchema MiningSchema { get { return miningSchema; } set { miningSchema = value; } }
+		
+		/// <summary>
 		/// Score the model.
 		/// </summary>
 		/// <param name="dict">Data input</param>
@@ -70,5 +77,25 @@ namespace pmml4net
 		/// </summary>
 		/// <param name="writer">writer</param>
 		public abstract void save(XmlWriter writer);
+		
+		/// <summary>
+		/// Convert MiningFunction to string
+		/// </summary>
+		/// <param name="val"></param>
+		/// <returns></returns>
+		protected static string MiningFunctionToString(MiningFunction val)
+		{
+			switch (val)
+			{
+			case MiningFunction.AssociationRules:
+				return "associationRules";
+			case MiningFunction.Classification:
+				return "classification";
+			case MiningFunction.Clustering:
+				return "clustering";
+			default:
+				throw new NotImplementedException();
+			}
+		}
 	}
 }
