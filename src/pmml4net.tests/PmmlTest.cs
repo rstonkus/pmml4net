@@ -120,15 +120,23 @@ namespace pmml4net.tests
 			pmml.save(temp_file);
 			
 			Pmml pmml2 = Pmml.loadModels(temp_file);
-			System.Console.WriteLine("temp:" + temp_file);
 			
+			// Test data dictionnary
+			Assert.AreEqual(pmml.DataDictionary.DataFields.Count, pmml2.DataDictionary.DataFields.Count);
+			
+			// Test models
 			Assert.AreEqual(pmml.Models.Count, pmml2.Models.Count);
-			
 			for (int j = 0; j < pmml.Models.Count; j++)
 			{
 				ModelElement model = pmml.Models[j];
 				ModelElement model2 = pmml2.Models[j];
 				
+				Assert.IsInstanceOf(model.GetType(), model2);
+				
+				if (model is TreeModel)
+				{
+					
+				}
 			}
 		}
 	}

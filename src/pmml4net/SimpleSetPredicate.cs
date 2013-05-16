@@ -34,6 +34,16 @@ namespace pmml4net
 		private List<string> farray;
 		
 		/// <summary>
+		/// 
+		/// </summary>
+		public string Field { get { return field; }}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public string BooleanOperator { get { return foperator; } set { foperator = value; } }
+		
+		/// <summary>
 		/// Load Node from XmlNode
 		/// </summary>
 		/// <param name="node"></param>
@@ -42,19 +52,22 @@ namespace pmml4net
 		{
 			SimpleSetPredicate root = new SimpleSetPredicate();
 			
-			// TODO : Add extention reading
-			
 			root.field = node.Attributes["field"].Value;
-			
 			root.foperator = node.Attributes["booleanOperator"].Value;
 			
 			root.farray = new List<string>();
 			foreach(XmlNode item in node.ChildNodes)
 			{
-				if ("array".Equals(item.Name.ToLowerInvariant()))
+				if ("extension".Equals(item.Name.ToLowerInvariant()))
+				{
+					//root.farray.Add(item.InnerText.Trim());
+				}
+				else if ("array".Equals(item.Name.ToLowerInvariant()))
 				{
 					root.farray.Add(item.InnerText.Trim());
 				}
+				else
+					throw new NotImplementedException();
 			}
 			
 			return root;
@@ -86,7 +99,16 @@ namespace pmml4net
 		{
 			writer.WriteStartElement("SimpleSetPredicate");
 			
-			//writer.WriteAttributeString("modelName", this.ModelName);
+			writer.WriteAttributeString("field", this.Field);
+			writer.WriteAttributeString("booleanOperator", this.BooleanOperator);
+			
+			// Save array
+			foreach (string arr in this.farray)
+			{
+				writer.WriteStartElement("Array");
+				writer.WriteValue(arr);
+				writer.WriteEndElement();
+			}
 			
 			writer.WriteEndElement();
 		}

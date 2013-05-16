@@ -61,6 +61,8 @@ namespace pmml4net
 				{
 					schema.MiningFields.Add(MiningField.loadFromXmlNode(item));
 				}
+				else
+					throw new NotImplementedException();
 			}
 			
 			return schema;

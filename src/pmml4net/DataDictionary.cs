@@ -38,6 +38,43 @@ namespace pmml4net
 		public IList<DataField> DataFields { get { return this.dataFields; } set { dataFields = value; } }
 		
 		/// <summary>
+		/// Load data dictionary from xmlnode
+		/// </summary>
+		/// <param name="node"></param>
+		/// <returns></returns>
+		public static DataDictionary loadFromXmlNode(XmlNode node)
+		{
+			DataDictionary dict = new DataDictionary();
+			
+			/*tree.ModelName = node.Attributes["modelName"].Value;
+			
+			if (node.Attributes["missingValueStrategy"] != null)
+				tree.MissingValueStrategy = MissingValueStrategyfromString(node.Attributes["missingValueStrategy"].Value);
+			
+			// By default noTrueChildStrategy = returnNullPrediction
+			tree.noTrueChildStrategy = NoTrueChildStrategy.ReturnNullPrediction;
+			if (node.Attributes["noTrueChildStrategy"] != null)
+				tree.noTrueChildStrategy = NoTrueChildStrategyfromString(node.Attributes["noTrueChildStrategy"].Value);
+			*/
+			
+			foreach(XmlNode item in node.ChildNodes)
+			{
+				if ("Extention".Equals(item.Name))
+				{
+					//tree.Node = Node.loadFromXmlNode(item);
+				}
+				else if ("DataField".Equals(item.Name))
+				{
+					dict.DataFields.Add(DataField.loadFromXmlNode(item));
+				}
+				else
+					throw new NotImplementedException();
+			}
+			
+			return dict;
+		}
+		
+		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="writer"></param>

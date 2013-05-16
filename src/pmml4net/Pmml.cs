@@ -135,7 +135,11 @@ namespace pmml4net
 				{
 					foreach (XmlNode itemTreeModel in root.ChildNodes)
 					{
-						if (itemTreeModel.Name.Equals("TreeModel"))
+						if (itemTreeModel.Name.Equals("DataDictionary"))
+						{
+							pmml.DataDictionary = DataDictionary.loadFromXmlNode(itemTreeModel);
+						}
+						else if (itemTreeModel.Name.Equals("TreeModel"))
 						{
 							pmml.models.Add(TreeModel.loadFromXmlNode(itemTreeModel));
 						}

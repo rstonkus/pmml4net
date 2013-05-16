@@ -19,6 +19,7 @@ Boston, MA  02110-1301, USA.
  */
 
 using System;
+using System.Collections.Generic;
 using System.Xml;
 
 namespace pmml4net
@@ -29,8 +30,23 @@ namespace pmml4net
 	public class DataField
 	{
 		private string name;
+		private string displayName;
 		private Optype optype;
 		private string dataType;
+		
+		private List<string> fInterval;
+		private List<string> fValue;
+		
+		/// <summary>
+		/// The displayName is a string which may be used by applications to refer to that field. 
+		/// Within the XML document only the value of name is significant. If displayName is not given, then it defaults to 
+		/// the value of name. For example, there may be a field with name="CSTAGE" and displayName="Customer age". An 
+		/// application may use the label Customer age, e.g., at the user interface in order to ask for input values. 
+		/// That is, displayName can be used when the application calls the PMML consumer. Once the consumer has received 
+		/// the parameters and matched to the MiningFields, the displayName is not relevant anymore. Only name is 
+		/// significant for internal processing.
+		/// </summary>
+		public string DisplayName { get { return displayName; } set { displayName = value; } }
 		
 		/// <summary>
 		/// Build data field.
@@ -46,6 +62,55 @@ namespace pmml4net
 		}
 		
 		/// <summary>
+		/// Load data dictionary from xmlnode
+		/// </summary>
+		/// <param name="node"></param>
+		/// <returns></returns>
+		public static DataField loadFromXmlNode(XmlNode node)
+		{
+			string name = node.Attributes["name"].Value;
+			Optype optype = OptypeFromString(node.Attributes["optype"].Value);
+			string dataType = node.Attributes["dataType"].Value;
+			DataField field = new DataField(name, optype, dataType);
+			
+			if (node.Attributes["displayName"] != null)
+				field.displayName = node.Attributes["displayName"].Value;
+			
+			/*tree.ModelName = node.Attributes["modelName"].Value;
+			
+			if (node.Attributes["missingValueStrategy"] != null)
+				tree.MissingValueStrategy = MissingValueStrategyfromString(node.Attributes["missingValueStrategy"].Value);
+			
+			// By default noTrueChildStrategy = returnNullPrediction
+			tree.noTrueChildStrategy = NoTrueChildStrategy.ReturnNullPrediction;
+			if (node.Attributes["noTrueChildStrategy"] != null)
+				tree.noTrueChildStrategy = NoTrueChildStrategyfromString(node.Attributes["noTrueChildStrategy"].Value);
+			*/
+			
+			field.fInterval = new List<string>();
+			field.fValue = new List<string>();
+			foreach(XmlNode item in node.ChildNodes)
+			{
+				if ("extension".Equals(item.Name.ToLowerInvariant()))
+				{
+					//
+				}
+				else if ("Interval".Equals(item.Name))
+				{
+					field.fInterval.Add(item.InnerText.Trim());
+				}
+				else if ("Value".Equals(item.Name))
+				{
+					field.fValue.Add(item.InnerText.Trim());
+				}
+				else
+					throw new NotImplementedException();
+			}
+			
+			return field;
+		}
+		
+		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="writer"></param>
@@ -55,6 +120,9 @@ namespace pmml4net
 			
 			writer.WriteAttributeString("name", this.name);
 			
+			if (!string.IsNullOrEmpty(this.DisplayName))
+				writer.WriteAttributeString("displayName", this.DisplayName);
+			
 			writer.WriteAttributeString("optype", OptypeToString(this.optype));
 			
 			writer.WriteAttributeString("dataType", this.dataType);
@@ -62,7 +130,7 @@ namespace pmml4net
 			writer.WriteEndElement();
 		}
 		
-		private string OptypeToString(Optype val)
+		private static string OptypeToString(Optype val)
 		{
 			switch(val)
 			{
@@ -72,6 +140,21 @@ namespace pmml4net
 				return "continuous";
 			case Optype.ordinal :
 				return "ordinal";
+				default :
+					throw new NotImplementedException();
+			}
+		}
+		
+		private static Optype OptypeFromString(string val)
+		{
+			switch(val.ToLowerInvariant().Trim())
+			{
+			case "categorical" :
+				return Optype.categorical;
+			case "continuous" :
+				return Optype.continuous;
+			case "ordinal" :
+				return Optype.ordinal;
 				default :
 					throw new NotImplementedException();
 			}

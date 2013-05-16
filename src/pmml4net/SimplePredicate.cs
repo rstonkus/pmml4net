@@ -159,7 +159,7 @@ namespace pmml4net
 			writer.WriteStartElement("SimplePredicate");
 			
 			writer.WriteAttributeString("field", this.Field);
-			writer.WriteAttributeString("pperator", this.Operator);
+			writer.WriteAttributeString("operator", this.Operator);
 			if (!string.IsNullOrEmpty(this.Value))
 				writer.WriteAttributeString("value", this.Value);
 			

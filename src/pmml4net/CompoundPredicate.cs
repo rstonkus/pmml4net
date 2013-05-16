@@ -135,7 +135,10 @@ namespace pmml4net
 		{
 			writer.WriteStartElement("CompoundPredicate");
 			
-			//writer.WriteAttributeString("modelName", this.ModelName);
+			writer.WriteAttributeString("booleanOperator", this.fbooleanOperator);
+			
+			foreach (Predicate predicate in this.fpredicates)
+				predicate.save(writer);
 			
 			writer.WriteEndElement();
 		}
