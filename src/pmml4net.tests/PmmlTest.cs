@@ -95,5 +95,41 @@ namespace pmml4net.tests
 			
 			Assert.AreEqual(nbTreemodels, pmml.Models.Count);
 		}
+		
+		/// <summary>
+		/// Load some generated PMML from other vendors and save it.
+		/// </summary>
+		/// <param name="pFilePath"></param>
+		[TestCase("AuditTree.xml")]
+		[TestCase("BigML1.xml")] // 51794c13e4b024977881b628
+		[TestCase("IrisTree.xml")]
+		[TestCase("Segmentation.xml")]
+		[TestCase("SIPINA1.xml")]
+		[TestCase("SPSS.xml")]
+		[TestCase("SPSS-2.xml")]
+		[TestCase("test-golfing1.xml")]
+		[TestCase("test-golfing2.xml")]
+		[TestCase("test-simpleset.xml")]
+		public void saveTest(string pFilePath)
+		{
+			// Load
+			Pmml pmml = Pmml.loadModels(pFilePath);
+			Assert.NotNull(pmml);
+			string temp_file = Path.GetTempFileName();
+			// Save
+			pmml.save(temp_file);
+			
+			Pmml pmml2 = Pmml.loadModels(temp_file);
+			System.Console.WriteLine("temp:" + temp_file);
+			
+			Assert.AreEqual(pmml.Models.Count, pmml2.Models.Count);
+			
+			for (int j = 0; j < pmml.Models.Count; j++)
+			{
+				ModelElement model = pmml.Models[j];
+				ModelElement model2 = pmml2.Models[j];
+				
+			}
+		}
 	}
 }
