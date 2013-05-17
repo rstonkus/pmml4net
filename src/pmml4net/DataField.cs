@@ -35,7 +35,7 @@ namespace pmml4net
 		private string dataType;
 		
 		private List<string> fInterval;
-		private List<string> fValue;
+		private IList<DataFieldValue> fValues;
 		
 		/// <summary>
 		/// The displayName is a string which may be used by applications to refer to that field. 
@@ -88,7 +88,7 @@ namespace pmml4net
 			*/
 			
 			field.fInterval = new List<string>();
-			field.fValue = new List<string>();
+			field.fValues = new List<DataFieldValue>();
 			foreach(XmlNode item in node.ChildNodes)
 			{
 				if ("extension".Equals(item.Name.ToLowerInvariant()))
@@ -101,7 +101,7 @@ namespace pmml4net
 				}
 				else if ("Value".Equals(item.Name))
 				{
-					field.fValue.Add(item.InnerText.Trim());
+					field.fValues.Add(DataFieldValue.loadFromXmlNode(item));
 				}
 				else
 					throw new NotImplementedException();
@@ -126,6 +126,9 @@ namespace pmml4net
 			writer.WriteAttributeString("optype", OptypeToString(this.optype));
 			
 			writer.WriteAttributeString("dataType", this.dataType);
+			
+			foreach (DataFieldValue dataval in this.fValues)
+				dataval.save(writer);
 			
 			writer.WriteEndElement();
 		}

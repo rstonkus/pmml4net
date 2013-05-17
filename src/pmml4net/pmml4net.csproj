@@ -49,6 +49,7 @@
     <Compile Include="CompoundPredicate.cs" />
     <Compile Include="DataDictionary.cs" />
     <Compile Include="DataField.cs" />
+    <Compile Include="DataFieldValue.cs" />
     <Compile Include="FalsePredicate.cs" />
     <Compile Include="Header.cs" />
     <Compile Include="MiningField.cs" />
