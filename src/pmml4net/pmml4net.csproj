@@ -51,6 +51,7 @@
     <Compile Include="DataField.cs" />
     <Compile Include="DataFieldValue.cs" />
     <Compile Include="FalsePredicate.cs" />
+    <Compile Include="FieldUsageType.cs" />
     <Compile Include="Header.cs" />
     <Compile Include="MiningField.cs" />
     <Compile Include="MiningFunction.cs" />

@@ -37,7 +37,7 @@ namespace pmml4net
 		
 		private IList<Node> nodes;
 		private Predicate predicate;
-		private IList<ScoreDistribution> scoreDistributions;
+		private IList<ScoreDistribution> scoreDistributions = new List<ScoreDistribution>();
 		
 		/// <summary>
 		/// 

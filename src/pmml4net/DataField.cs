@@ -35,7 +35,12 @@ namespace pmml4net
 		private string dataType;
 		
 		private List<string> fInterval;
-		private IList<DataFieldValue> fValues;
+		private IList<DataFieldValue> fValues = new List<DataFieldValue>();
+		
+		/// <summary>
+		/// Name of the data field.
+		/// </summary>
+		public string Name { get { return name; } }
 		
 		/// <summary>
 		/// The displayName is a string which may be used by applications to refer to that field. 
