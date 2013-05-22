@@ -1,27 +1,32 @@
 pmml4net
 ========
 
-Pmml Library provide class to read and consume Decision Trees stored in PMML files.
+Pmml Library provide class to read and consume decision trees stored in PMML files.
 
-TODO
-====
+Features
+========
 
-* missingValueStrategy
+* Read/Load PMML file in 4.0/4.1 format.
+* Easy evaluation of DecisionTree model
+* (beta) Support for MiningModel with segmentation
 
 example
-=======
+-------
+
+Load PMML file with TreeModel and execute it.
 
 	// Load PMML file
 	Pmml pmml = Pmml.loadModels(pFilePath);
 			
 	// Get the TreeModel by this name
-	TreeModel tree = pmml.getByName("golfing");
+	ModelElement model = pmml.getByName("golfing");
 	
 	// Load Input  ( parseParams="  var1=1, var2="foo" var3="bar" ...	
 	Dictionary<string, object> lDict = parseParams(paramList);
-
+	
 	// Do scoring
-	ScoreResult result = tree.Score(lDict);
+	ScoreResult result = model.Score(lDict);
+
 
 Licence
 =======

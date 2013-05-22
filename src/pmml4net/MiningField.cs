@@ -107,9 +107,9 @@ namespace pmml4net
 			
 			writer.WriteAttributeString("name", this.name);
 			
-			/*writer.WriteAttributeString("functionName", MiningFunctionToString(this.FunctionName));
+			writer.WriteAttributeString("usageType", FieldUsageTypeToString(this.UsageType));
 			
-			writer.WriteAttributeString("algorithmName", this.AlgorithmName);
+			/*writer.WriteAttributeString("algorithmName", this.AlgorithmName);
 			
 			// Save Mining fields
 			this.MiningSchema.save(writer);*/
@@ -131,6 +131,24 @@ namespace pmml4net
 				
 			case "supplementary":
 				return FieldUsageType.Supplementary;
+				
+			default:
+				throw new NotImplementedException();
+			}
+		}
+		
+		private static string FieldUsageTypeToString(FieldUsageType val)
+		{
+			switch (val)
+			{
+			case FieldUsageType.Active: 
+				return "active";
+			
+			case FieldUsageType.Predicted:
+				return "predicted";
+				
+			case FieldUsageType.Supplementary:
+				return "supplementary";
 				
 			default:
 				throw new NotImplementedException();

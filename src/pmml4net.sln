@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pmml4net.tests", "pmml4net.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\test.csproj", "{4C9BBC31-4200-4A86-A98D-8D9B12CA3FAB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test-console", "test-console\test-console.csproj", "{A5611BC1-386A-472D-AAC5-50EF56387979}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -26,5 +28,9 @@ Global
 		{4C9BBC31-4200-4A86-A98D-8D9B12CA3FAB}.Debug|x86.ActiveCfg = Debug|x86
 		{4C9BBC31-4200-4A86-A98D-8D9B12CA3FAB}.Release|x86.Build.0 = Release|x86
 		{4C9BBC31-4200-4A86-A98D-8D9B12CA3FAB}.Release|x86.ActiveCfg = Release|x86
+		{A5611BC1-386A-472D-AAC5-50EF56387979}.Debug|x86.Build.0 = Debug|x86
+		{A5611BC1-386A-472D-AAC5-50EF56387979}.Debug|x86.ActiveCfg = Debug|x86
+		{A5611BC1-386A-472D-AAC5-50EF56387979}.Release|x86.Build.0 = Release|x86
+		{A5611BC1-386A-472D-AAC5-50EF56387979}.Release|x86.ActiveCfg = Release|x86
 	EndGlobalSection
 EndGlobal
