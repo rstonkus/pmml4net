@@ -1,17 +1,18 @@
-pmml4net
-========
+# pmml4net
+
+Copyright (C) 2013  Damien Carol <damien.carol@gmail.com>
+
+## About
 
 Pmml Library provide class to read and consume decision trees stored in PMML files.
 
-Features
-========
+## Features
 
 * Read/Load PMML file in 4.0/4.1 format.
 * Easy evaluation of DecisionTree model
 * (beta) Support for MiningModel with segmentation
 
-example
--------
+### example 1
 
 Load PMML file with TreeModel and execute it.
 
@@ -27,9 +28,54 @@ Load PMML file with TreeModel and execute it.
 	// Do scoring
 	ScoreResult result = model.Score(lDict);
 
+### example 2
 
-Licence
-=======
+Load PMML file, ask for variable and execute it.
+
+	public static void Main(string[] args)
+	{
+		// Load PMML
+		Console.Write("Loading PMML [" + args[0] + "]...");
+		Pmml pmml = Pmml.loadModels(args[0]);
+		Console.WriteLine("OK");
+		
+		// Get model
+		ModelElement model = pmml.Models[0];
+		
+		// Get vars
+		Dictionary<string, object> dict = new Dictionary<string, object>();
+		Console.WriteLine("Enter value for data fields.");
+		foreach (MiningField field in model.MiningSchema.MiningFields)
+		{
+			if (field.UsageType == FieldUsageType.Active)
+			{
+				string displayName = field.Name;
+				/*if (displayName == null)
+					displayName = data.Name;*/
+				
+				Console.Write("Enter value for [" + displayName + "] : ");
+				string val = Console.ReadLine();
+				
+				dict.Add(field.Name, val);
+			}
+		}
+		
+		// Execute the model
+		Console.Write("Processing model [" + model.ModelName + "] ...");
+		ScoreResult result = model.Score(dict);
+		Console.WriteLine("OK");
+		
+		
+		Console.WriteLine("RESULT ******** [" + result.Value + "][" + result.Confidence + "] ...");
+		
+		
+		
+		Console.Write("Press any key to continue . . . ");
+		Console.ReadKey(true);
+		
+	}
+
+## Licence
 
 pmml4net - easy lib to read and consume tree model in PMML file
 Copyright (C) 2013  Damien Carol <damien.carol@gmail.com>
