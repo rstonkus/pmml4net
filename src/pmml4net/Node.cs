@@ -174,7 +174,7 @@ namespace pmml4net
 						if (sco.Value.Equals(child.Score))
 						{
 							if (sco.Confidence != null)
-								res.Confidence = Convert.ToDecimal(sco.Confidence, CultureInfo.InvariantCulture);
+								res.Confidence = Decimal.Parse(sco.Confidence, NumberStyles.Any, CultureInfo.InvariantCulture);
 						}
 					}
 					
