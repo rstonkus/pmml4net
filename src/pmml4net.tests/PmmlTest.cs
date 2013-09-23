@@ -68,6 +68,7 @@ namespace pmml4net.tests
 		[TestCase("test-golfing1.xml")]
 		[TestCase("test-golfing2.xml")]
 		[TestCase("test-simpleset.xml")]
+		[TestCase("test-ruleset1.xml")]
 		public void LoadModelsTest(string pFilePath)
 		{
 			// Try from string

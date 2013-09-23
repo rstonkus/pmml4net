@@ -67,11 +67,16 @@
     <Compile Include="PmmlException.cs" />
     <Compile Include="PredicateResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rule.cs" />
+    <Compile Include="RuleSelectionMethod.cs" />
+    <Compile Include="RuleSet.cs" />
+    <Compile Include="RuleSetModel.cs" />
     <Compile Include="ScoreDistribution.cs" />
     <Compile Include="ScoreResult.cs" />
     <Compile Include="Segment.cs" />
     <Compile Include="Segmentation.cs" />
     <Compile Include="SimplePredicate.cs" />
+    <Compile Include="SimpleRule.cs" />
     <Compile Include="SimpleSetPredicate.cs" />
     <Compile Include="TreeModel.cs" />
     <Compile Include="TruePredicate.cs" />

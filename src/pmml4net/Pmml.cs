@@ -133,19 +133,23 @@ namespace pmml4net
 			{
 				if (root is XmlElement)
 				{
-					foreach (XmlNode itemTreeModel in root.ChildNodes)
+					foreach (XmlNode child in root.ChildNodes)
 					{
-						if (itemTreeModel.Name.Equals("DataDictionary"))
+						if (child.Name.Equals("DataDictionary"))
 						{
-							pmml.DataDictionary = DataDictionary.loadFromXmlNode(itemTreeModel);
+							pmml.DataDictionary = DataDictionary.loadFromXmlNode(child);
 						}
-						else if (itemTreeModel.Name.Equals("TreeModel"))
+						else if (child.Name.Equals("RuleSetModel"))
 						{
-							pmml.models.Add(TreeModel.loadFromXmlNode(itemTreeModel));
+							pmml.models.Add(RuleSetModel.loadFromXmlNode(child));
 						}
-						else if (itemTreeModel.Name.Equals("MiningModel"))
+						else if (child.Name.Equals("TreeModel"))
 						{
-							pmml.models.Add(MiningModel.loadFromXmlNode(itemTreeModel));
+							pmml.models.Add(TreeModel.loadFromXmlNode(child));
+						}
+						else if (child.Name.Equals("MiningModel"))
+						{
+							pmml.models.Add(MiningModel.loadFromXmlNode(child));
 						}
 					}
 				}
