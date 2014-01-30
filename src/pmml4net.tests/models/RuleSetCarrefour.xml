@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<PMML version="4.1" xmlns="http://www.dmg.org/PMML-4_1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Header copyright="MyCopyright">
+		<Application name="MyApplication" version="1.0" />
+	</Header>
+	<DataDictionary numberOfFields="4">
+		<DataField name="NumCheque" displayName="NumCheque" optype="categorical" dataType="string" />
+		<DataField name="ZIB" displayName="ZIB" optype="categorical" dataType="string" />
+		<DataField name="ZIN" displayName="ZIN" optype="categorical" dataType="string" />
+		<DataField dataType="double" name="Montant" optype="continuous" />
+		<DataField name="FAUX_CHEQUE" displayName="FAUX_CHEQUE" optype="continuous" dataType="integer" />
+	</DataDictionary>
+	<TransformationDictionary>
+		<DerivedField name="ZINstart7" displayName="ZIN(0:6)" optype="categorical" dataType="string">
+			<Apply function="substring">
+				<FieldRef field="ZIN" />
+				<Constant dataType="integer">1</Constant>
+				<Constant dataType="integer">7</Constant>
+			</Apply>
+		</DerivedField>
+	</TransformationDictionary>
+	<RuleSetModel modelName="CARF-20140124" functionName="classification" algorithmName="RuleSet">
+		<MiningSchema>
+			<MiningField name="CHEQUE" usageType="active" />
+			<MiningField name="ZIB" usageType="active" />
+			<MiningField name="ZIN" usageType="active" />
+			<MiningField name="Montant" usageType="active" />
+			<MiningField name="FAUX_CHEQUE" usageType="predicted" />
+		</MiningSchema>
+		<RuleSet defaultScore="0" defaultConfidence="0.0">
+			<RuleSelectionMethod criterion="firstHit" />
+			<SimpleRule id="RULE1" score="1">
+				<CompoundPredicate booleanOperator="and">
+					<SimplePredicate field="CHEQUE" operator="equal" value="0001990" />
+					<SimplePredicate field="ZIB" operator="equal" value="075030003908" />
+					<SimplePredicate field="ZINstart7" operator="equal" value="3080262" />
+				</CompoundPredicate>
+				<ScoreDistribution value="1" recordCount="1" />
+			</SimpleRule>
+			<SimpleRule id="RULE2" score="1">
+				<CompoundPredicate booleanOperator="and">
+					<SimplePredicate field="CHEQUE" operator="equal" value="0001990" />
+					<SimplePredicate field="ZIB" operator="equal" value="075030003908" />
+					<SimplePredicate field="ZINstart7" operator="equal" value="3080262" />
+				</CompoundPredicate>
+				<ScoreDistribution value="1" recordCount="1" />
+			</SimpleRule>
+			<SimpleRule id="RULE3" score="1">
+				<CompoundPredicate booleanOperator="and">
+					<SimplePredicate field="CHEQUE" operator="equal" value="0001990" />
+					<SimplePredicate field="ZIB" operator="equal" value="075030003908" />
+					<SimplePredicate field="ZINstart7" operator="equal" value="3080262" />
+				</CompoundPredicate>
+				<ScoreDistribution value="1" recordCount="1" />
+			</SimpleRule>
+			<SimpleRule id="RULE4" score="1">
+				<CompoundPredicate booleanOperator="and">
+					<SimplePredicate field="CHEQUE" operator="equal" value="0001990" />
+					<SimplePredicate field="ZIB" operator="equal" value="075030003908" />
+					<SimplePredicate field="ZINstart7" operator="equal" value="3080262" />
+				</CompoundPredicate>
+				<ScoreDistribution value="1" recordCount="1" />
+			</SimpleRule>
+			<SimpleRule id="RULE5" score="1">
+				<CompoundPredicate booleanOperator="and">
+					<SimplePredicate field="CHEQUE" operator="equal" value="0001990" />
+					<SimplePredicate field="ZIB" operator="equal" value="075030003908" />
+					<SimplePredicate field="ZINstart7" operator="equal" value="3080262" />
+				</CompoundPredicate>
+				<ScoreDistribution value="1" recordCount="1" />
+			</SimpleRule>
+			<SimpleRule id="RULE6" score="1">
+				<CompoundPredicate booleanOperator="and">
+					<SimplePredicate field="CHEQUE" operator="equal" value="0001990" />
+					<SimplePredicate field="ZIB" operator="equal" value="075030003908" />
+					<SimplePredicate field="ZINstart7" operator="equal" value="3080262" />
+				</CompoundPredicate>
+				<ScoreDistribution value="1" recordCount="1" />
+			</SimpleRule>
+			<SimpleRule id="RULE7" score="1">
+				<CompoundPredicate booleanOperator="and">
+					<SimplePredicate field="CHEQUE" operator="equal" value="0001990" />
+					<SimplePredicate field="ZIB" operator="equal" value="075030003908" />
+					<SimplePredicate field="ZINstart7" operator="equal" value="3080262" />
+				</CompoundPredicate>
+				<ScoreDistribution value="1" recordCount="1" />
+			</SimpleRule>
+			<SimpleRule id="RULE8" score="1">
+				<CompoundPredicate booleanOperator="and">
+					<SimplePredicate field="CHEQUE" operator="equal" value="0001990" />
+					<SimplePredicate field="ZIB" operator="equal" value="075030003908" />
+					<SimplePredicate field="ZINstart7" operator="equal" value="3080262" />
+				</CompoundPredicate>
+				<ScoreDistribution value="1" recordCount="1" />
+			</SimpleRule>
+			<SimpleRule id="RULE9" score="1">
+				<CompoundPredicate booleanOperator="and">
+					<SimplePredicate field="CHEQUE" operator="equal" value="0001990" />
+					<SimplePredicate field="ZIB" operator="equal" value="075030003908" />
+					<SimplePredicate field="ZINstart7" operator="equal" value="3080262" />
+				</CompoundPredicate>
+				<ScoreDistribution value="1" recordCount="1" />
+			</SimpleRule>
+			<SimpleRule id="RULE10" score="1">
+				<CompoundPredicate booleanOperator="and">
+					<SimplePredicate field="CHEQUE" operator="equal" value="2165371" />
+					<SimplePredicate field="ZIB" operator="equal" value="075010004908" />
+					<SimplePredicate field="ZINstart7" operator="equal" value="1692202" />
+				</CompoundPredicate>
+				<ScoreDistribution value="1" recordCount="1" />
+			</SimpleRule>
+			<SimpleRule id="RULE11" score="1">
+				<CompoundPredicate booleanOperator="and">
+					<SimplePredicate field="CHEQUE" operator="equal" value="4206000" />
+					<SimplePredicate field="ZIB" operator="equal" value="069010278908" />
+					<SimplePredicate field="ZINstart7" operator="equal" value="732120" />
+				</CompoundPredicate>
+				<ScoreDistribution value="1" recordCount="1" />
+			</SimpleRule>
+		</RuleSet>
+	</RuleSetModel>
+</PMML>

@@ -56,7 +56,57 @@ namespace pmml4net.tests
 			Assert.AreEqual(3, rs.RuleSet.RuleSelectionMethods.Count);
 			
 			// Check 3 Rule
-			Assert.AreEqual(3, rs.RuleSet.Rule.Count);
+			Assert.AreEqual(3, rs.RuleSet.Rules.Count);
+			
+			// Modification for aggregateNode
+			//tree.MissingValueStrategy = MissingValueStrategy.AggregateNodes;
+			
+			Dictionary<string, object> lDict = parseParams(paramList);
+			
+			ScoreResult result = rs.Score(lDict);
+			Assert.NotNull(result);
+			
+			
+			/*foreach(Node item in result.Nodes)
+			{
+				Console.WriteLine("Node {0} = score {1}", item.Id, item.Score);
+				
+				foreach(ScoreDistribution it2 in item.ScoreDistributions)
+					Console.WriteLine("\tScore Dist. {0} ({1}) = {2}", it2.Value, it2.RecordCount, it2.Confidence);
+			}*/
+			
+			Assert.AreEqual(res, result.Value);
+			Assert.AreEqual(confidence, result.Confidence);
+		}
+		
+		[Test()]
+		public void ScoreCarfTest()
+		{
+			string pFilePath = "models\\RuleSetCarrefour.xml";
+			string modelname = "CARF-20140124";
+			string paramList = "CHEQUE='0002110', ZIB='075030003908', ZIN = '309037200000', Montant = 0.01";
+			string res = "1";
+			decimal confidence = 1.0M;
+			
+			Pmml pmml = Pmml.loadModels(pFilePath);
+			
+			Assert.NotNull(pmml);
+			
+			ModelElement model = pmml.getByName(modelname);
+			Assert.NotNull(model);
+			
+			Assert.IsInstanceOf<RuleSetModel>(model);
+			
+			RuleSetModel rs = (RuleSetModel)model;
+			
+			// Check CARF as 1 RuleSelectionMethod for first node
+			Assert.IsNotNull(rs.RuleSet);
+			Assert.IsNotNull(rs.RuleSet.RuleSelectionMethods);
+			Assert.AreEqual(1, rs.RuleSet.RuleSelectionMethods.Count);
+			Assert.AreEqual("firstHit", rs.RuleSet.RuleSelectionMethods[0].Criterion);
+			
+			// Check 11 Rule
+			Assert.AreEqual(11, rs.RuleSet.Rules.Count);
 			
 			// Modification for aggregateNode
 			//tree.MissingValueStrategy = MissingValueStrategy.AggregateNodes;

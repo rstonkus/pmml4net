@@ -20,6 +20,7 @@ Boston, MA  02110-1301, USA.
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Xml;
 using System.Globalization;
 
@@ -38,7 +39,7 @@ namespace pmml4net
 		private IList<RuleSelectionMethod> ruleSelectionMethods;
 		private Predicate predicate;
 		private IList<ScoreDistribution> scoreDistributions = new List<ScoreDistribution>();
-		private IList<Rule> rule = new List<Rule>();
+		private IList<Rule> rules = new List<Rule>();
 		
 		/// <summary>
 		/// 
@@ -92,7 +93,7 @@ namespace pmml4net
 		/// <summary>
 		/// contains 0 or more rules which comprise the ruleset.
 		/// </summary>
-		public IList<Rule> Rule { get { return rule; } set { rule = value; } }
+		public IList<Rule> Rules { get { return rules; } set { rules = value; } }
 		
 		/// <summary>
 		/// Load Node from XmlNode
@@ -131,7 +132,7 @@ namespace pmml4net
 				}
 				else if ("simplerule".Equals(item.Name.ToLowerInvariant()))
 				{
-					root.Rule.Add(SimpleRule.loadFromXmlNode(item));
+					root.Rules.Add(SimpleRule.loadFromXmlNode(item));
 				}
 				else
 					throw new NotImplementedException();
@@ -141,28 +142,43 @@ namespace pmml4net
 		}
 		
 		/// <summary>
-		/// Scoring with Tree Model
+		/// Scoring with rule set model
 		/// </summary>
 		/// <param name="root">Parent node</param>
-		/// <param name="missingvalueStr">Missing value strategy to evaluate this node.</param>
-		/// <param name="noTrueChildStr">Strategy to evaluate this node if no child are true</param>
+		/// <param name="criterionStr">Criterion</param>
 		/// <param name="dict">Values</param>
 		/// <param name="res" >Result to return</param>
 		/// <returns></returns>
-		public static ScoreResult Evaluate(Node root, MissingValueStrategy missingvalueStr, NoTrueChildStrategy noTrueChildStr, 
+		public static ScoreResult Evaluate(RuleSet root, String criterionStr, 
 		                            Dictionary<string, object> dict, ScoreResult res)
 		{
+			// Both the ordering of keys and values is significant
+			OrderedDictionary/*<String, SimpleRule>*/ firedRules = new OrderedDictionary();//<String, SimpleRule>
+			
 			// Test childs
-			foreach(Node child in root.Nodes)
+			foreach(Rule rule in root.Rules)
 			{
-				PredicateResult childPredicate = child.Predicate.Evaluate(dict);
-				if (childPredicate == PredicateResult.True)
+				collectFiredRules(firedRules, rule, dict);
+			}
+			
+			// For now we return the first
+			foreach (String key in firedRules.Keys) {
+				res.Value = key;
+				//res.Confidence
+				return res;
+			}
+			
+			// Test childs
+			/*foreach(Rule rule in root.Rules)
+			{
+				PredicateResult resRule = rule.Evaluate(dict);
+				if (resRule == PredicateResult.True)
 				{
-					res.Nodes.Add(child);
-					res.Value = child.Score;
-					foreach(ScoreDistribution sco in child.ScoreDistributions)
+					//res.Nodes.Add(child);
+					res.Value = rule.Score;
+					foreach(ScoreDistribution sco in rule.ScoreDistributions)
 					{
-						if (sco.Value.Equals(child.Score))
+						if (sco.Value.Equals(rule.Score))
 						{
 							if (sco.Confidence != null)
 								res.Confidence = Decimal.Parse(sco.Confidence, NumberStyles.Any, CultureInfo.InvariantCulture);
@@ -171,7 +187,10 @@ namespace pmml4net
 					
 					return Evaluate(child, missingvalueStr, noTrueChildStr, dict, res);
 				}
-				else if (childPredicate == PredicateResult.Unknown)
+				if (resRule == PredicateResult.Unknown)
+					throw new NotImplementedException();*/
+				
+				/*else if (childPredicate == PredicateResult.Unknown)
 				{
 					// Unknow value lead to act with missingvalueStr
 					switch(missingvalueStr)
@@ -205,14 +224,14 @@ namespace pmml4net
 							throw new NotImplementedException();
 					}
 				}
-			}
+			}*/
 			
 			// All child nodes are false
-			if (root.Nodes.Count > 0)
+			/*if (root.Nodes.Count > 0)
 				if (noTrueChildStr == NoTrueChildStrategy.ReturnNullPrediction)
 				{
 					res.Value = null;
-				}
+				}*/
 			return res;
 		}
 		
@@ -270,5 +289,39 @@ namespace pmml4net
 			writer.WriteEndElement();*/
 			throw new NotImplementedException();
 		}
+		
+		static
+		private void collectFiredRules(OrderedDictionary/*<String, SimpleRule>*/ firedRules, Rule rule, Dictionary<string, object> dict/*, EvaluationContext context*/)
+		{
+			/*Predicate predicate = rule.getPredicate();
+			if(predicate == null){
+				throw new InvalidFeatureException(rule);
+			}
+
+                Boolean status = PredicateUtil.evaluate(predicate, context);
+                if(status == null || !status.booleanValue()){
+                        return;
+                } // End if*/
+			PredicateResult status = rule.Evaluate(dict);
+			if (status == PredicateResult.Unknown || status == PredicateResult.False) {
+				return;
+			}
+			
+			if (rule is SimpleRule) {
+				SimpleRule simpleRule = (SimpleRule)rule;
+				
+				firedRules.Add(simpleRule.Score, simpleRule);
+			} else {
+				if (rule is CompoundRule) 
+				{
+					CompoundRule compoundRule = (CompoundRule)rule;
+					foreach(Rule childRule in compoundRule.Rules){
+						collectFiredRules(firedRules, childRule, dict);
+					}
+				} else {
+					throw new PmmlException("Type of Rule not supported");
+				}
+			}
+        }
 	}
 }

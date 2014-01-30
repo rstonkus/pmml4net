@@ -74,6 +74,8 @@ namespace pmml4net
 		public static DataField loadFromXmlNode(XmlNode node)
 		{
 			string name = node.Attributes["name"].Value;
+			if (node.Attributes["optype"] == null)
+				throw new PmmlException("Invalid definition: [optype] required in datafield '" + name + "'");
 			Optype optype = OptypeFromString(node.Attributes["optype"].Value);
 			string dataType = node.Attributes["dataType"].Value;
 			DataField field = new DataField(name, optype, dataType);

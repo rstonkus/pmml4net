@@ -40,6 +40,9 @@
     <DocumentationFile>bin\Release\pmml4net.xml</DocumentationFile>
     <DebugType>None</DebugType>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <CodeAnalysisRuleSet>ExtendedCorrectnessRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
@@ -47,6 +50,7 @@
   <ItemGroup>
     <Compile Include="AbstractPredicate.cs" />
     <Compile Include="CompoundPredicate.cs" />
+    <Compile Include="CompoundRule.cs" />
     <Compile Include="DataDictionary.cs" />
     <Compile Include="DataField.cs" />
     <Compile Include="DataFieldValue.cs" />
@@ -78,6 +82,7 @@
     <Compile Include="SimplePredicate.cs" />
     <Compile Include="SimpleRule.cs" />
     <Compile Include="SimpleSetPredicate.cs" />
+    <Compile Include="TransformationDictionary.cs" />
     <Compile Include="TreeModel.cs" />
     <Compile Include="TruePredicate.cs" />
   </ItemGroup>

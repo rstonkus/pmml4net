@@ -30,63 +30,20 @@ namespace pmml4net
 	/// </summary>
 	public class RuleSelectionMethod
 	{
-		private string id;
-		private string score;
-		private decimal recordCount;
-		private string defaultChild;
-		
-		private IList<RuleSelectionMethod> ruleSelectionMethods;
-		private Predicate predicate;
-		private IList<ScoreDistribution> scoreDistributions = new List<ScoreDistribution>();
+		private string criterion;
 		
 		/// <summary>
 		/// 
 		/// </summary>
-		public RuleSelectionMethod(Predicate predicate)
+		public RuleSelectionMethod(string criterion)
 		{
-			//nodes = new List<Node>();
-			this.predicate = predicate;
+			this.criterion = criterion;
 		}
 		
 		/// <summary>
-		/// The value of id serves as a unique identifier for any given Node within the tree model.
+		/// 
 		/// </summary>
-		public string Id { get { return id; } set { id = value; } }
-		
-		/// <summary>
-		/// score of this node
-		/// </summary>
-		public string Score { get { return score; } set { score = value; } }
-		
-		/// <summary>
-		/// The value of recordCount in a Node serves as a base size for recordCount values in ScoreDistribution elements.
-		/// These numbers do not necessarily determine the number of records which have been used to build/train the model.
-		/// Nevertheless, they allow to determine the relative size of given values in a ScoreDistribution as well as the 
-		/// relative size of a Node when compared to the parent Node.
-		/// </summary>
-		public decimal RecordCount { get { return recordCount; } set { recordCount = value; } }
-		
-		/// <summary>
-		/// Only applicable when missingValueStrategy is set to defaultChild in the TreeModel element.
-		/// Gives the id of the child node to use when no predicates can be evaluated due to missing values.
-		/// Note that only Nodes which are immediate children of the respective Node can be referenced.
-		/// </summary>
-		public string DefaultChild { get { return defaultChild; } set { defaultChild = value; } }
-		
-		/// <summary>
-		/// Rule selection method of this rule set
-		/// </summary>
-		public IList<RuleSelectionMethod> RuleSelectionMethods { get { return ruleSelectionMethods; } set { ruleSelectionMethods = value; } }
-		
-		/// <summary>
-		/// Predicates of this node
-		/// </summary>
-		public Predicate Predicate { get { return predicate; } set { predicate = value; } }
-		
-		/// <summary>
-		/// siblings of this node
-		/// </summary>
-		public IList<ScoreDistribution> ScoreDistributions { get { return scoreDistributions; } set { scoreDistributions = value; } }
+		public string Criterion { get { return criterion; } set { criterion = value; } }
 		
 		/// <summary>
 		/// Load Node from XmlNode
@@ -95,18 +52,19 @@ namespace pmml4net
 		/// <returns></returns>
 		public static RuleSelectionMethod loadFromXmlNode(XmlNode node)
 		{
-			RuleSelectionMethod root = new RuleSelectionMethod(new TruePredicate());
 			
-			if (node.Attributes["id"] != null)
-				root.id = node.Attributes["id"].Value;
+			//if (node.Attributes["criterion"] != null)
+			//	root.criterion = ;
 			
-			if (node.Attributes["score"] != null)
+			RuleSelectionMethod root = new RuleSelectionMethod(node.Attributes["criterion"].Value);
+			
+			/*if (node.Attributes["score"] != null)
 				root.score = node.Attributes["score"].Value;
 			
 			if (node.Attributes["recordCount"] != null)
 				root.recordCount = Convert.ToDecimal(node.Attributes["recordCount"].Value, CultureInfo.InvariantCulture);
 			
-			root.scoreDistributions = new List<ScoreDistribution>();
+			root.scoreDistributions = new List<ScoreDistribution>();*/
 			foreach(XmlNode item in node.ChildNodes)
 			{
 				if ("extension".Equals(item.Name.ToLowerInvariant()))
@@ -118,7 +76,7 @@ namespace pmml4net
 				{
 					root.Nodes.Add(Node.loadFromXmlNode(item));
 				}*/
-				else if ("simplepredicate".Equals(item.Name.ToLowerInvariant()))
+				/*else if ("simplepredicate".Equals(item.Name.ToLowerInvariant()))
 				{
 					root.Predicate = SimplePredicate.loadFromXmlNode(item);
 				}
@@ -141,7 +99,7 @@ namespace pmml4net
 				else if ("scoredistribution".Equals(item.Name.ToLowerInvariant()))
 				{
 					root.ScoreDistributions.Add(ScoreDistribution.loadFromXmlNode(item));
-				}
+				}*/
 				else
 					throw new NotImplementedException();
 			}
@@ -255,29 +213,11 @@ namespace pmml4net
 		/// <param name="writer"></param>
 		public void save(XmlWriter writer)
 		{
-			writer.WriteStartElement("Node");
+			writer.WriteStartElement("RuleSelectionMethod");
 			
-			writer.WriteAttributeString("id", this.Id);
-			writer.WriteAttributeString("score", this.Score);
-			writer.WriteAttributeString("recordCount", this.RecordCount.ToString());
-			if (!string.IsNullOrEmpty(this.defaultChild))
-				writer.WriteAttributeString("defaultChild", this.defaultChild);
+			writer.WriteAttributeString("criterion", this.criterion);
 			
-			// Save predicate
-			this.Predicate.save(writer);
-			
-			// FIXME : Add all elements in xml
-			
-			// Save score distribution
-			foreach(ScoreDistribution scoreDistribution in this.ScoreDistributions)
-				scoreDistribution.save(writer);
-			
-			// Save nodes
-			/*foreach(Node node in this.Nodes)
-				node.save(writer);*/
-			throw new NotImplementedException();
-			
-			//writer.WriteEndElement();
+			writer.WriteEndElement();
 		}
 	}
 }

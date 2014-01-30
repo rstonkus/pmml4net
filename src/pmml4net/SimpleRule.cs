@@ -34,6 +34,9 @@ namespace pmml4net
 		private string foperator;
 		private string fvalue;
 		private Predicate predicate;
+		private string fscore;
+		
+		private IList<ScoreDistribution> scoreDistributions = new List<ScoreDistribution>();
 		
 		/// <summary>
 		/// the condition upon which the rule fires. For more details on PREDICATE 
@@ -68,6 +71,16 @@ namespace pmml4net
 		/// This attribute of <code>SimplePredicate</code> element is the information to evaluate / compare against.
 		/// </summary>
 		public string Value { get { return fvalue; } set { fvalue = value; } }
+		
+		/// <summary>
+		/// The predicted value when the rule fires.
+		/// </summary>
+		public string Score { get { return fscore; } set { fscore = value; } }
+		
+		/// <summary>
+		/// siblings of this node
+		/// </summary>
+		public IList<ScoreDistribution> ScoreDistributions { get { return scoreDistributions; } set { scoreDistributions = value; } }
 		
 		/// <summary>
 		/// Load Node from XmlNode
@@ -106,6 +119,16 @@ namespace pmml4net
 				{
 					root.Predicate = SimplePredicate.loadFromXmlNode(item);
 				}
+				else if ("compoundpredicate".Equals(item.Name.ToLowerInvariant()))
+				{
+					root.Predicate = CompoundPredicate.loadFromXmlNode(item);
+				}
+				else if ("scoredistribution".Equals(item.Name.ToLowerInvariant()))
+				{
+					root.ScoreDistributions.Add(ScoreDistribution.loadFromXmlNode(item));
+				}
+				else
+					throw new NotImplementedException();
 			}
 			
 			return root;
@@ -118,6 +141,7 @@ namespace pmml4net
 		/// <returns></returns>
 		public override PredicateResult Evaluate(Dictionary<string, object> dict)
 		{
+			return this.Predicate.Evaluate(dict);
 			/*
 			// Manage 'isMissing' operator
 			if ("ismissing".Equals(foperator.Trim().ToLowerInvariant()))
@@ -158,7 +182,7 @@ namespace pmml4net
 			
 			else
 				throw new PmmlException();*/
-			throw new NotImplementedException();
+			//throw new NotImplementedException();
 		}
 		
 		/// <summary>

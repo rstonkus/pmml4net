@@ -80,7 +80,10 @@ namespace pmml4net
 			resStart.Value = root.Score;
 			
 			return Node.Evaluate(root, missingValueStrategy, noTrueChildStrategy, dict, resStart);*/
-			throw new NotImplementedException();
+			//throw new NotImplementedException();
+			
+			// Check if there are only one SelectionMethod
+			return RuleSet.Evaluate(ruleset, "", dict, resStart);
 		}
 		
 		/// <summary>
