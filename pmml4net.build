@@ -77,6 +77,13 @@
 			</fileset>
 		</copy>
 		
+		<mkdir dir="${build.dir}/models" />
+		<copy todir="${build.dir}/models">
+			<fileset basedir="src/pmml4net.tests/models">
+				<include name="*.xml"/>
+			</fileset>
+		</copy>
+		
 		<mkdir dir="reports" />
 		
 		<nunit2>

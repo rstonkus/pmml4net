@@ -18,6 +18,20 @@
 				<Constant dataType="integer">7</Constant>
 			</Apply>
 		</DerivedField>
+		<DerivedField name="ZINstart8" displayName="ZIN(0:7)" optype="categorical" dataType="string">
+			<Apply function="substring">
+				<FieldRef field="ZIN" />
+				<Constant dataType="integer">1</Constant>
+				<Constant dataType="integer">8</Constant>
+			</Apply>
+		</DerivedField>
+		<DerivedField name="ZINstart1" displayName="ZIN(0:1)" optype="categorical" dataType="string">
+			<Apply function="substring">
+				<FieldRef field="ZIN" />
+				<Constant dataType="integer">1</Constant>
+				<Constant dataType="integer">1</Constant>
+			</Apply>
+		</DerivedField>
 	</TransformationDictionary>
 	<RuleSetModel modelName="CARF-20140124" functionName="classification" algorithmName="RuleSet">
 		<MiningSchema>
@@ -39,9 +53,9 @@
 			</SimpleRule>
 			<SimpleRule id="RULE2" score="1">
 				<CompoundPredicate booleanOperator="and">
-					<SimplePredicate field="CHEQUE" operator="equal" value="0001990" />
+					<SimplePredicate field="CHEQUE" operator="equal" value="0002110" />
 					<SimplePredicate field="ZIB" operator="equal" value="075030003908" />
-					<SimplePredicate field="ZINstart7" operator="equal" value="3080262" />
+					<SimplePredicate field="ZINstart7" operator="equal" value="3090372" />
 				</CompoundPredicate>
 				<ScoreDistribution value="1" recordCount="1" />
 			</SimpleRule>
@@ -55,33 +69,33 @@
 			</SimpleRule>
 			<SimpleRule id="RULE4" score="1">
 				<CompoundPredicate booleanOperator="and">
-					<SimplePredicate field="CHEQUE" operator="equal" value="0001990" />
-					<SimplePredicate field="ZIB" operator="equal" value="075030003908" />
-					<SimplePredicate field="ZINstart7" operator="equal" value="3080262" />
+					<SimplePredicate field="CHEQUE" operator="equal" value="4001165" />
+					<SimplePredicate field="ZIB" operator="equal" value="092000076908" />
+					<SimplePredicate field="ZINstart1" operator="equal" value="2" />
 				</CompoundPredicate>
 				<ScoreDistribution value="1" recordCount="1" />
 			</SimpleRule>
 			<SimpleRule id="RULE5" score="1">
 				<CompoundPredicate booleanOperator="and">
-					<SimplePredicate field="CHEQUE" operator="equal" value="0001990" />
-					<SimplePredicate field="ZIB" operator="equal" value="075030003908" />
-					<SimplePredicate field="ZINstart7" operator="equal" value="3080262" />
+					<SimplePredicate field="CHEQUE" operator="equal" value="4001165" />
+					<SimplePredicate field="ZIB" operator="equal" value="075000076908" />
+					<SimplePredicate field="ZINstart7" operator="equal" value="2" />
 				</CompoundPredicate>
 				<ScoreDistribution value="1" recordCount="1" />
 			</SimpleRule>
 			<SimpleRule id="RULE6" score="1">
 				<CompoundPredicate booleanOperator="and">
-					<SimplePredicate field="CHEQUE" operator="equal" value="0001990" />
-					<SimplePredicate field="ZIB" operator="equal" value="075030003908" />
-					<SimplePredicate field="ZINstart7" operator="equal" value="3080262" />
+					<SimplePredicate field="CHEQUE" operator="equal" value="2164090" />
+					<SimplePredicate field="ZIB" operator="equal" value="092010004908" />
+					<SimplePredicate field="ZINstart7" operator="equal" value="1328104" />
 				</CompoundPredicate>
 				<ScoreDistribution value="1" recordCount="1" />
 			</SimpleRule>
 			<SimpleRule id="RULE7" score="1">
 				<CompoundPredicate booleanOperator="and">
-					<SimplePredicate field="CHEQUE" operator="equal" value="0001990" />
-					<SimplePredicate field="ZIB" operator="equal" value="075030003908" />
-					<SimplePredicate field="ZINstart7" operator="equal" value="3080262" />
+					<SimplePredicate field="CHEQUE" operator="equal" value="5992675" />
+					<SimplePredicate field="ZIB" operator="equal" value="075003825908" />
+					<SimplePredicate field="ZINstart8" operator="equal" value="00401305" />
 				</CompoundPredicate>
 				<ScoreDistribution value="1" recordCount="1" />
 			</SimpleRule>

@@ -31,6 +31,7 @@ namespace pmml4net.tests
 	public class RuleSetModelTest
 	{
 		[Test()]
+		[Ignore()]
 		public void ScoreExample1Test()
 		{
 			string pFilePath = "test-ruleset1.xml";
@@ -82,11 +83,13 @@ namespace pmml4net.tests
 		[Test()]
 		public void ScoreCarfTest()
 		{
+			ScoreCarfTest("CHEQUE='0002110', ZIB='075030003908', ZIN = '309037200000', Montant = 0.01", "1", 1.0M);
+		}
+		
+		public void ScoreCarfTest(string paramList, string res, decimal confidence)
+		{
 			string pFilePath = "models\\RuleSetCarrefour.xml";
 			string modelname = "CARF-20140124";
-			string paramList = "CHEQUE='0002110', ZIB='075030003908', ZIN = '309037200000', Montant = 0.01";
-			string res = "1";
-			decimal confidence = 1.0M;
 			
 			Pmml pmml = Pmml.loadModels(pFilePath);
 			
