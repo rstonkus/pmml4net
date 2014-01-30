@@ -35,6 +35,7 @@ namespace pmml4net
 		private string score;
 		private decimal recordCount;
 		private string defaultChild;
+		private string fdefaultscore;
 		
 		private IList<RuleSelectionMethod> ruleSelectionMethods;
 		private Predicate predicate;
@@ -107,8 +108,8 @@ namespace pmml4net
 			if (node.Attributes["id"] != null)
 				root.id = node.Attributes["id"].Value;
 			
-			if (node.Attributes["score"] != null)
-				root.score = node.Attributes["score"].Value;
+			if (node.Attributes["defaultScore"] != null)
+				root.fdefaultscore = node.Attributes["defaultScore"].Value;
 			
 			if (node.Attributes["recordCount"] != null)
 				root.recordCount = Convert.ToDecimal(node.Attributes["recordCount"].Value, CultureInfo.InvariantCulture);
@@ -152,6 +153,11 @@ namespace pmml4net
 		public static ScoreResult Evaluate(RuleSet root, String criterionStr, 
 		                            Dictionary<string, object> dict, ScoreResult res)
 		{
+			// HACK
+			res.Value = root.fdefaultscore;
+			res.Confidence = 1.0M;
+			
+			
 			// Both the ordering of keys and values is significant
 			OrderedDictionary/*<String, SimpleRule>*/ firedRules = new OrderedDictionary();//<String, SimpleRule>
 			
@@ -159,14 +165,21 @@ namespace pmml4net
 			foreach(Rule rule in root.Rules)
 			{
 				collectFiredRules(firedRules, rule, dict);
+				
+				if (firedRules.Count > 0)
+					foreach (String key in firedRules.Keys) {
+						res.Value = key;
+						res.Confidence = 1.0M; //((SimpleRule)firedRules(key))..
+						return res;
+					}
 			}
 			
 			// For now we return the first
-			foreach (String key in firedRules.Keys) {
+			/*foreach (String key in firedRules.Keys) {
 				res.Value = key;
 				res.Confidence = 1.0M; //((SimpleRule)firedRules(key))..
 				return res;
-			}
+			}*/
 			
 			// Test childs
 			/*foreach(Rule rule in root.Rules)

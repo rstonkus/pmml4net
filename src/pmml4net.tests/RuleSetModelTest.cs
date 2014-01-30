@@ -31,7 +31,7 @@ namespace pmml4net.tests
 	public class RuleSetModelTest
 	{
 		[Test()]
-		[Ignore()]
+		[Ignore("Multiple criterion in rule set model is not implemented")]
 		public void ScoreExample1Test()
 		{
 			string pFilePath = "test-ruleset1.xml";
@@ -83,7 +83,13 @@ namespace pmml4net.tests
 		[Test()]
 		public void ScoreCarfTest()
 		{
+			// RULE1
+			ScoreCarfTest("CHEQUE='0001990', ZIB='075030003908', ZIN = '308026200000', Montant = 0.01", "1", 1.0M);
+			ScoreCarfTest("CHEQUE='0001990', ZIB='999999999999', ZIN = '308026200000', Montant = 0.01", "0", 1.0M);
+			ScoreCarfTest("CHEQUE='0001990', ZIB='075030003908', ZIN = '308026999999', Montant = 0.01", "0", 1.0M);
+			// RULE2
 			ScoreCarfTest("CHEQUE='0002110', ZIB='075030003908', ZIN = '309037200000', Montant = 0.01", "1", 1.0M);
+			ScoreCarfTest("CHEQUE='0002110', ZIB='999999999999', ZIN = '309037200000', Montant = 0.01", "0", 1.0M);
 		}
 		
 		public void ScoreCarfTest(string paramList, string res, decimal confidence)
@@ -115,6 +121,7 @@ namespace pmml4net.tests
 			//tree.MissingValueStrategy = MissingValueStrategy.AggregateNodes;
 			
 			Dictionary<string, object> lDict = parseParams(paramList);
+			//for
 			
 			ScoreResult result = rs.Score(lDict);
 			Assert.NotNull(result);
