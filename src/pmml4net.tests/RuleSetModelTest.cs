@@ -138,7 +138,7 @@ namespace pmml4net.tests
 			
 			foreach (string item in parameters.Split( new char[] {','}, StringSplitOptions.RemoveEmptyEntries))
 			{
-				lDict.Add(item.Split('=')[0].Trim(), item.Split('=')[1].Trim().Replace("\"", ""));
+				lDict.Add(item.Split('=')[0].Trim(), item.Split('=')[1].Trim().Replace("\"", "").Replace("'", ""));
 			}
 			
 			return lDict;

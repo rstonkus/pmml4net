@@ -164,7 +164,7 @@ namespace pmml4net
 			// For now we return the first
 			foreach (String key in firedRules.Keys) {
 				res.Value = key;
-				//res.Confidence
+				res.Confidence = 1.0M; //((SimpleRule)firedRules(key))..
 				return res;
 			}
 			

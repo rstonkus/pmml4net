@@ -108,6 +108,8 @@ namespace pmml4net
 				root.fvalue = node.Attributes["value"].Value;
 			}*/
 			
+			root.fscore = node.Attributes["score"].Value;
+			
 			foreach(XmlNode item in node.ChildNodes)
 			{
 				if ("extension".Equals(item.Name.ToLowerInvariant()))
